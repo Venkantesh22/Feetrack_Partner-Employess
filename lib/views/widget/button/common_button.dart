@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/constants.dart';
@@ -13,7 +12,7 @@ class CommonButton extends StatelessWidget {
   const CommonButton({
     super.key,
     required this.title,
-    this.titleColor = white,
+    this.titleColor = Colors.white,
     this.bgColor = primaryColor,
     required this.onPressed,
   });
@@ -26,7 +25,7 @@ class CommonButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           backgroundColor: bgColor, // ✅ Use custom background color
-          padding:  EdgeInsets.symmetric(vertical: 16.h),
+          padding: EdgeInsets.symmetric(vertical: 16.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
           ),
