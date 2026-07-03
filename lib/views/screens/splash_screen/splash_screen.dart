@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/auth_screens/login_screen.dart';
 
 import '../../../services/constants.dart';
 import '../../base/custom_image.dart';
@@ -20,83 +21,44 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-//    Get.find<BasicController>().fetchSettings().then((value) async {
-//       if (value.isSuccess) {
-//         PackageInfo info = await PackageInfo.fromPlatform();
-//         log(info.buildNumber, name: 'Build Number');
-//         log(info.version, name: 'Version');
-
-//         if ((Platform.isIOS ? Get.find<BasicController>().settings?.iosAppVersion : Get.find<BasicController>().settings?.appVersion).toInt > info.buildNumber.toInt) {
-//           if (!mounted) return;
-//           await showUpdateDialogue(
-//             context: context,
-//             skip: (Platform.isAndroid
-//                 ? (Get.find<BasicController>().settings?.forceUpdate != 'on')
-//                 : (Get.find<BasicController>().settings?.iosForceUpdate != 'on')),
-//           );
-//         } else if ((Platform.isAndroid ? Get.find<BasicController>().settings?.maintenanceMode : Get.find<BasicController>().settings?.iosMaintenanceMode) == 'on') {
-//           if (!mounted) return;
-//           await showMaintenanceDialog(
-//             context: context,
-//           );
-//         }
-
-//         // Without Login Explore
-//         Timer(const Duration(seconds: 2), () {
-//           if (Get.find<AuthController>().isLoggedIn()) Get.find<AuthController>().getUserProfileData();
-//           if (Get.find<SharedPreferences>().getBool(AppConstants.isFirstVisit) ?? true) {
-//             Navigator.pushReplacement(
-//               context,
-//               getCustomRoute(
-//                 child: const IntroScreen(),
-//               ),
-//             );
-//           } else {
-//             Navigator.pushReplacement(
-//               context,
-//               getCustomRoute(
-//                 child: const DashboardScreen(),
-//               ),
-//             );
-//           }
-//         });
-
-//       } else {
-//         showCustomToast(msg: value.data?.toString() ?? 'Something Went Wrong');
-//       }
-//     });
-
-    Timer.run(() {
-      Future.delayed(const Duration(seconds: 2), () {});
-      /*if (Get.find<AuthController>().isLoggedIn()) {
-        Get.find<AuthController>().getUserProfileData().then((value) {
-          Future.delayed(const Duration(seconds: 2), () {
-            if (Get.find<AuthController>().checkUserData()) {
-              Navigator.pushReplacement(
-                context,
-                getMaterialRoute(
-                  child: const Dashboard(),
-                ),
-              );
-            } else {
-              Navigator.pushReplacement(
-                context,
-                getMaterialRoute(
-                  child: const SignupScreen(),
-                ),
-              );
-            }
-          });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer.run(() {
+        Future.delayed(const Duration(seconds: 2), () {
+          checkAuth();
         });
-      } else {
+      });
+    });
+  }
+
+   Future<void> checkAuth() async {
+    await Future.delayed(const Duration(seconds: 2));
+    // final authController = Get.find<AuthController>();
+
+    // String token = authController.getUserToken();
+
+    // await authController.fetchProfile();
+
+    // if (token.isNotEmpty) {
+    //   final response = await authController.fetchProfile();
+
+      // if (response.isSuccess) {
+      //   Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(builder: (_) => const DashboardScreen()),
+      //   );
+      // } else {
+        // authController.logout();
         Navigator.pushReplacement(
           context,
-          getMaterialRoute(
-            child: const LoginScreen(),
-          ),
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
         );
-      }*/
-    });
+      // }
+    // } else {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (_) => const LoginScreen()),
+    //   );
+    // }
   }
 
   @override

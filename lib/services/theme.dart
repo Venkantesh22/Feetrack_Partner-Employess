@@ -17,11 +17,12 @@ Color blueDark = const Color(0xFF00338F);
 Color blueLight = const Color(0xFF89F5E7);
 Color blueLight1 = const Color(0xFF87F2E4);
 Color blueLight2 = const Color(0xFF003B730D);
-Color blueLight4 = const Color(0xFF86F2E4); 
+Color blueLight4 = const Color(0xFF86F2E4);
 Color blueLight3 = const Color(0xFF003DA6);
 Color blueLight5 = const Color(0xFFDBE1FF);
 Color blueLight6 = const Color(0xFFCBD6FF);
 Color blueDark1 = const Color(0xFF006F66);
+Color blueDark2 = const Color(0xFF36446E);
 
 //* purple Colors
 Color purpleLight = const Color(0xFFEADDFF);
@@ -157,7 +158,10 @@ class CustomTheme {
         fontSize: 14,
       ),
       labelMedium: GoogleFonts.openSans(
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w700,
+      ),
+      labelSmall: GoogleFonts.openSans(
+        fontWeight: FontWeight.w500,
       ),
 
       // Large headings (screen titles)

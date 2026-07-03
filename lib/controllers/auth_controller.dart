@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -19,6 +20,17 @@ class AuthController extends GetxController implements GetxService {
   bool get isLoading => _isLoading;
 
   bool get acceptTerms => _acceptTerms;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   // Future<ResponseModel> generatedOtp({required String phone}) async {
   //   log('----------- generatedOtp Called ----------');
