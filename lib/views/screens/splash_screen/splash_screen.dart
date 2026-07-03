@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/screens/auth_screens/login_screen.dart';
+import 'package:vlr/views/screens/auth_screens/sign_in_screen.dart';
 
 import '../../../services/constants.dart';
 import '../../base/custom_image.dart';
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-   Future<void> checkAuth() async {
+  Future<void> checkAuth() async {
     await Future.delayed(const Duration(seconds: 2));
     // final authController = Get.find<AuthController>();
 
@@ -41,22 +41,22 @@ class _SplashScreenState extends State<SplashScreen> {
     // if (token.isNotEmpty) {
     //   final response = await authController.fetchProfile();
 
-      // if (response.isSuccess) {
-      //   Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(builder: (_) => const DashboardScreen()),
-      //   );
-      // } else {
-        // authController.logout();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const LoginScreen()),
-        );
-      // }
+    // if (response.isSuccess) {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (_) => const DashboardScreen()),
+    //   );
+    // } else {
+    // authController.logout();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const SignInScreen()),
+    );
+    // }
     // } else {
     //   Navigator.pushReplacement(
     //     context,
-    //     MaterialPageRoute(builder: (_) => const LoginScreen()),
+    //     MaterialPageRoute(builder: (_) => const SignInScreen()),
     //   );
     // }
   }
