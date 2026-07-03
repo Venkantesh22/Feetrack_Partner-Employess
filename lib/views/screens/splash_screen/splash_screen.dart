@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/auth_screens/register_screen.dart';
 import 'package:vlr/views/screens/auth_screens/sign_in_screen.dart';
 
 import '../../../services/constants.dart';
@@ -88,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
               "TRACK. MANAGE. GROW.",
               style: Helper(context)
                   .textTheme
-                  .displayLarge
+                  .titleLarge
                   ?.copyWith(fontSize: 16.sp, color: white, letterSpacing: 1.0),
             ),
             const Spacer(),

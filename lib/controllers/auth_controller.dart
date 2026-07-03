@@ -11,7 +11,7 @@ class AuthController extends GetxController implements GetxService {
   AuthController({required this.authRepo});
 
   bool _isLoading = false;
-  bool _acceptTerms = true;
+  bool _acceptTerms = false;
 
   UserModel? _userModel;
 
@@ -23,6 +23,9 @@ class AuthController extends GetxController implements GetxService {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
 
   @override
   void dispose() {
@@ -30,6 +33,9 @@ class AuthController extends GetxController implements GetxService {
 
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
+    fullNameController.clear();
+    mobileController.clear();
   }
 
   // Future<ResponseModel> generatedOtp({required String phone}) async {

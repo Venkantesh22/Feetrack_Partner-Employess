@@ -164,6 +164,7 @@ import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
 import 'package:vlr/views/base/custom_image.dart';
+import 'package:vlr/views/screens/auth_screens/register_screen.dart';
 import 'package:vlr/views/widget/text_box/app_text_box.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -309,7 +310,11 @@ class SignInScreen extends StatelessWidget {
                                 ?.copyWith(fontSize: 16.sp, color: greyDart2),
                           ),
                           CustomButton(
-                            onTap: () {},
+                            onTap: () {
+                              navigate(
+                                  context: context,
+                                  page: const RegisterScreen());
+                            },
                             type: ButtonType.tertiary,
                             child: CustomText(
                               "Create Account",
