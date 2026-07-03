@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/services/theme.dart';
 
 import '../../../services/constants.dart';
 import '../../base/custom_image.dart';
@@ -99,30 +103,46 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SizedBox(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Assets.imagesSplaceBg),
+            fit: BoxFit.cover,
+          ),
+        ),
         width: size.width,
         height: size.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Spacer(),
+            sizedBoxHeight(height: 300),
             CustomImage(
-              path: Assets.imagesLogo,
-              height: size.height * .3,
+              path: Assets.imagesLogoWhite,
+              height: size.height * .1,
               width: size.height * .3,
             ),
-            const Spacer(flex: 3),
-            Text(
-              AppConstants.appName,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 26.0,
-                  ),
-            ),
-            Text(
-              "Subtitle",
-              style: Theme.of(context).textTheme.bodyMedium,
+            sizedBoxHeight(height: 16),
+            CustomText(
+              "TRACK. MANAGE. GROW.",
+              style: Helper(context)
+                  .textTheme
+                  .displayLarge
+                  ?.copyWith(fontSize: 16.sp, color: white, letterSpacing: 1.0),
             ),
             const Spacer(),
+            CircularProgressIndicator(
+              color: primaryColor,
+              backgroundColor: white,
+            ),
+            sizedBoxHeight(height: 12),
+            CustomText(
+              "Loading...",
+              style: Helper(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 14.sp,
+                    color: white,
+                  ),
+            ),
+            sizedBoxHeight(height: 100)
           ],
         ),
       ),

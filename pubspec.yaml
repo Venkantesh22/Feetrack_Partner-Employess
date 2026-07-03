@@ -81,13 +81,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # assets:
-  #   - assets/images/
+  assets:
+    - assets/images/
   #   - assets/lotties/
-  #   - assets/svgs/
+    - assets/svgs/
 
-# flutter_assets:
-#   assets_path: assets/
-#   output_path: lib/generated/
-#   filename: assets.dart
-#   field_prefix:
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/generated/
+  filename: assets.dart
+  field_prefix:
