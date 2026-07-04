@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/widget/quick_action_section/quick_action_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/this_month_target_section/this_month_target_section.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/widget/top_achievers_section/top_achievers_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,7 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             UserInfoTopHome(),
             sizedBoxHeight(height: 16.h),
-            ThisMonthTargetSection()
+            TopAchieversSection(),
+            sizedBoxHeight(height: 16.h),
+            ThisMonthTargetSection(),
+            sizedBoxHeight(height: 16.h),
+            QuickActionsSection(),
           ],
         ),
       ),

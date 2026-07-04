@@ -22,6 +22,10 @@ class Assets {
   /// assets/images/placeholder.jpg
   static const String imagesPlaceholder = "assets/images/placeholder.jpg";
 
+  /// Assets for imagesProfile
+  /// assets/images/Profile.png
+  static const String imagesProfile = "assets/images/Profile.png";
+
   /// Assets for imagesShimmer
   /// assets/images/shimmer.gif
   static const String imagesShimmer = "assets/images/shimmer.gif";
@@ -29,5 +33,29 @@ class Assets {
   /// Assets for imagesSplaceBg
   /// assets/images/splace-bg.jpeg
   static const String imagesSplaceBg = "assets/images/splace-bg.jpeg";
+
+  /// Assets for svgsDocument
+  /// assets/svgs/document.svg
+  static const String svgsDocument = "assets/svgs/document.svg";
+
+  /// Assets for svgsGraph
+  /// assets/svgs/graph.svg
+  static const String svgsGraph = "assets/svgs/graph.svg";
+
+  /// Assets for svgsList
+  /// assets/svgs/List.svg
+  static const String svgsList = "assets/svgs/List.svg";
+
+  /// Assets for svgsLocation
+  /// assets/svgs/location.svg
+  static const String svgsLocation = "assets/svgs/location.svg";
+
+  /// Assets for svgsPerson
+  /// assets/svgs/person.svg
+  static const String svgsPerson = "assets/svgs/person.svg";
+
+  /// Assets for svgsTask
+  /// assets/svgs/task.svg
+  static const String svgsTask = "assets/svgs/task.svg";
 }
 

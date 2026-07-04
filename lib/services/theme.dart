@@ -30,7 +30,6 @@ Color purpleLight = const Color(0xFFEADDFF);
 Color purple = const Color(0xFF484AD6);
 Color deepPurple = Colors.deepPurple;
 
-
 //* Grey Colors
 Color grey = const Color(0xFF999999);
 Color greyLight = const Color(0xFFF6F3F2);
@@ -48,6 +47,7 @@ Color greyLight3 = const Color(0xFFEBE7E7);
 
 //* pink color
 Color pinLight = const Color(0xFFFBF1F2);
+Color pinkLight2 = const Color(0xFFFFEDD5);
 
 //* Green colors
 const Color greenDark = Color(0xFF006A61);
