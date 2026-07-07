@@ -45,11 +45,11 @@ class AccountScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
                 children: [
-                  DailyAttendanceSection(),
+                  const DailyAttendanceSection(),
                   sizedBoxHeight(height: 16.h),
-                  ReportingManagerWidget(),
+                  const ReportingManagerWidget(),
                   sizedBoxHeight(height: 24.h),
-                  AccountOptionSection(),
+                  const AccountOptionSection(),
                   sizedBoxHeight(height: 24.h)
                 ],
               ),

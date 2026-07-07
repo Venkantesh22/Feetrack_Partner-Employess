@@ -7,7 +7,10 @@ Color tertiaryColor = Color(0xFF0052D9);
 Color secondaryColor = const Color(0xFF0D9488);
 Color backgroundDark = const Color(0xff231F20);
 Color backgroundLight = const Color(0xFFF4F5F7);
+
+//black
 const Color black = Colors.black;
+const Color black2 = Color(0);
 
 //* white Colors
 Color white = Colors.white;
@@ -43,6 +46,7 @@ Color pinkLight2 = const Color(0xFFFFEDD5);
 //* Green colors
 const Color greenDark = Color(0xFF006A61);
 const Color green = Color(0xFF006C49);
+const Color greenLight = Color(0xFF108548);
 
 //* Yellow colors
 const Color goldColor = Color(0xFFFFB400);
@@ -62,6 +66,7 @@ Color greyText2 = const Color(0xFF434750);
 
 Color blackText1 = const Color(0xFF334155);
 Color blackText2 = const Color(0xFF171717);
+Color blackText3 = const Color(0xFF191C1E);
 
 const Color textPrimary = Color(0xff000000);
 const Color textSecondary = Color(0xff838383);
