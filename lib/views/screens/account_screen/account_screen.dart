@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/account_screen/widget/account_option_section/account_option_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/daily_attendance_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/reporting_manager_widget.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
@@ -46,7 +47,10 @@ class AccountScreen extends StatelessWidget {
                 children: [
                   DailyAttendanceSection(),
                   sizedBoxHeight(height: 16.h),
-                  ReportingManagerWidget()
+                  ReportingManagerWidget(),
+                  sizedBoxHeight(height: 24.h),
+                  AccountOptionSection(),
+                  sizedBoxHeight(height: 24.h)
                 ],
               ),
             )

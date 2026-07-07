@@ -28,11 +28,13 @@ Color grey = const Color(0xFF999999);
 Color greyLight = const Color(0xFFF6F3F2);
 Color greyLight1 = const Color(0xFFEFF6FF);
 Color greyLight2 = const Color(0xFFC3C6D1);
+Color greyLight3 = const Color(0xFFEBE7E7);
+Color greyLight4 = const Color(0xFFF1F5F9);
+Color greyLight5 = const Color(0xFF94A3B8);
 Color greyLight6 = const Color(0xFFC3C6D7);
 Color greyDart = const Color(0xFF73777F);
 Color greyDart2 = const Color(0xFF434654);
 Color greyDart3 = const Color(0xFF475569);
-Color greyLight3 = const Color(0xFFEBE7E7);
 
 //* pink color
 Color pinLight = const Color(0xFFFBF1F2);
@@ -58,7 +60,7 @@ const Color textBlue = Color(0xff003B73);
 Color greyText = const Color(0xFF43474E);
 Color greyText2 = const Color(0xFF434750);
 
-Color blackText1 = const Color(0xFF1C1B1B);
+Color blackText1 = const Color(0xFF334155);
 Color blackText2 = const Color(0xFF171717);
 
 const Color textPrimary = Color(0xff000000);

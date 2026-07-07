@@ -1,0 +1,38 @@
+import 'package:flutter/widgets.dart';
+import 'package:vlr/views/base/custom_image.dart';
+
+class AccountOptionModel {
+  final String icon;
+  final String title;
+  final Function()? onTap;
+
+  AccountOptionModel(
+      {required this.icon, required this.title, required this.onTap});
+}
+
+List<AccountOptionModel> accountOptionModelList(
+        {required BuildContext context}) =>
+    [
+      AccountOptionModel(
+          icon: Assets.svgsPerson2,
+          title: "Personal Information",
+          onTap: () {}),
+      AccountOptionModel(
+          icon: Assets.svgsCalender, title: "Apply for Leave", onTap: () {}),
+      AccountOptionModel(
+          icon: Assets.svgsClock, title: "Attendance History", onTap: () {}),
+      AccountOptionModel(
+          icon: Assets.svgsNotification, title: "Notifications", onTap: () {}),
+      AccountOptionModel(
+          icon: Assets.svgsPrivacyPolicy,
+          title: "Privacy Policy",
+          onTap: () {}),
+      AccountOptionModel(
+          icon: Assets.svgsHelpAndSupport,
+          title: "Help & Support",
+          onTap: () {}),
+      AccountOptionModel(
+          icon: Assets.svgsTermAndCondition,
+          title: "Terms & Conditions",
+          onTap: () {}),
+    ];
