@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: primaryColor,
         elevation: 0,
         leading: Icon(
+          
           Icons.menu,
           color: white,
         ),

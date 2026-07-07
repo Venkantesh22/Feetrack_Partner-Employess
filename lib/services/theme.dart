@@ -43,6 +43,7 @@ Color greyLight8 = const Color(0xFFC3C6D74D);
 Color greyLight9 = const Color(0xFFF0EDEC);
 Color greyDart = const Color(0xFF73777F);
 Color greyDart2 = const Color(0xFF434654);
+Color greyDart3 = const Color(0xFF475569);
 Color greyLight3 = const Color(0xFFEBE7E7);
 
 //* pink color
@@ -51,6 +52,7 @@ Color pinkLight2 = const Color(0xFFFFEDD5);
 
 //* Green colors
 const Color greenDark = Color(0xFF006A61);
+const Color green = Color(0xFF006C49);
 
 //* Yellow colors
 const Color goldColor = Color(0xFFFFB400);

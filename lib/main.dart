@@ -6,6 +6,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:toastification/toastification.dart';
+import 'package:vlr/views/screens/account_screen/account_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 
 import 'services/init.dart';
@@ -91,7 +92,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           );
         },
         // child: const SplashScreen(),
-        child: const HomeScreen(),
+        child: const AccountScreen(),
+        // child: const HomeScreen(),
       ),
     );
   }
