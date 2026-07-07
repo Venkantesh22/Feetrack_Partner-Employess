@@ -20,8 +20,11 @@ class _AttendanceMartScreenState extends State<AttendanceMartScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Get.find<PermissionController>()
-          .requestLocationPermissionAndFetch(context);
+      final PermissionController permissionController =
+          Get.find<PermissionController>();
+      permissionController.clearSelfie();
+      permissionController.clearLocation();
+      await permissionController.requestLocationPermissionAndFetch(context);
     });
   }
 

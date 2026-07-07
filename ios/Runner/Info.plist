@@ -67,10 +67,17 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 
+	<!-- Location permission-->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to mark attendance.</string>
 
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<!-- Location permission-->
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key> 
 	<string>We need your location to mark attendance.</string>
+
+	<!-- Camera permission-->
+	<key>NSCameraUsageDescription</key>
+    <string>Camera access is required to capture your attendance selfie.</string>
+
 </dict>
 </plist>

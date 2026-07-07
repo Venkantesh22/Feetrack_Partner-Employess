@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/state_manager.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:vlr/controllers/permission_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
@@ -67,76 +69,123 @@ class CaptureVerificationSection extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Container(
-                height: 250.h,
-                width: 200.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32.r),
-                  color: black.withValues(
-                    alpha: 0.95,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.videocam_off_outlined,
-                      color: white,
-                      size: 40.sp,
+              GetBuilder<PermissionController>(
+                builder: (controller) {
+                  return Container(
+                    height: 250.h,
+                    width: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32.r),
+                      color: Colors.black,
                     ),
-                    CustomText(
-                      "Camera is off",
-                      style: Helper(context).textTheme.labelMedium?.copyWith(
-                            fontSize: 12,
-                            color: white,
+                    child: controller.selfie == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.videocam_off_outlined,
+                                color: Colors.white,
+                                size: 40.sp,
+                              ),
+                              CustomText(
+                                "Camera is off",
+                                style: Helper(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ],
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(32.r),
+                            child: Image.file(
+                              controller.selfie!,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
                           ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
               sizedBoxHeight(height: 24),
-              CustomButton(
-                height: 52.h,
-                onTap: () {},
-                radius: 999.r,
-                type: ButtonType.secondary,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              GetBuilder<PermissionController>(builder: (permissionController) {
+                return Column(
                   children: [
-                    Icon(
-                      Icons.camera_alt_outlined,
-                      color: blueLight3,
-                    ),
-                    sizedBoxWidth(width: 12.w),
-                    CustomText(
-                      "Start Camera",
-                      style: Helper(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 16.sp,
+                    CustomButton(
+                      height: 52.h,
+                      onTap: () async {
+                        if (permissionController.currentAddress ==
+                            "Location pending...") {
+                          showToast(
+                            message: "Wait, location is loading",
+                            toastType: ToastType.info,
+                          );
+                          return;
+                        }
+
+                        final picker = ImagePicker();
+
+                        final XFile? file = await picker.pickImage(
+                          source: ImageSource.camera,
+                          preferredCameraDevice: CameraDevice.front,
+                          imageQuality: 90,
+                        );
+
+                        if (file == null) return;
+
+                        permissionController.setSelfie(
+                          File(file.path),
+                        );
+
+                        showToast(
+                          message: "Selfie captured successfully",
+                          toastType: ToastType.success,
+                        );
+                      },
+                      radius: 999.r,
+                      type: ButtonType.secondary,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.camera_alt_outlined,
                             color: blueLight3,
                           ),
-                    ),
-                  ],
-                ),
-              ),
-              sizedBoxHeight(height: 16),
-              GetBuilder<PermissionController>(builder: (permissionController) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: blueLight3,
-                    ),
-                    sizedBoxWidth(width: 12.w),
-                    Expanded(
-                      child: CustomText(
-                        permissionController.currentAddress,
-                        maxLines: 4,
-                        style: Helper(context).textTheme.bodyMedium?.copyWith(
-                              fontSize: 16.sp,
-                              color: greyDart2,
-                            ),
+                          sizedBoxWidth(width: 12.w),
+                          CustomText(
+                            "Start Camera",
+                            style:
+                                Helper(context).textTheme.titleMedium?.copyWith(
+                                      fontSize: 16.sp,
+                                      color: blueLight3,
+                                    ),
+                          ),
+                        ],
                       ),
+                    ),
+                    sizedBoxHeight(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: blueLight3,
+                        ),
+                        sizedBoxWidth(width: 12.w),
+                        Expanded(
+                          child: CustomText(
+                            permissionController.currentAddress ??
+                                "Location pending...",
+                            maxLines: 4,
+                            style:
+                                Helper(context).textTheme.bodyMedium?.copyWith(
+                                      fontSize: 16.sp,
+                                      color: greyDart2,
+                                    ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );

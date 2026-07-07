@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -43,9 +44,9 @@ class PermissionController extends GetxController implements GetxService {
   double? _longitude;
   bool _locationFetched = false;
 
-  String _currentAddress = "Location pending...";
+  String? _currentAddress;
 
-  String get currentAddress => _currentAddress;
+  String? get currentAddress => _currentAddress;
 
   double? get latitude => _latitude;
   double? get longitude => _longitude;
@@ -187,6 +188,22 @@ class PermissionController extends GetxController implements GetxService {
     _locationFetched = false;
     _currentAddress = "Location pending...";
 
+    update();
+  }
+
+  // -------------------- Camera  --------------------
+
+  File? _selfie;
+
+  File? get selfie => _selfie;
+
+  Future<void> setSelfie(File file) async {
+    _selfie = file;
+    update();
+  }
+
+  void clearSelfie() {
+    _selfie = null;
     update();
   }
 }

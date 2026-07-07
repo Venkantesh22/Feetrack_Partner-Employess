@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
@@ -25,6 +26,14 @@ class AccountScreen extends StatelessWidget {
                 color: white,
               ),
         ),
+        leading: IconButton(
+            onPressed: () {
+              pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: white,
+            )),
         actions: [
           IconButton(
             onPressed: () {},

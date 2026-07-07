@@ -65,9 +65,9 @@ class TodayStatus extends StatelessWidget {
           ),
           child: Column(
             children: [
-              CalenderWidgetTodayStatus(),
+              const CalenderWidgetTodayStatus(),
               sizedBoxHeight(height: 16),
-              CheckInandCheckOutWidgetTodayStatus()
+              const CheckInandCheckOutWidgetTodayStatus()
             ],
           ),
         )

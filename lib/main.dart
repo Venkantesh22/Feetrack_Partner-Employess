@@ -92,8 +92,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           );
         },
         // child: const SplashScreen(),
-        child: const AccountScreen(),
-        // child: const HomeScreen(),
+        // child: const AccountScreen(),
+        child: const HomeScreen(),
       ),
     );
   }

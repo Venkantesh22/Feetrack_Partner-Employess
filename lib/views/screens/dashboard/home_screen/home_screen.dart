@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/account_screen/account_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/notification_section/notification_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/quick_action_section/quick_action_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/this_month_target_section/this_month_target_section.dart';
@@ -22,11 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         elevation: 0,
-        leading: Icon(
-          
-          Icons.menu,
-          color: white,
-        ),
+        leading: IconButton(
+            onPressed: () {
+              navigate(context: context, page: AccountScreen());
+            },
+            icon: Icon(
+              // Icons.menu,
+              Icons.settings_outlined,
+              color: white,
+            )),
         actions: [
           IconButton(
             onPressed: () {},
@@ -35,9 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: white,
             ),
           )
-          
         ],
-      ), 
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
