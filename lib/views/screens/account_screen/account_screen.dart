@@ -4,6 +4,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/daily_attendance_section.dart';
+import 'package:vlr/views/screens/account_screen/widget/reporting_manager_widget.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -40,10 +41,12 @@ class AccountScreen extends StatelessWidget {
             const UserInfoTopHome(),
             sizedBoxHeight(height: 16.h),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
                 children: [
                   DailyAttendanceSection(),
+                  sizedBoxHeight(height: 16.h),
+                  ReportingManagerWidget()
                 ],
               ),
             )

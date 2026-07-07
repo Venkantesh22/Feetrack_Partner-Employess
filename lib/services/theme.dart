@@ -14,15 +14,8 @@ Color white = Colors.white;
 Color whiteSmoke = const Color(0xFFF5ECED);
 
 //* Blue Colors
-Color blueDark = const Color(0xFF00338F);
-Color blueLight = const Color(0xFF89F5E7);
-Color blueLight1 = const Color(0xFF87F2E4);
-Color blueLight2 = const Color(0xFF003B730D);
-Color blueLight4 = const Color(0xFF86F2E4);
+
 Color blueLight3 = const Color(0xFF003DA6);
-Color blueLight5 = const Color(0xFFDBE1FF);
-Color blueLight6 = const Color(0xFFCBD6FF);
-Color blueDark1 = const Color(0xFF006F66);
 Color blueDark2 = const Color(0xFF36446E);
 
 //* purple Colors
@@ -33,14 +26,9 @@ Color deepPurple = Colors.deepPurple;
 //* Grey Colors
 Color grey = const Color(0xFF999999);
 Color greyLight = const Color(0xFFF6F3F2);
-Color greyLight1 = const Color(0xFFC3C6D766);
+Color greyLight1 = const Color(0xFFEFF6FF);
 Color greyLight2 = const Color(0xFFC3C6D1);
-Color greyLight4 = const Color(0xFFC3C6D1);
-Color greyLight5 = const Color(0xFFEFE6E7);
 Color greyLight6 = const Color(0xFFC3C6D7);
-Color greyLight7 = const Color(0xFFE1D8D9);
-Color greyLight8 = const Color(0xFFC3C6D74D);
-Color greyLight9 = const Color(0xFFF0EDEC);
 Color greyDart = const Color(0xFF73777F);
 Color greyDart2 = const Color(0xFF434654);
 Color greyDart3 = const Color(0xFF475569);
@@ -58,10 +46,8 @@ const Color green = Color(0xFF006C49);
 const Color goldColor = Color(0xFFFFB400);
 
 //* red colorsp
-const Color red = Colors.red;
+// const Color red = Colors.red;
 const Color red1 = Color(0xFFE11D48);
-const Color redLight = Color(0xFFFFF1F2);
-const Color redLight2 = Color(0xFFFFDAD6);
 const Color redDark = Color(0xFFBA1A1A);
 
 //* Textbox colors
@@ -71,27 +57,9 @@ const Color textBlue = Color(0xff003B73);
 //* Text Colors
 Color greyText = const Color(0xFF43474E);
 Color greyText2 = const Color(0xFF434750);
-Color greyText3 = const Color(0xFF737781);
-Color greyText4 = const Color(0xFFE5E2E1);
-Color greyText5 = const Color(0xFF737686);
-Color primaryText80 = const Color(0xFF003B73CC);
-Color primaryText1 = const Color(0xFF002060);
-Color primaryText2 = const Color(0xFF1E3A8A);
-Color redText = const Color(0xFF93000A);
 
-Color transactionDetailsPrimary = const Color(0xFF001A3F);
-Color transactionDetailsAccent = const Color(0xFF4DFFD3);
-Color transactionDetailsBackground = const Color(0xFFF8F9FA);
-Color transactionSuccessText = const Color(0xFF0D6B57);
-Color transactionSuccessBackground = const Color(0xFFE7FFF8);
-Color transactionPendingBackground = const Color(0xFFFFF4E5);
-Color transactionPendingText = const Color(0xFFB26A00);
-Color transactionPendingAccent = const Color(0xFFF59E0B);
 Color blackText1 = const Color(0xFF1C1B1B);
 Color blackText2 = const Color(0xFF171717);
-Color blackText3 = const Color(0xFF1E1B1C);
-Color purpleText = const Color(0xFF25005A);
-Color purpleText1 = const Color(0xFF310072);
 
 const Color textPrimary = Color(0xff000000);
 const Color textSecondary = Color(0xff838383);
