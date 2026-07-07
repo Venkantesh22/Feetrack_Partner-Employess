@@ -16,7 +16,7 @@ class ThisMonthTargetSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
         color: white,
         borderRadius: BorderRadius.circular(20.r),
@@ -50,14 +50,26 @@ class ThisMonthTargetSection extends StatelessWidget {
             ],
           ),
           sizedBoxHeight(height: 12.h),
-          Column(
-            children: List.generate(
-              monthlyTargets.length,
-              (index) => TargetCard(
-                target: monthlyTargets[index],
-              ),
-            ),
-          ),
+          Row(
+            children: [
+              Expanded(child: TargetCard(target: monthlyTargets[0])),
+              SizedBox(width: 6.w),
+              Expanded(child: TargetCard(target: monthlyTargets[1]))
+            ],
+          )
+          // SizedBox(
+          //   height: 100.h,
+          //   child: ListView.separated(
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: monthlyTargets.length,
+          //     separatorBuilder: (_, __) => SizedBox(width: 6.w),
+          //     itemBuilder: (_, index) {
+          //       return TargetCard(
+          //         target: monthlyTargets[index],
+          //       );
+          //     },
+          //   ),
+          // )
         ],
       ),
     );

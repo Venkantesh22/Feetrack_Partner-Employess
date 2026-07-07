@@ -34,20 +34,21 @@ class _HomeScreenState extends State<HomeScreen> {
               color: white,
             ),
           )
+          
         ],
-      ),
+      ), 
       body: SingleChildScrollView(
         child: Column(
           children: [
-            UserInfoTopHome(),
+            const UserInfoTopHome(),
             sizedBoxHeight(height: 16.h),
-            TopAchieversSection(),
+            const TopAchieversSection(),
             sizedBoxHeight(height: 16.h),
-            ThisMonthTargetSection(),
+            const ThisMonthTargetSection(),
             sizedBoxHeight(height: 16.h),
-            NotificationSection(),
+            const NotificationSection(),
             sizedBoxHeight(height: 16.h),
-            QuickActionsSection(),
+            const QuickActionsSection(),
           ],
         ),
       ),
