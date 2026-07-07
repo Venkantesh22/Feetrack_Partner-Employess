@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/state_manager.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:vlr/controllers/permission_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
@@ -116,23 +119,28 @@ class CaptureVerificationSection extends StatelessWidget {
                 ),
               ),
               sizedBoxHeight(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    color: blueLight3,
-                  ),
-                  sizedBoxWidth(width: 12.w),
-                  CustomText(
-                    "Location pending...",
-                    style: Helper(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 16.sp,
-                          color: greyDart2,
-                        ),
-                  ),
-                ],
-              ),
+              GetBuilder<PermissionController>(builder: (permissionController) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: blueLight3,
+                    ),
+                    sizedBoxWidth(width: 12.w),
+                    Expanded(
+                      child: CustomText(
+                        permissionController.currentAddress,
+                        maxLines: 4,
+                        style: Helper(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: 16.sp,
+                              color: greyDart2,
+                            ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
               sizedBoxHeight(height: 32.h),
               CustomButton(
                 height: 64.h,

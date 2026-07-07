@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:vlr/controllers/permission_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/attendance_mart/widget/capture_vetification_section.dart';
 import 'package:vlr/views/screens/attendance_mart/widget/today_status_section/today_status_section.dart';
 
-class AttendanceMartScreen extends StatelessWidget {
+class AttendanceMartScreen extends StatefulWidget {
   const AttendanceMartScreen({super.key});
+
+  @override
+  State<AttendanceMartScreen> createState() => _AttendanceMartScreenState();
+}
+
+class _AttendanceMartScreenState extends State<AttendanceMartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Get.find<PermissionController>()
+          .requestLocationPermissionAndFetch(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +57,9 @@ class AttendanceMartScreen extends StatelessWidget {
                   ),
             ),
             sizedBoxHeight(height: 24),
-            CaptureVerificationSection(),
+            const CaptureVerificationSection(),
             sizedBoxHeight(height: 24),
-            TodayStatus()
+            const TodayStatus()
           ],
         ),
       ),
