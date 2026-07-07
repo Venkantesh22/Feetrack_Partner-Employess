@@ -1,7 +1,7 @@
 import 'package:vlr/data/api/api_client.dart';
 
-class AccountRepo {
+class AttendanceRepo {
   final ApiClient apiClient;
 
-  AccountRepo({required this.apiClient});
+  AttendanceRepo({required this.apiClient});
 }

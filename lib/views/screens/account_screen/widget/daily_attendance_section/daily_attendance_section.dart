@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:vlr/controllers/account_controller.dart';
+import 'package:vlr/controllers/attendence_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
@@ -44,7 +44,7 @@ class DailyAttendanceSection extends StatelessWidget {
                       fontSize: 18,
                     ),
               ),
-              GetBuilder<AccountController>(
+              GetBuilder<AttendanceController>(
                 builder: (controller) {
                   String? title;
                   Color? bgColor;
