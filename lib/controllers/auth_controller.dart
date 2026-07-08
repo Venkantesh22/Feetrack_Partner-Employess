@@ -25,15 +25,15 @@ class AuthController extends GetxController implements GetxService {
   bool get acceptTerms => _acceptTerms;
 
   TextEditingController emailController =
-      TextEditingController(text: "venkatesh242002@gmail.com");
+      TextEditingController(text: "venkatesh2420023@gmail.com");
   TextEditingController passwordController =
-      TextEditingController(text: "123456");
+      TextEditingController(text: "Ven12345678");
   TextEditingController confirmPasswordController =
-      TextEditingController(text: "123456");
+      TextEditingController(text: "Ven12345678");
   TextEditingController fullNameController =
       TextEditingController(text: "Venkatesh Rathod");
   TextEditingController mobileController =
-      TextEditingController(text: "7972391849");
+      TextEditingController(text: "7972391843");
 
   @override
   void dispose() {
@@ -66,11 +66,21 @@ class AuthController extends GetxController implements GetxService {
         data: FormData(data),
       );
 
-      log("Raw Response: ${response.body}");
+      //log("Raw Response: ${response.body}");
 
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
-            true, response.body['message'] ?? "success registerUser ");
+          true,
+          response.body['message'] ?? "registerUser successful",
+        );
+
+        final token = response.body['data']?['token'];
+
+        if (token != null && token.toString().isNotEmpty) {
+          await authRepo.setUserToken(token);
+
+          log("Saved Token: $token");
+        }
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while registering user";
@@ -92,6 +102,111 @@ class AuthController extends GetxController implements GetxService {
     isLoading = false;
     update();
     return responseModel;
+  }
+
+  Future<ResponseModel> postUserLogin() async {
+    log('----------- postUserLogin Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {
+        "email": emailController.text.trim(),
+        "password": passwordController.text.trim(),
+      };
+
+      Response response = await authRepo.postUserLogin(
+        data: FormData(data),
+      );
+
+      //  log("Raw Response: ${response.body}");
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "Login successful",
+        );
+
+        final token = response.body['data']?['token'];
+
+        if (token != null && token.toString().isNotEmpty) {
+          await authRepo.setUserToken(token);
+
+          log("Saved Token: $token");
+        }
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while postUserLogin user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT postUserLogin(): $e');
+      responseModel = ResponseModel(false, "Error while postUserLogin user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> updateFCMToken() async {
+    log('----------- updateFCMToken Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {"fcm_token": authRepo.getFCMToken()};
+
+      Response response = await authRepo.updateFCMToken(
+        data: FormData(data),
+      );
+
+      //  log("Raw Response: ${response.body}");
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "update fcm token successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while update fcm token user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT update fcm token(): $e');
+      responseModel =
+          ResponseModel(false, "Error while update fcm token user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<void> saveFMCToken(String fcmToken) async {
+    final saveFCMToken = await authRepo.saveFCMToken(fcmToken: fcmToken);
+    log('loginUser: saved FCM token: $saveFCMToken');
   }
 
   void toggleTerms() {

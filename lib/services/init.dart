@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:get/instance_manager.dart';
 import 'package:vlr/controllers/attendence_controller.dart';
+import 'package:vlr/controllers/basic_controller.dart';
 import 'package:vlr/controllers/dashboard_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vlr/controllers/task_controller.dart';
@@ -35,6 +36,7 @@ class Init {
 
       // Get Controller's...
       Get.lazyPut(() => DashBoardController());
+      Get.lazyPut(() => BasicController(basicRepo: Get.find()));
       Get.lazyPut(() => AuthController(authRepo: Get.find()));
       Get.lazyPut(() => AttendanceController(attendanceRepo: Get.find()));
       Get.lazyPut(() => TaskController(taskRepo: Get.find()));

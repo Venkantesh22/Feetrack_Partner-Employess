@@ -318,6 +318,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             CustomButton(
                               height: 56,
                               radius: 14,
+                              isLoading: authController.isLoading,
                               onTap: () {
                                 if (!authController.acceptTerms) {
                                   return showToast(

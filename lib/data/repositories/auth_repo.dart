@@ -19,6 +19,34 @@ class AuthRepo {
         data,
       );
 
+  Future<Response> postUserLogin({required FormData data}) async =>
+      await apiClient.postData(
+        AppConstants.loginPost,
+        "postUserLogin",
+        data,
+      );
+  Future<Response> updateFCMToken({required FormData data}) async =>
+      await apiClient.postData(
+        AppConstants.updateFCMTokenPost,
+        "updateFCMToken",
+        data,
+      );
+
+  Future<bool> saveFCMToken({
+    required String fcmToken,
+  }) async {
+    try {
+      return await sharedPreferences.setString(AppConstants.fcmToken, fcmToken);
+    } catch (e, st) {
+      log('saveFCMToken error: $e\n$st');
+      return false;
+    }
+  }
+
+  String getFCMToken() {
+    return sharedPreferences.getString(AppConstants.fcmToken) ?? "";
+  }
+
   String getUserToken() {
     return sharedPreferences.getString(AppConstants.token) ?? "";
   }
