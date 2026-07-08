@@ -5,6 +5,7 @@ import 'package:vlr/generated/assets.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/task/create_new_task/create_new_task_screen.dart';
 
 class QuickActionWidget extends StatelessWidget {
   final QuickActionModel quickActionModel;
@@ -95,6 +96,8 @@ List<QuickActionModel> quickActionModelList({required BuildContext context}) =>
         icon: Assets.svgsTask,
         title: "Task",
         color: tertiaryColor,
-        onTap: () {},
+        onTap: () {
+          navigate(context: context, page: const CreateNewTaskScreen());
+        },
       )
     ];

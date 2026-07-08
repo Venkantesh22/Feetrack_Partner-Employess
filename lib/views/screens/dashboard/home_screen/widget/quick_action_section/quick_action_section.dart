@@ -22,7 +22,7 @@ class QuickActionsSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
             blurRadius: 12,
             spreadRadius: 0,
             color: black.withValues(alpha: 0.05),

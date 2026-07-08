@@ -6,6 +6,8 @@ import 'package:vlr/services/input_decoration.dart';
 
 class CustomDropDownList<T> extends StatelessWidget {
   final String? heading;
+  final Widget? headingWidget;
+
   final bool isRequired;
 
   final List<T> items;
@@ -27,6 +29,7 @@ class CustomDropDownList<T> extends StatelessWidget {
   const CustomDropDownList({
     super.key,
     this.heading,
+    this.headingWidget,
     this.isRequired = false,
     required this.items,
     this.value,
@@ -61,25 +64,29 @@ class CustomDropDownList<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (heading != null) ...[
+        if (heading != null || headingWidget != null) ...[
           Row(
             children: [
-              Text(
-                heading!,
-                style: Helper(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
+              Expanded(
+                child: headingWidget ??
+                    Text(
+                      heading!,
+                      style: Helper(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    ),
               ),
-               SizedBox(width: 4.w),
+              SizedBox(width: 4.w),
               if (isRequired)
-                 Text(
+                Text(
                   "*",
-                  style: TextStyle(fontSize: 16.sp, color: Colors.red),
+                  style: Helper(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.red),
                 ),
             ],
           ),
-           SizedBox(height: 7.sp),
+          SizedBox(height: 7.w),
         ],
         DropdownButtonFormField<T>(
           isExpanded: true,
