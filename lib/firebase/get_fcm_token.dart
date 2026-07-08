@@ -8,6 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/auth_controller.dart';
 import 'package:vlr/controllers/basic_controller.dart';
+import 'package:vlr/firebase_options.dart';
 
 class FCMService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
@@ -113,10 +114,10 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
 
-  // if (Firebase.apps.isEmpty) {
-  //   await Firebase.initializeApp(
-  //       options: PrimaryFirebaseOptions.currentPlatform);
-  // }
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  }
 
   // 🔴 THE MAGIC FIX: KEEP THE ISOLATE ALIVE
   // We must force Android to keep the background app running for an extra 6 seconds.

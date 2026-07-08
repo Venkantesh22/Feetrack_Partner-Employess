@@ -26,7 +26,7 @@ class AuthRepo {
         data,
       );
   Future<Response> updateFCMToken({required FormData data}) async =>
-      await apiClient.postData(
+      await apiClient.putData(
         AppConstants.updateFCMTokenPost,
         "updateFCMToken",
         data,

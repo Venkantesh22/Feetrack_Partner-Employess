@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -153,10 +155,23 @@ class _SignInScreenState extends State<SignInScreen> {
                             if (formKey.currentState?.validate() ?? false) {
                               authController.postUserLogin().then((value) {
                                 if (value.isSuccess) {
+                                  // authController.updateFCMToken().then((value) {
+                                  //   if (value.isSuccess) {
+                                  //     navigate(
+                                  //         context: context,
+                                  //         isRemoveUntil: true,
+                                  //         page: const HomeScreen());
+
+                                  //     log("------- authController.updateFCMToken() message : ${value.message}");
+                                  //   } else {
+                                  //     log("------- authController.updateFCMToken() message : ${value.message}");
+                                  //   }
+                                  // });
                                   navigate(
                                       context: context,
                                       isRemoveUntil: true,
                                       page: const HomeScreen());
+
                                   showToast(
                                       message: value.message,
                                       typeCheck: value.isSuccess);

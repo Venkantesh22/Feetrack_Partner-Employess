@@ -1,20 +1,23 @@
 import 'dart:developer';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vlr/firebase/get_fcm_token.dart';
+import 'package:vlr/firebase_options.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:toastification/toastification.dart';
-import 'package:vlr/views/screens/account_screen/account_screen.dart';
-import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
-
 import 'services/init.dart';
 import 'views/screens/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Init().initialize();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FCMService.initialize();
   runApp(const MyApp());
 }
 
@@ -30,28 +33,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  initPlatForm() async {
-    OneSignal.Debug.setLogLevel(OSLogLevel.none);
-
-    OneSignal.initialize('appId'); //---------------------ADD ONESIGNAL APP ID
-    OneSignal.User.pushSubscription.optIn();
-    await OneSignal.consentRequired(true);
-
-    OneSignal.Notifications.addForegroundWillDisplayListener(
-        (OSNotificationWillDisplayEvent event) {
-      /// preventDefault to not display the notification
-      event.preventDefault();
-
-      /// Do async work
-      /// notification.display() to display after preventing default
-      event.notification.display();
-    });
-
-    OneSignal.Notifications.addClickListener((OSNotificationClickEvent result) {
-      ///TODO:
-    });
-  }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -68,7 +49,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    initPlatForm();
   }
 
   @override

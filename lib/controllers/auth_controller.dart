@@ -166,7 +166,9 @@ class AuthController extends GetxController implements GetxService {
     update();
 
     try {
-      Map<String, dynamic> data = {"fcm_token": authRepo.getFCMToken()};
+      Map<String, dynamic> data = {
+        "fcm_token": authRepo.getFCMToken(),
+      };
 
       Response response = await authRepo.updateFCMToken(
         data: FormData(data),

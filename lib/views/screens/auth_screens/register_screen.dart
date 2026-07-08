@@ -329,6 +329,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (formKey.currentState?.validate() ?? false) {
                                   authController.registerUser().then((value) {
                                     if (value.isSuccess) {
+                                      // authController.updateFCMToken().then((value) {
+                                      //   if (value.isSuccess) {
+                                      //     navigate(
+                                      //         context: context,
+                                      //         isRemoveUntil: true,
+                                      //         page: const HomeScreen());
+
+                                      //     log("------- authController.updateFCMToken() message : ${value.message}");
+                                      //   } else {
+                                      //     log("------- authController.updateFCMToken() message : ${value.message}");
+                                      //   }
+                                      // });
+
                                       navigate(
                                           context: context,
                                           isRemoveUntil: true,
