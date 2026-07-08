@@ -5,6 +5,7 @@ import 'package:vlr/generated/assets.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/lead/lead_create/lead_create_screen.dart';
 import 'package:vlr/views/screens/task/create_new_task/create_new_task_screen.dart';
 
 class QuickActionWidget extends StatelessWidget {
@@ -72,7 +73,9 @@ List<QuickActionModel> quickActionModelList({required BuildContext context}) =>
         icon: Assets.svgsPerson,
         title: "Lead Create",
         color: tertiaryColor,
-        onTap: () {},
+        onTap: () {
+          navigate(context: context, page: const LeadCreateScreen());
+        },
       ),
       QuickActionModel(
         icon: Assets.svgsDocument,
