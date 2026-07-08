@@ -43,6 +43,18 @@ class AuthRepo {
         "accountDelete",
       );
 
+  Future<Response> fetchProfile() async => await apiClient.getData(
+        AppConstants.getProfile,
+        "accountDelete",
+      );
+
+  Future<Response> updateProfile({required FormData data}) async =>
+      await apiClient.putData(
+        AppConstants.updateProfile,
+        "updateProfile",
+        data,
+      );
+
   Future<bool> saveFCMToken({
     required String fcmToken,
   }) async {

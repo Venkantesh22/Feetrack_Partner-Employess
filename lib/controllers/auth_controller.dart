@@ -290,6 +290,87 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  Future<ResponseModel> fetchProfile() async {
+    log('----------- fetchProfile Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Response response = await authRepo.fetchProfile();
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "fetchProfile successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while fetchProfile user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT fetchProfile): $e');
+      responseModel = ResponseModel(false, "Error while fetchProfile user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> updateProfile() async {
+    log('----------- updateProfile Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {
+        "email": emailController.text.trim(),
+        "password": passwordController.text.trim(),
+      };
+
+      Response response = await authRepo.updateProfile(data: FormData(data));
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "updateProfile successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while updateProfile user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT updateProfile()): $e');
+      responseModel = ResponseModel(false, "Error while updateProfile user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
   Future<void> saveFMCToken(String fcmToken) async {
     final saveFCMToken = await authRepo.saveFCMToken(fcmToken: fcmToken);
     log('loginUser: saved FCM token: $saveFCMToken');

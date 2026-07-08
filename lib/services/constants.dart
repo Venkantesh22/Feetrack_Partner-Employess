@@ -167,9 +167,9 @@ class AppConstants {
   static const String updateFCMTokenPost = '/partner/fcm-token';
   static const String deleteAccountPost = '/partner/account/destroy';
 
-  static const String profileUri = 'api/v1/user/profile';
-
-  static const String extras = 'api/v1/extra';
+  //profile
+  static const String getProfile = '/partner/profile';
+  static const String updateProfile = '/profile';
 
   //
   static const double horizontalPadding = 16;
