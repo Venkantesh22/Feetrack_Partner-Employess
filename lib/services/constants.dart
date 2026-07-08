@@ -153,7 +153,7 @@ class AppConstants {
   set setBaseUrl(String url) => baseUrl = url;
 
   //TODO: Change Base Url
-  static String baseUrl = 'https://www.base-url.in/';
+  static String baseUrl = 'https://app.feetrack.in/api';
   // static String baseUrl = 'http://192.168.1.5:9000/'; ///USE FOR LOCAL
   //TODO: Change Base Url
   static String appName = 'App Name';
@@ -161,7 +161,7 @@ class AppConstants {
   static const String agoraAppId = 'c87b710048c049f59570bd1895b7e561';
 
   // Auth
-  static const String loginUri = 'api/v1/user/login';
+  static const String registrationPost = '/partner/register';
   static const String logoutUri = '';
   static const String profileUri = 'api/v1/user/profile';
 

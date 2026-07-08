@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:vlr/services/extensions.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,31 +12,12 @@ class AuthRepo {
   final ApiClient apiClient;
   AuthRepo({required this.sharedPreferences, required this.apiClient});
 
-  // Future<Response> generateOtp({required String phone}) async => await apiClient.postData(AppConstants.generateOtp, {"mobile": phone});
-
-  // Future<Response> verifyOtp({required String phone, required String otp}) async => await apiClient.postData(
-  // AppConstants.loginUri, {
-  // "mobile": phone,
-  // 'otp': otp,
-  // 'device_id': await getDeviceId(),
-  // },
-  // );
-
-  // Future<Response> login({required String phone}) async => await apiClient.postData(
-  //       AppConstants.sendOtp,
-  //       {
-  //         "phone": phone,
-  //         "app_signature": await Get.find<OtpAutofillController>().getAppSignature(),
-  //       },
-  //     );
-
-  // Future<Response> verifyOtp({required String phone, required String otp}) async => await apiClient.postData(
-  //       AppConstants.verifyOtp,
-  //       {
-  //         "phone": phone,
-  //         "otp": otp,
-  //       },
-  //     );
+  Future<Response> postUserRegister({required FormData data}) async =>
+      await apiClient.postData(
+        AppConstants.registrationPost,
+        "postUserRegister",
+        data,
+      );
 
   String getUserToken() {
     return sharedPreferences.getString(AppConstants.token) ?? "";
