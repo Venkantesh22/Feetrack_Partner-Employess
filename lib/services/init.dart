@@ -5,9 +5,11 @@ import 'package:vlr/controllers/basic_controller.dart';
 import 'package:vlr/controllers/dashboard_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vlr/controllers/lead_controller.dart';
+import 'package:vlr/controllers/leave_controller.dart';
 import 'package:vlr/controllers/task_controller.dart';
 import 'package:vlr/data/repositories/attendence_repo.dart';
 import 'package:vlr/data/repositories/lead_repo.dart';
+import 'package:vlr/data/repositories/leave_repo.dart';
 import 'package:vlr/data/repositories/task_repo.dart';
 import '../controllers/auth_controller.dart';
 import '../controllers/permission_controller.dart';
@@ -36,6 +38,7 @@ class Init {
       Get.lazyPut(() => AttendanceRepo(apiClient: Get.find()));
       Get.lazyPut(() => TaskRepo(apiClient: Get.find()));
       Get.lazyPut(() => LeadRepo(apiClient: Get.find()));
+      Get.lazyPut(() => LeaveRepo(apiClient: Get.find()));
 
       // Get Controller's...
       Get.lazyPut(() => DashBoardController());
@@ -44,6 +47,7 @@ class Init {
       Get.lazyPut(() => AttendanceController(attendanceRepo: Get.find()));
       Get.lazyPut(() => TaskController(taskRepo: Get.find()));
       Get.lazyPut(() => LeadController(leadRepo: Get.find()));
+      Get.lazyPut(() => LeaveController(leaveRepo: Get.find()));
     } catch (e) {
       log('---- ${e.toString()} ----', name: "ERROR AT initialize()");
     }
