@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/screens/auth_screens/register_screen.dart';
 import 'package:vlr/views/screens/auth_screens/sign_in_screen.dart';
 
 import '../../../services/constants.dart';
@@ -33,6 +31,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkAuth() async {
     await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+
+    // Preload login background
+    await precacheImage(
+      const AssetImage(Assets.imagesLoginBg),
+      context,
+    );
+
+    // Preload logo
+    await precacheImage(
+      const AssetImage(Assets.imagesLogo),
+      context,
+    );
+
+    if (!mounted) return;
+
     // final authController = Get.find<AuthController>();
 
     // String token = authController.getUserToken();
@@ -49,9 +63,17 @@ class _SplashScreenState extends State<SplashScreen> {
     //   );
     // } else {
     // authController.logout();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const SignInScreen()),
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (_, animation, __) => const SignInScreen(),
+        transitionsBuilder: (_, animation, __, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
     );
     // }
     // } else {

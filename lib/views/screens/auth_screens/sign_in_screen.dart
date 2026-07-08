@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:vlr/controllers/auth_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
@@ -9,6 +8,7 @@ import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/auth_screens/register_screen.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 import 'package:vlr/views/widget/text_box/app_text_box.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -153,6 +153,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             if (formKey.currentState?.validate() ?? false) {
                               authController.postUserLogin().then((value) {
                                 if (value.isSuccess) {
+                                  navigate(
+                                      context: context,
+                                      isRemoveUntil: true,
+                                      page: const HomeScreen());
                                   showToast(
                                       message: value.message,
                                       typeCheck: value.isSuccess);
@@ -184,7 +188,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ?.copyWith(fontSize: 16.sp, color: greyDart2),
                             ),
                             CustomButton(
-
                               onTap: () {
                                 navigate(
                                     context: context,

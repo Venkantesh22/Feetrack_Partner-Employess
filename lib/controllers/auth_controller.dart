@@ -204,6 +204,51 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  Future<ResponseModel> logOutPost() async {
+    log('----------- logOutPost Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {
+        "email": emailController.text.trim(),
+        "password": passwordController.text.trim(),
+      };
+
+      Response response = await authRepo.logOut(
+        data: FormData(data),
+      );
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "logOut successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while logOutPost user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT logOutPost): $e');
+      responseModel = ResponseModel(false, "Error while logOutPost user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
   Future<void> saveFMCToken(String fcmToken) async {
     final saveFCMToken = await authRepo.saveFCMToken(fcmToken: fcmToken);
     log('loginUser: saved FCM token: $saveFCMToken');

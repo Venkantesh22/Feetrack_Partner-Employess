@@ -32,6 +32,13 @@ class AuthRepo {
         data,
       );
 
+  Future<Response> logOut({required FormData data}) async =>
+      await apiClient.postData(
+        AppConstants.logOutPost,
+        "logOut",
+        data,
+      );
+
   Future<bool> saveFCMToken({
     required String fcmToken,
   }) async {

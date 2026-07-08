@@ -10,6 +10,7 @@ import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/auth_screens/sign_in_screen.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 import 'package:vlr/views/widget/text_box/app_text_box.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -328,6 +329,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (formKey.currentState?.validate() ?? false) {
                                   authController.registerUser().then((value) {
                                     if (value.isSuccess) {
+                                      navigate(
+                                          context: context,
+                                          isRemoveUntil: true,
+                                          page: const HomeScreen());
                                       showToast(
                                           message: value.message,
                                           typeCheck: value.isSuccess);
