@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:vlr/services/constants.dart';
 import 'package:vlr/views/base/custom_image.dart';
+import 'package:vlr/views/screens/leave/apply_leave/apply_leave_screen.dart';
 
 class AccountOptionModel {
   final String icon;
@@ -18,7 +20,13 @@ List<AccountOptionModel> accountOptionModelList(
           title: "Personal Information",
           onTap: () {}),
       AccountOptionModel(
-          icon: Assets.svgsCalender, title: "Apply for Leave", onTap: () {}),
+          icon: Assets.svgsCalender,
+          title: "Apply for Leave",
+          onTap: () {
+            navigate(context: context, page: const ApplyLeaveScreen());
+            navigate(context: context, page: const ApplyLeaveScreen());
+            navigate(context: context, page: const ApplyLeaveScreen());
+          }),
       AccountOptionModel(
           icon: Assets.svgsClock, title: "Attendance History", onTap: () {}),
       AccountOptionModel(

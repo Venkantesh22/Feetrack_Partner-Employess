@@ -9,14 +9,14 @@ import 'package:vlr/views/base/custom_button.dart';
 import 'package:vlr/views/base/custom_dropdown.dart';
 import 'package:vlr/views/widget/text_box/app_text_box.dart';
 
-class ApplyLeave extends StatefulWidget {
-  const ApplyLeave({super.key});
+class ApplyLeaveScreen extends StatefulWidget {
+  const ApplyLeaveScreen({super.key});
 
   @override
-  State<ApplyLeave> createState() => _ApplyLeaveState();
+  State<ApplyLeaveScreen> createState() => _ApplyLeaveScreenState();
 }
 
-class _ApplyLeaveState extends State<ApplyLeave> {
+class _ApplyLeaveScreenState extends State<ApplyLeaveScreen> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {

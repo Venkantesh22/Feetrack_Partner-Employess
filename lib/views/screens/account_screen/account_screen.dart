@@ -60,7 +60,7 @@ class AccountScreen extends StatelessWidget {
                   sizedBoxHeight(height: 24.h),
                   const AccountOptionSection(),
                   sizedBoxHeight(height: 24.h),
-                  RowOfLogOutAndDeleteAccountSection(),
+                  const RowOfLogOutAndDeleteAccountSection(),
                   sizedBoxHeight(height: 30.h),
                 ],
               ),
