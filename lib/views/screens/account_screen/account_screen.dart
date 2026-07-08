@@ -6,6 +6,7 @@ import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/account_screen/widget/account_option_section/account_option_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/daily_attendance_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/reporting_manager_widget.dart';
+import 'package:vlr/views/screens/account_screen/widget/row_logout_account_delete_section/row_logout_account_delete_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -58,7 +59,9 @@ class AccountScreen extends StatelessWidget {
                   const ReportingManagerWidget(),
                   sizedBoxHeight(height: 24.h),
                   const AccountOptionSection(),
-                  sizedBoxHeight(height: 24.h)
+                  sizedBoxHeight(height: 24.h),
+                  RowOfLogOutAndDeleteAccountSection(),
+                  sizedBoxHeight(height: 30.h),
                 ],
               ),
             )
