@@ -248,6 +248,46 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  Future<ResponseModel> accountDelete() async {
+    log('----------- accountDelete Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Response response = await authRepo.accountDelete();
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "accountDelete successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while accountDelete user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          log("Error of delete $errors");
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+            log("errorMessage of delete $errorMessage");
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT accountDelete): $e');
+      responseModel = ResponseModel(false, "Error while accountDelete user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
   Future<void> saveFMCToken(String fcmToken) async {
     final saveFCMToken = await authRepo.saveFCMToken(fcmToken: fcmToken);
     log('loginUser: saved FCM token: $saveFCMToken');

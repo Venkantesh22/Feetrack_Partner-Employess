@@ -165,6 +165,7 @@ class AppConstants {
   static const String loginPost = '/partner/login';
   static const String logOutPost = '/partner/Logout';
   static const String updateFCMTokenPost = '/partner/fcm-token';
+  static const String deleteAccountPost = '/partner/account/destroy';
 
   static const String profileUri = 'api/v1/user/profile';
 

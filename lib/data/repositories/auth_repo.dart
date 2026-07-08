@@ -38,6 +38,10 @@ class AuthRepo {
         "logOut",
         data,
       );
+  Future<Response> accountDelete() async => await apiClient.deleteData(
+        AppConstants.deleteAccountPost,
+        "accountDelete",
+      );
 
   Future<bool> saveFCMToken({
     required String fcmToken,
