@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
@@ -9,9 +11,22 @@ import 'package:vlr/views/screens/account_screen/widget/reporting_manager_widget
 import 'package:vlr/views/screens/account_screen/widget/row_logout_account_delete_section/row_logout_account_delete_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      Get.find<AttendanceController>().fetchTodayAttendance();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

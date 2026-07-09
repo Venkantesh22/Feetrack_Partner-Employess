@@ -52,7 +52,11 @@ String getSlotTime({required DateTime one, required DateTime two}) {
   return "${DateFormatters().hMA.format(one)} - ${DateFormatters().hMA.format(two)}";
 }
 
-bool compareDates({required DateTime one, required DateTime two, bool year = true, bool logData = false}) {
+bool compareDates(
+    {required DateTime one,
+    required DateTime two,
+    bool year = true,
+    bool logData = false}) {
   if (logData) {
     log("${DateFormatters().dMy.format(one)}  ${DateFormatters().dMy.format(two)}");
   }
@@ -65,4 +69,33 @@ bool compareDates({required DateTime one, required DateTime two, bool year = tru
 
 DateTime getDateTime() {
   return DateTime.now();
+}
+
+String convertTo12HourFormat({
+  String? time24,
+  bool isShowAMPM = true,
+}) {
+  if (time24 == null || time24.isEmpty) return '';
+
+  try {
+    final format = time24.split(':').length == 3 ? "HH:mm:ss" : "HH:mm";
+
+    final dateTime = DateFormat(format).parse(time24);
+
+    return isShowAMPM
+        ? DateFormat("hh:mm a").format(dateTime)
+        : DateFormat("hh:mm").format(dateTime);
+  } catch (e) {
+    return time24;
+  }
+}
+
+String convertTo24Hour(String time12Hour) {
+  try {
+    final dateTime = DateFormat('hh:mm a').parse(time12Hour.trim());
+
+    return DateFormat('HH:mm').format(dateTime);
+  } catch (e) {
+    return '';
+  }
 }

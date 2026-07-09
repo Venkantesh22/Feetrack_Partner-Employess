@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:vlr/controllers/attendence_controller.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
@@ -19,16 +19,15 @@ class CheckButtonWidget extends StatelessWidget {
       String? title;
       IconData? icon;
       Color? color;
-      if (attendanceController.isCheckIn && attendanceController.isCheckout) {
+      if (attendanceController.attendanceModel?.status == "Not Checked") {
         title = "Checked out Done";
         icon = Icons.logout;
         color = primaryColor;
-      } else if (attendanceController.isCheckIn) {
+      } else if (attendanceController.attendanceModel?.status == "Check out") {
         title = "Checked Out";
         icon = Icons.logout;
         color = redDark;
-      } else if (!attendanceController.isCheckIn &&
-          !attendanceController.isCheckout) {
+      } else if (attendanceController.attendanceModel?.status == "present") {
         title = "Checked In";
         icon = Icons.login;
         color = green;

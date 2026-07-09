@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 
 class CalenderWidgetTodayStatus extends StatelessWidget {
@@ -48,7 +49,7 @@ class CalenderWidgetTodayStatus extends StatelessWidget {
                     ),
               ),
               CustomText(
-                "Current Date",
+                DateFormatters().hMA.format(getDateTime()),
                 style: Helper(context).textTheme.labelSmall?.copyWith(
                       fontSize: 12.sp,
                       color: greyDart2,

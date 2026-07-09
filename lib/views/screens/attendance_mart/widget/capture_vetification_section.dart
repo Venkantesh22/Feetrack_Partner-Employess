@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/state_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/controllers/permission_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
@@ -129,7 +130,9 @@ class CaptureVerificationSection extends StatelessWidget {
                         final XFile? file = await picker.pickImage(
                           source: ImageSource.camera,
                           preferredCameraDevice: CameraDevice.front,
-                          imageQuality: 90,
+                          imageQuality: 35,
+                          maxWidth: 720,
+                          maxHeight: 1280,
                         );
 
                         if (file == null) return;
@@ -174,15 +177,39 @@ class CaptureVerificationSection extends StatelessWidget {
                         ),
                         sizedBoxWidth(width: 12.w),
                         Expanded(
-                          child: CustomText(
-                            permissionController.currentAddress ??
-                                "Location pending...",
-                            maxLines: 4,
-                            style:
-                                Helper(context).textTheme.bodyMedium?.copyWith(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText(
+                                permissionController.currentAddress ??
+                                    "Location pending...",
+                                maxLines: 4,
+                                style: Helper(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       fontSize: 16.sp,
                                       color: greyDart2,
                                     ),
+                              ),
+                              sizedBoxHeight(height: 4.h),
+                              CustomText(
+                                (permissionController.currentAddress != null ||
+                                        (permissionController
+                                                .currentAddress?.isNotEmpty ??
+                                            false))
+                                    ? "${(permissionController.latitude ?? "").toString()} , ${(permissionController.latitude ?? "").toString()}"
+                                    : "",
+                                maxLines: 4,
+                                style: Helper(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(
+                                      fontSize: 14.sp,
+                                      color: blackText3,
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -191,30 +218,66 @@ class CaptureVerificationSection extends StatelessWidget {
                 );
               }),
               sizedBoxHeight(height: 32.h),
-              CustomButton(
-                height: 64.h,
-                onTap: () {},
-                color: greenLight,
-                borderColor: greenLight,
-                radius: 32.r,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.login,
-                      color: white,
+              GetBuilder<AttendanceController>(builder: (attendanceController) {
+                return GetBuilder<PermissionController>(
+                    builder: (permissionController) {
+                  return CustomButton(
+                    isLoading: attendanceController.isLoading,
+                    height: 64.h,
+                    onTap: () {
+                      if (permissionController.selfie == null) {
+                        return showToast(
+                            message: "Take selfie of you",
+                            toastType: ToastType.info);
+                      }
+                      if ((permissionController.latitude == null) ||
+                          (permissionController.longitude == null)) {
+                        permissionController
+                            .requestLocationPermissionAndFetch(context);
+                      }
+
+                      attendanceController
+                          .punchInAttendance(
+                        lat: permissionController.latitude.toString(),
+                        lng: permissionController.longitude.toString(),
+                        selfie: permissionController.selfie,
+                      )
+                          .then((value) {
+                        if (value.isSuccess) {
+                          showToast(
+                              message: value.message,
+                              typeCheck: value.isSuccess);
+                        } else {
+                          showToast(
+                              message: value.message,
+                              typeCheck: value.isSuccess);
+                        }
+                      });
+                    },
+                    color: greenLight,
+                    borderColor: greenLight,
+                    radius: 32.r,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.login,
+                          color: white,
+                        ),
+                        sizedBoxWidth(width: 12.w),
+                        CustomText(
+                          "Check In",
+                          style:
+                              Helper(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 24.sp,
+                                    color: white,
+                                  ),
+                        ),
+                      ],
                     ),
-                    sizedBoxWidth(width: 12.w),
-                    CustomText(
-                      "Check In",
-                      style: Helper(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 24.sp,
-                            color: white,
-                          ),
-                    ),
-                  ],
-                ),
-              )
+                  );
+                });
+              })
             ],
           ),
         ),

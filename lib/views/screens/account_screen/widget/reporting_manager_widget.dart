@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
@@ -23,7 +22,7 @@ class ReportingManagerWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 1),
+            offset: const Offset(0, 1),
             blurRadius: 2,
             spreadRadius: 0,
             color: black.withValues(alpha: 0.05),

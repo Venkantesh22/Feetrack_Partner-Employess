@@ -167,9 +167,13 @@ class AppConstants {
   static const String updateFCMTokenPost = '/partner/fcm-token';
   static const String deleteAccountPost = '/partner/account/destroy';
 
-  //profile
+  //* profile
   static const String getProfile = '/hrms/profile';
   static const String updateProfile = '/hrms/profile';
+
+  //* Attendance
+  static const String punchAttendancePost = '/hrms/attendance/punch-in';
+  static const String todayAttendanceGet = '/hrms/attendance/today';
 
   //
   static const double horizontalPadding = 16;

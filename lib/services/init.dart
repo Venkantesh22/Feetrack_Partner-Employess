@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:get/instance_manager.dart';
-import 'package:vlr/controllers/attendence_controller.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/controllers/basic_controller.dart';
 import 'package:vlr/controllers/dashboard_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
