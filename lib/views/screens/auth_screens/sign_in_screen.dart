@@ -76,7 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         sizedBoxHeight(height: 32),
                         AppTextFieldWithHeading(
                           headingWidget: CustomText(
-                            "Email",
+                            "Login",
                             style:
                                 Helper(context).textTheme.labelMedium?.copyWith(
                                       fontSize: 14.sp,
@@ -85,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           controller: authController.emailController,
                           preFixWidget: Icon(
-                            Icons.email_outlined,
+                            Icons.person_outline,
                             color: greyDart2,
                           ),
                           keyboardType: TextInputType.emailAddress,

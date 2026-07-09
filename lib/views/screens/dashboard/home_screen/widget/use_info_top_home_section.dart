@@ -8,6 +8,7 @@ import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/base/shimmer.dart';
+import 'package:vlr/views/screens/edit_profile/edit_profile_screen.dart';
 
 class UserInfoTopHome extends StatelessWidget {
   const UserInfoTopHome({
@@ -27,65 +28,85 @@ class UserInfoTopHome extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              CustomImage(
-                path: (authController.userModel?.profileImage != null ||
-                        (authController.userModel?.profileImage?.isNotEmpty ??
-                            false))
-                    ? (authController.userModel?.profileImage ??
-                        Assets.imagesNoProfile)
-                    : Assets.imagesNoProfile,
-                height: 60.h,
-                width: 60.w,
-                isProfile: true,
-                fit: BoxFit.cover,
-              ),
-              sizedBoxWidth(width: 12.w),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      "Hi, ${authController.userModel?.name ?? ""}",
-                      style: Helper(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 16.sp,
-                            color: white,
-                          ),
-                    ),
-                    sizedBoxHeight(height: 4.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(
-                                capitalize(
-                                    authController.userModel?.role ?? ""),
-                                style: Helper(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                      fontSize: 12.sp,
-                                      color: white,
-                                    ),
-                              ),
-                              sizedBoxHeight(height: 2.h),
-                              CustomText(
-                                "Business ID: FT1256",
-                                style: Helper(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                      fontSize: 12.sp,
-                                      color: white,
-                                    ),
-                              ),
-                            ],
-                          ),
+                child: GestureDetector(
+                  onTap: () {
+                    if (authController.isLoading) {
+                      return;
+                    }
+                    navigate(context: context, page: const EditProfileScreen());
+                  },
+                  child: Row(
+                    children: [
+                      CustomImage(
+                        path: (authController.userModel?.profileImage != null ||
+                                (authController
+                                        .userModel?.profileImage?.isNotEmpty ??
+                                    false))
+                            ? (authController.userModel?.profileImage ??
+                                Assets.imagesNoProfile)
+                            : Assets.imagesNoProfile,
+                        height: 60.h,
+                        width: 60.w,
+                        isProfile: true,
+                        fit: BoxFit.cover,
+                      ),
+                      sizedBoxWidth(width: 12.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              "Hi, ${authController.userModel?.name ?? ""}",
+                              style: Helper(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontSize: 16.sp,
+                                    color: white,
+                                  ),
+                            ),
+                            sizedBoxHeight(height: 4.h),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomText(
+                                        capitalize(
+                                            authController.userModel?.role ??
+                                                ""),
+                                        style: Helper(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              fontSize: 12.sp,
+                                              color: white,
+                                            ),
+                                      ),
+                                      sizedBoxHeight(height: 2.h),
+                                      CustomText(
+                                        "Business ID: FT1256",
+                                        style: Helper(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              fontSize: 12.sp,
+                                              color: white,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Row(

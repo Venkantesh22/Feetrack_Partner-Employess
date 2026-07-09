@@ -38,6 +38,10 @@ class Assets {
   /// assets/svgs/calender.svg
   static const String svgsCalender = "assets/svgs/calender.svg";
 
+  /// Assets for svgsCheckInCircle
+  /// assets/svgs/check-in-circle.svg
+  static const String svgsCheckInCircle = "assets/svgs/check-in-circle.svg";
+
   /// Assets for svgsClock
   /// assets/svgs/clock.svg
   static const String svgsClock = "assets/svgs/clock.svg";

@@ -9,10 +9,8 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:toastification/toastification.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
-import 'package:vlr/views/screens/lead/lead_create/lead_create_screen.dart';
-import 'package:vlr/views/screens/leave/apply_leave/apply_leave_screen.dart';
+import 'package:vlr/views/screens/splash_screen/splash_screen.dart';
 import 'services/init.dart';
-import 'views/screens/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,11 +72,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             home: child,
           );
         },
-        // child: const SplashScreen(),
+        child: const SplashScreen(),
         // child: const ApplyLeave(),
         // child: const LeadCreateScreen(),
         // child: const AccountScreen(),
-        child: const HomeScreen(),
+        // child: const HomeScreen(),
       ),
     );
   }

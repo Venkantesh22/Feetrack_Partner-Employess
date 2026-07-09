@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/multipart/form_data.dart';
@@ -324,6 +325,12 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  File? profileImage;
+  updateImages(File? image) {
+    profileImage = image;
+    update();
+  }
+
   Future<ResponseModel> updateProfile() async {
     log('----------- updateProfile Called ----------');
 
@@ -332,9 +339,12 @@ class AuthController extends GetxController implements GetxService {
     update();
 
     try {
+      log(profileImage.toString());
       Map<String, dynamic> data = {
+        "name": fullNameController.text.trim(),
         "email": emailController.text.trim(),
-        "password": passwordController.text.trim(),
+        "mobile": mobileController.text.trim(),
+        "profile_image": profileImage,
       };
 
       Response response = await authRepo.updateProfile(data: FormData(data));
@@ -344,6 +354,7 @@ class AuthController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "updateProfile successful",
         );
+        updateImages(null);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while updateProfile user";

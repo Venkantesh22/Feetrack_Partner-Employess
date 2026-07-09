@@ -169,7 +169,7 @@ class AppConstants {
 
   //profile
   static const String getProfile = '/hrms/profile';
-  static const String updateProfile = '/profile';
+  static const String updateProfile = '/hrms/profile';
 
   //
   static const double horizontalPadding = 16;
