@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -151,6 +150,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           radius: 14,
                           isLoading: authController.isLoading,
                           onTap: () {
+                            // navigate(
+                            //     context: context,
+                            //     isRemoveUntil: true,
+                            //     page: const HomeScreen());
                             if (formKey.currentState?.validate() ?? false) {
                               authController.postUserLogin().then((value) {
                                 if (value.isSuccess) {

@@ -112,7 +112,7 @@ class AuthController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic> data = {
-        "email": emailController.text.trim(),
+        "login": emailController.text.trim(),
         "password": passwordController.text.trim(),
       };
 
@@ -213,10 +213,7 @@ class AuthController extends GetxController implements GetxService {
     update();
 
     try {
-      Map<String, dynamic> data = {
-        "email": emailController.text.trim(),
-        "password": passwordController.text.trim(),
-      };
+      Map<String, dynamic> data = {};
 
       Response response = await authRepo.logOut(
         data: FormData(data),

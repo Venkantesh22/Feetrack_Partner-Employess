@@ -14,7 +14,7 @@ class AccountOptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: accountOptionModel.onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(

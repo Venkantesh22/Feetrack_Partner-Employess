@@ -162,8 +162,8 @@ class AppConstants {
 
   // Auth
   static const String registrationPost = '/partner/register';
-  static const String loginPost = '/partner/login';
-  static const String logOutPost = '/partner/Logout';
+  static const String loginPost = '/hrms/login';
+  static const String logOutPost = '/hrms/logout';
   static const String updateFCMTokenPost = '/partner/fcm-token';
   static const String deleteAccountPost = '/partner/account/destroy';
 

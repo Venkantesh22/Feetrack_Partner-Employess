@@ -27,6 +27,21 @@ class RowOfLogOutAndDeleteAccountSection extends StatelessWidget {
                   return showToast(
                       message: "Please wait..", toastType: ToastType.info);
                 }
+                authController.logOutPost().then((value) {
+                  if (value.isSuccess) {
+                    navigate(
+                        context: context,
+                        isRemoveUntil: true,
+                        page: SignInScreen());
+                    showToast(
+                        message: value.message, typeCheck: value.isSuccess);
+                  } else {
+                    showToast(
+                        message: value.message, typeCheck: value.isSuccess);
+
+                    log(value.message);
+                  }
+                });
               },
             ),
           ),
