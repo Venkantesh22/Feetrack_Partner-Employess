@@ -2,10 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/multipart/form_data.dart';
-import 'package:get/get_connect/http/src/response/response.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:vlr/data/models/response/response_model.dart';
 import 'package:vlr/data/models/user_model.dart';
 
@@ -116,8 +113,6 @@ class AuthController extends GetxController implements GetxService {
       Response response = await authRepo.postUserLogin(
         data: FormData(data),
       );
-
-      //  log("Raw Response: ${response.body}");
 
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
@@ -344,7 +339,12 @@ class AuthController extends GetxController implements GetxService {
         "name": fullNameController.text.trim(),
         "email": emailController.text.trim(),
         "mobile": mobileController.text.trim(),
-        "profile_image": profileImage,
+        "profile_image": profileImage == null
+            ? null
+            : MultipartFile(
+                profileImage,
+                filename: profileImage?.path.split('/').last ?? "",
+              ),
       };
 
       Response response = await authRepo.updateProfile(data: FormData(data));

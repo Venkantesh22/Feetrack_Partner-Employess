@@ -47,7 +47,6 @@ class AttendanceController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "punchInAttendance successful",
         );
-        // userModel = UserModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while punchInAttendance user";
