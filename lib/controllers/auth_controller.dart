@@ -6,8 +6,8 @@ import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:vlr/data/models/response/response_model.dart';
+import 'package:vlr/data/models/user_model.dart';
 
-import '../data/models/response/user_model.dart';
 import '../data/repositories/auth_repo.dart';
 
 class AuthController extends GetxController implements GetxService {
@@ -17,10 +17,6 @@ class AuthController extends GetxController implements GetxService {
 
   bool isLoading = false;
   bool _acceptTerms = false;
-
-  UserModel? _userModel;
-
-  UserModel? get userModel => _userModel;
 
   bool get acceptTerms => _acceptTerms;
 
@@ -287,6 +283,8 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  UserModel? userModel;
+
   Future<ResponseModel> fetchProfile() async {
     log('----------- fetchProfile Called ----------');
 
@@ -302,6 +300,7 @@ class AuthController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "fetchProfile successful",
         );
+        userModel = UserModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while fetchProfile user";

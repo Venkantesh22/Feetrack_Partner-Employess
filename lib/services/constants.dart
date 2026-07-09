@@ -168,7 +168,7 @@ class AppConstants {
   static const String deleteAccountPost = '/partner/account/destroy';
 
   //profile
-  static const String getProfile = '/partner/profile';
+  static const String getProfile = '/hrms/profile';
   static const String updateProfile = '/profile';
 
   //

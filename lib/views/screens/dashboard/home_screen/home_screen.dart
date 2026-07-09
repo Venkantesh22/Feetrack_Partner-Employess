@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/auth_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/account_screen/account_screen.dart';
@@ -17,6 +19,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<AuthController>().fetchProfile();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,21 +52,28 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const UserInfoTopHome(),
-            sizedBoxHeight(height: 16.h),
-            const TopAchieversSection(),
-            sizedBoxHeight(height: 16.h),
-            const ThisMonthTargetSection(),
-            sizedBoxHeight(height: 16.h),
-            const NotificationSection(),
-            sizedBoxHeight(height: 16.h),
-            const QuickActionsSection(),
-          ],
-        ),
-      ),
+      body: GetBuilder<AuthController>(builder: (authController) {
+        if (authController.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              const UserInfoTopHome(),
+              sizedBoxHeight(height: 16.h),
+              const TopAchieversSection(),
+              sizedBoxHeight(height: 16.h),
+              const ThisMonthTargetSection(),
+              sizedBoxHeight(height: 16.h),
+              const NotificationSection(),
+              sizedBoxHeight(height: 16.h),
+              const QuickActionsSection(),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

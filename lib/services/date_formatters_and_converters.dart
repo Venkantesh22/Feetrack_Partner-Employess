@@ -19,6 +19,7 @@ class DateFormatters {
   DateFormat dayDMY = DateFormat('EEE,  dd MMM yyyy');
   DateFormat dayDateTime = DateFormat('EEE,  dd MMM yyyy, hh:mm a');
   DateFormat day = DateFormat('EEE');
+  DateFormat dayFull = DateFormat('EEE');
   DateFormat dayDate = DateFormat('EEE, dd');
   DateFormat dateDay = DateFormat('dd, EEEE');
   DateFormat month = DateFormat('MMMM');

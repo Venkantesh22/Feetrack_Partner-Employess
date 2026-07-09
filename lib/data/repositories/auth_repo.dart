@@ -45,7 +45,7 @@ class AuthRepo {
 
   Future<Response> fetchProfile() async => await apiClient.getData(
         AppConstants.getProfile,
-        "accountDelete",
+        "fetchProfile",
       );
 
   Future<Response> updateProfile({required FormData data}) async =>
