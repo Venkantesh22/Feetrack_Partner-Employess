@@ -173,10 +173,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                       log("------- authController.updateFCMToken() message : ${value.message}");
                                     }
                                   });
-                                  navigate(
-                                      context: context,
-                                      isRemoveUntil: true,
-                                      page: const HomeScreen());
 
                                   showToast(
                                       message: value.message,

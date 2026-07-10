@@ -331,7 +331,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (formKey.currentState?.validate() ?? false) {
                                   authController.registerUser().then((value) {
                                     if (value.isSuccess) {
-                                      authController.updateProfile(isUpdateFCMToken: true).then((value) {
+                                      authController
+                                          .updateProfile(isUpdateFCMToken: true)
+                                          .then((value) {
                                         if (value.isSuccess) {
                                           navigate(
                                               context: context,
@@ -344,10 +346,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                       });
 
-                                      navigate(
-                                          context: context,
-                                          isRemoveUntil: true,
-                                          page: const HomeScreen());
                                       showToast(
                                           message: value.message,
                                           typeCheck: value.isSuccess);
