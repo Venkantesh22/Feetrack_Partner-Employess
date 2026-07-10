@@ -326,7 +326,9 @@ class AuthController extends GetxController implements GetxService {
     update();
   }
 
-  Future<ResponseModel> updateProfile() async {
+  Future<ResponseModel> updateProfile({
+    bool isUpdateFCMToken = false,
+  }) async {
     log('----------- updateProfile Called ----------');
 
     ResponseModel responseModel;
@@ -346,8 +348,13 @@ class AuthController extends GetxController implements GetxService {
                 filename: profileImage?.path.split('/').last ?? "",
               ),
       };
+      
+      Map<String, dynamic> dataFCMToken = {
+        "fcm_token": authRepo.getFCMToken(),
+      };
 
-      Response response = await authRepo.updateProfile(data: FormData(data));
+      Response response = await authRepo.updateProfile(
+          data: isUpdateFCMToken ? FormData(dataFCMToken) : FormData(data));
 
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
