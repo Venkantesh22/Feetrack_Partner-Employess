@@ -1,10 +1,15 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:vlr/data/models/attendance_model.dart';
 import 'package:vlr/data/models/response/response_model.dart';
 import 'package:vlr/data/repositories/attendence_repo.dart';
+
+enum EmployeesStatus {
+  notCheckedIn,
+  present,
+  checkedOut,
+}
 
 class AttendanceController extends GetxController implements GetxService {
   final AttendanceRepo attendanceRepo;
@@ -13,8 +18,7 @@ class AttendanceController extends GetxController implements GetxService {
 
   bool isLoading = false;
 
-  bool isCheckIn = false;
-  bool isCheckout = false;
+  EmployeesStatus employeesStatus = EmployeesStatus.notCheckedIn;
 
   Future<ResponseModel> punchInAttendance({
     required String lat,
@@ -71,6 +75,61 @@ class AttendanceController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  Future<ResponseModel> punchOutAttendance({
+    required String lat,
+    required String lng,
+    required File? selfie,
+  }) async {
+    log('----------- punchOutAttendance Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {
+        "lat": lat,
+        "lng": lng,
+        "selfie": selfie == null
+            ? null
+            : MultipartFile(
+                selfie,
+                filename: selfie.path.split('/').last,
+              ),
+      };
+
+      Response response =
+          await attendanceRepo.punchOutAttendance(data: FormData(data));
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "punchOutAttendance successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while punchOutAttendance user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT punchOutAttendance(): $e');
+      responseModel =
+          ResponseModel(false, "Error while punchOutAttendance user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
   AttendanceModel? attendanceModel;
   Future<ResponseModel> fetchTodayAttendance() async {
     log('----------- fetchTodayAttendance Called ----------');
@@ -89,6 +148,8 @@ class AttendanceController extends GetxController implements GetxService {
         );
 
         attendanceModel = AttendanceModel.fromJson(response.body['data']);
+
+        // employeesStatus = attendanceModel.status ;
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while fetchTodayAttendance user";

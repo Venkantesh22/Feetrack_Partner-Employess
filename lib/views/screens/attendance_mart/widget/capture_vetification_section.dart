@@ -10,6 +10,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
+import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_out_button.dart';
 
 class CaptureVerificationSection extends StatelessWidget {
   const CaptureVerificationSection({
@@ -221,9 +222,7 @@ class CaptureVerificationSection extends StatelessWidget {
               GetBuilder<AttendanceController>(builder: (attendanceController) {
                 return GetBuilder<PermissionController>(
                     builder: (permissionController) {
-                  return CustomButton(
-                    isLoading: attendanceController.isLoading,
-                    height: 64.h,
+                  return CheckButtonWidget(
                     onTap: () {
                       if (permissionController.selfie == null) {
                         return showToast(
@@ -236,48 +235,114 @@ class CaptureVerificationSection extends StatelessWidget {
                             .requestLocationPermissionAndFetch(context);
                       }
 
-                      attendanceController
-                          .punchInAttendance(
-                        lat: permissionController.latitude.toString(),
-                        lng: permissionController.longitude.toString(),
-                        selfie: permissionController.selfie,
-                      )
-                          .then((value) {
-                        if (value.isSuccess) {
-                          showToast(
-                              message: value.message,
-                              typeCheck: value.isSuccess);
-                        } else {
-                          showToast(
-                              message: value.message,
-                              typeCheck: value.isSuccess);
-                        }
-                      });
+                      if (attendanceController.attendanceModel?.status ==
+                          "NotCheck-in") {
+                        attendanceController
+                            .punchInAttendance(
+                          lat: permissionController.latitude.toString(),
+                          lng: permissionController.longitude.toString(),
+                          selfie: permissionController.selfie,
+                        )
+                            .then((value) {
+                          if (value.isSuccess) {
+                            showToast(
+                                message: value.message,
+                                typeCheck: value.isSuccess);
+                          } else {
+                            showToast(
+                                message: value.message,
+                                typeCheck: value.isSuccess);
+                          }
+                        });
+                      } else if (attendanceController.attendanceModel?.status ==
+                          "present") {
+                        attendanceController
+                            .punchOutAttendance(
+                          lat: permissionController.latitude.toString(),
+                          lng: permissionController.longitude.toString(),
+                          selfie: permissionController.selfie,
+                        )
+                            .then((value) {
+                          if (value.isSuccess) {
+                            showToast(
+                                message: value.message,
+                                typeCheck: value.isSuccess);
+                          } else {
+                            showToast(
+                                message: value.message,
+                                typeCheck: value.isSuccess);
+                          }
+                        });
+                      }
                     },
-                    color: greenLight,
-                    borderColor: greenLight,
-                    radius: 32.r,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.login,
-                          color: white,
-                        ),
-                        sizedBoxWidth(width: 12.w),
-                        CustomText(
-                          "Check In",
-                          style:
-                              Helper(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 24.sp,
-                                    color: white,
-                                  ),
-                        ),
-                      ],
-                    ),
+
+                    // {
+                    //   navigate(
+                    //       context: context, page: const AttendanceMartScreen());
+                    // },
                   );
                 });
               })
+              // GetBuilder<AttendanceController>(builder: (attendanceController) {
+              //   return GetBuilder<PermissionController>(
+              //       builder: (permissionController) {
+              //     return CustomButton(
+              //       isLoading: attendanceController.isLoading,
+              //       height: 64.h,
+              //       onTap: () {
+              //         if (permissionController.selfie == null) {
+              //           return showToast(
+              //               message: "Take selfie of you",
+              //               toastType: ToastType.info);
+              //         }
+              //         if ((permissionController.latitude == null) ||
+              //             (permissionController.longitude == null)) {
+              //           permissionController
+              //               .requestLocationPermissionAndFetch(context);
+              //         }
+
+              //         attendanceController
+              //             .punchInAttendance(
+              //           lat: permissionController.latitude.toString(),
+              //           lng: permissionController.longitude.toString(),
+              //           selfie: permissionController.selfie,
+              //         )
+              //             .then((value) {
+              //           if (value.isSuccess) {
+              //             showToast(
+              //                 message: value.message,
+              //                 typeCheck: value.isSuccess);
+              //           } else {
+              //             showToast(
+              //                 message: value.message,
+              //                 typeCheck: value.isSuccess);
+              //           }
+              //         });
+              //       },
+              //       color: greenLight,
+              //       borderColor: greenLight,
+              //       radius: 32.r,
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Icon(
+              //             Icons.login,
+              //             color: white,
+              //           ),
+              //           sizedBoxWidth(width: 12.w),
+              //           CustomText(
+              //             "Check In",
+              //             style:
+              //                 Helper(context).textTheme.titleMedium?.copyWith(
+              //                       fontSize: 24.sp,
+              //                       color: white,
+              //                     ),
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   });
+              // })
             ],
           ),
         ),

@@ -10,8 +10,15 @@ class AttendanceRepo {
 
   Future<Response> punchInAttendance({required FormData data}) async =>
       await apiClient.postData(
-        AppConstants.punchAttendancePost,
+        AppConstants.punchInAttendancePost,
         "punchInAttendance",
+        data,
+      );
+
+  Future<Response> punchOutAttendance({required FormData data}) async =>
+      await apiClient.postData(
+        AppConstants.punchOutAttendancePost,
+        "punchOutAttendance",
         data,
       );
 

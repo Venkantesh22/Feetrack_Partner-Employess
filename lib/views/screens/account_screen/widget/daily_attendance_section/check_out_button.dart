@@ -9,8 +9,10 @@ import 'package:vlr/views/base/custom_button.dart';
 import 'package:vlr/views/screens/attendance_mart/attendance_mart_screen.dart';
 
 class CheckButtonWidget extends StatelessWidget {
+  final Function() onTap;
   const CheckButtonWidget({
     super.key,
+    required this.onTap,
   });
 
   @override
@@ -20,24 +22,22 @@ class CheckButtonWidget extends StatelessWidget {
       IconData? icon;
       Color? color;
       if (attendanceController.attendanceModel?.status == "Not Checked") {
-        title = "Checked out Done";
-        icon = Icons.logout;
-        color = primaryColor;
-      } else if (attendanceController.attendanceModel?.status == "Check out") {
-        title = "Checked Out";
-        icon = Icons.logout;
-        color = redDark;
-      } else if (attendanceController.attendanceModel?.status == "present") {
         title = "Checked In";
         icon = Icons.login;
         color = green;
+      } else if (attendanceController.attendanceModel?.status == "Check out") {
+        title = "Checked out Done";
+        icon = Icons.logout;
+        color = primaryColor;
+      } else if (attendanceController.attendanceModel?.status == "present") {
+        title = "Checked Out";
+        icon = Icons.logout;
+        color = redDark;
       }
 
       return CustomButton(
         height: 48.h,
-        onTap: () {
-          navigate(context: context, page: AttendanceMartScreen());
-        },
+        onTap: onTap,
         color: color,
         borderColor: color,
         child: Row(
