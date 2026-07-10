@@ -1,10 +1,108 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vlr/services/constants.dart';
+import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/custom_button.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/location_details_section/location_details_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/today_attendance_section/check_out_selfe_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/today_attendance_section/today_attendance_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/top_section_attendance_punch_out.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 
 class AttendancePunchOutScreen extends StatelessWidget {
   const AttendancePunchOutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        leading: IconButton(
+            onPressed: () {
+              pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: white,
+            )),
+        centerTitle: true,
+        title: CustomText(
+          "Punch Out Successful",
+          style: Helper(context).textTheme.titleSmall?.copyWith(
+                fontSize: 16,
+                color: white,
+              ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: AppConstants.screenPadding,
+        child: Column(
+          children: [
+            const TopSectionAttendancePunchOutSection(),
+            sizedBoxHeight(height: 26.h),
+            const CheckOutSelfeSection(),
+            sizedBoxHeight(height: 26.h),
+            const TodayAttendanceSection(),
+            sizedBoxHeight(height: 26.h),
+            const LocationDetailSection(),
+            sizedBoxHeight(height: 26.h),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomButton(
+                  height: 56.h,
+                  radius: 12.r,
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.assignment_outlined,
+                        color: white,
+                      ),
+                      sizedBoxWidth(width: 8.w),
+                      CustomText(
+                        "View Attendance History",
+                        style: Helper(context).textTheme.titleMedium?.copyWith(
+                              fontSize: 16.sp,
+                              color: white,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomButton(
+                  height: 56.h,
+                  radius: 12.r,
+                  onTap: () {
+                    navigate(context: context, page: HomeScreen());
+                  },
+                  type: ButtonType.secondary,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.home_outlined,
+                        color: primaryColor,
+                      ),
+                      sizedBoxWidth(width: 8.w),
+                      CustomText(
+                        "Back to Home",
+                        style: Helper(context).textTheme.titleMedium?.copyWith(
+                              fontSize: 16.sp,
+                              color: primaryColor,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

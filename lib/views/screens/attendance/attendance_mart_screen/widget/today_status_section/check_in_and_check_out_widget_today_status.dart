@@ -55,11 +55,7 @@ class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
             ),
             child: CheckInAndCheckOutWidget(
               title: "CHECK OUT TIME",
-              subTitle: (attendanceController.attendanceModel?.checkOut !=
-                          null ||
-                      (attendanceController
-                              .attendanceModel?.checkOut?.isNotEmpty ??
-                          false))
+              subTitle: (attendanceController.attendanceModel?.checkOut != null)
                   ? convertTo12HourFormat(
                       time24:
                           attendanceController.attendanceModel?.checkOut ?? "",

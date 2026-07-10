@@ -46,6 +46,7 @@ Color pinkLight2 = const Color(0xFFFFEDD5);
 //* Green colors
 const Color greenDark = Color(0xFF006A61);
 const Color green = Color(0xFF006C49);
+const Color green2 = Color(0xFF0E9A41);
 const Color greenLight = Color(0xFF108548);
 
 //* Yellow colors

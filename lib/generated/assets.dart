@@ -66,6 +66,10 @@ class Assets {
   /// assets/svgs/location.svg
   static const String svgsLocation = "assets/svgs/location.svg";
 
+  /// Assets for svgsLocationOutline
+  /// assets/svgs/location_outline.svg
+  static const String svgsLocationOutline = "assets/svgs/location_outline.svg";
+
   /// Assets for svgsMegaphone
   /// assets/svgs/Megaphone.svg
   static const String svgsMegaphone = "assets/svgs/Megaphone.svg";

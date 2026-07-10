@@ -126,10 +126,7 @@ class DailyAttendanceSection extends StatelessWidget {
                       title: "Check Out",
                       subTitle:
                           (attendanceController.attendanceModel?.checkOut !=
-                                      null ||
-                                  (attendanceController.attendanceModel
-                                          ?.checkOut?.isNotEmpty ??
-                                      false))
+                                  null)
                               ? convertTo12HourFormat(
                                   time24: attendanceController
                                           .attendanceModel?.checkOut ??

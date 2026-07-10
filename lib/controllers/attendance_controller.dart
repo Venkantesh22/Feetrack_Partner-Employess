@@ -148,6 +148,7 @@ class AttendanceController extends GetxController implements GetxService {
         );
 
         attendanceModel = AttendanceModel.fromJson(response.body['data']);
+        log("message : attendanceModel ${attendanceModel?.checkIn}");
 
         // employeesStatus = attendanceModel.status ;
       } else {

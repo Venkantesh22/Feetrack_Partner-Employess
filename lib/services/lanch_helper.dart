@@ -85,4 +85,18 @@ class LaunchHelper {
       showToast(message: 'No UPI app found or cannot open', typeCheck: false);
     } else {}
   }
+
+  static Future<void> openGoogleMap({
+    required String lat,
+    required String lng,
+  }) async {
+    final url = Uri.parse(
+      "https://www.google.com/maps/search/?api=1&query=$lat,$lng",
+    );
+
+    await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
+  }
 }

@@ -3,7 +3,7 @@ class AttendanceModel {
   final String? employeeId;
   final DateTime? date;
   final String? checkIn;
-  final dynamic checkOut;
+  final String? checkOut;
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -12,12 +12,12 @@ class AttendanceModel {
   final String? checkInLng;
   final dynamic checkInPhoto;
   final String? checkInSelfie;
-  final dynamic checkOutLat;
-  final dynamic checkOutLng;
+  final String? checkOutLat;
+  final String? checkOutLng;
   final dynamic checkOutPhoto;
-  final dynamic checkOutSelfie;
+  final String? checkOutSelfie;
   final String? checkInSelfieUrl;
-  final dynamic checkOutSelfieUrl;
+  final String? checkOutSelfieUrl;
   final dynamic checkInPhotoUrl;
   final dynamic checkOutPhotoUrl;
 

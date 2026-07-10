@@ -99,3 +99,12 @@ String convertTo24Hour(String time12Hour) {
     return '';
   }
 }
+
+String formatDateTime(String dateTime) {
+  final DateTime utcTime = DateTime.parse(dateTime);
+
+  // Convert UTC to local time
+  final DateTime localTime = utcTime.toLocal();
+
+  return DateFormat("dd MMM yyyy, hh:mm a").format(localTime);
+}

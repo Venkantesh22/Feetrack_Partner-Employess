@@ -9,6 +9,7 @@ import 'package:vlr/views/screens/account_screen/widget/account_option_section/a
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/daily_attendance_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/reporting_manager_widget.dart';
 import 'package:vlr/views/screens/account_screen/widget/row_logout_account_delete_section/row_logout_account_delete_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/attendance_punch_out_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -19,14 +20,14 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<AttendanceController>().fetchTodayAttendance();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +52,9 @@ class _AccountScreenState extends State<AccountScreen> {
             )),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              navigate(context: context, page: AttendancePunchOutScreen());
+            },
             icon: Icon(
               Icons.notifications_none_outlined,
               color: white,
