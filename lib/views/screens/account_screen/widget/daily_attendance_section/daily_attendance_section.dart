@@ -9,7 +9,7 @@ import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_in_and_check_out_widget.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_out_button.dart';
-import 'package:vlr/views/screens/attendance_mart/attendance_mart_screen.dart';
+import 'package:vlr/views/screens/attendance/attendance_mart_screen/attendance_mart_screen.dart';
 
 class DailyAttendanceSection extends StatelessWidget {
   const DailyAttendanceSection({

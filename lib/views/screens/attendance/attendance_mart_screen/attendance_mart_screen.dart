@@ -5,8 +5,8 @@ import 'package:vlr/controllers/permission_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/screens/attendance_mart/widget/capture_vetification_section.dart';
-import 'package:vlr/views/screens/attendance_mart/widget/today_status_section/today_status_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_mart_screen/widget/capture_vetification_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_mart_screen/widget/today_status_section/today_status_section.dart';
 
 class AttendanceMartScreen extends StatefulWidget {
   const AttendanceMartScreen({super.key});

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/screens/attendance_mart/widget/today_status_section/calender_widged_today_status.dart';
-import 'package:vlr/views/screens/attendance_mart/widget/today_status_section/check_in_and_check_out_widget_today_status.dart';
+import 'package:vlr/views/screens/attendance/attendance_mart_screen/widget/today_status_section/calender_widged_today_status.dart';
+import 'package:vlr/views/screens/attendance/attendance_mart_screen/widget/today_status_section/check_in_and_check_out_widget_today_status.dart';
 
 class TodayStatus extends StatelessWidget {
   const TodayStatus({

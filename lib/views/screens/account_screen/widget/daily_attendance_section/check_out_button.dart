@@ -6,7 +6,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
-import 'package:vlr/views/screens/attendance_mart/attendance_mart_screen.dart';
+import 'package:vlr/views/screens/attendance/attendance_mart_screen/attendance_mart_screen.dart';
 
 class CheckButtonWidget extends StatelessWidget {
   final Function() onTap;
