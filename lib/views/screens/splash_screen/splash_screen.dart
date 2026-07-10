@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/auth_controller.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/auth_screens/sign_in_screen.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 
 import '../../../services/constants.dart';
 import '../../base/custom_image.dart';
@@ -47,41 +50,41 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (!mounted) return;
 
-    // final authController = Get.find<AuthController>();
+    final authController = Get.find<AuthController>();
 
-    // String token = authController.getUserToken();
+    String token = authController.getUserToken();
 
-    // await authController.fetchProfile();
+    await authController.fetchProfile();
 
-    // if (token.isNotEmpty) {
-    //   final response = await authController.fetchProfile();
+    if (token.isNotEmpty) {
+      final response = await authController.fetchProfile();
 
-    // if (response.isSuccess) {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(builder: (_) => const DashboardScreen()),
-    //   );
-    // } else {
-    // authController.logout();
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 400),
-        pageBuilder: (_, animation, __) => const SignInScreen(),
-        transitionsBuilder: (_, animation, __, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    );
-    // }
-    // } else {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(builder: (_) => const SignInScreen()),
-    //   );
-    // }
+      if (response.isSuccess) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      } else {
+        authController.logOutPost();
+        Navigator.of(context).pushReplacement(
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 400),
+            pageBuilder: (_, animation, __) => const SignInScreen(),
+            transitionsBuilder: (_, animation, __, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
+      }
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const SignInScreen()),
+      );
+    }
   }
 
   @override

@@ -49,6 +49,7 @@ class UserInfoTopHome extends StatelessWidget {
                         height: 60.h,
                         width: 60.w,
                         isProfile: true,
+                        radius: 999,
                         fit: BoxFit.cover,
                       ),
                       sizedBoxWidth(width: 12.w),
