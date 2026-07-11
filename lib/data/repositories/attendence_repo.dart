@@ -26,4 +26,8 @@ class AttendanceRepo {
         AppConstants.todayAttendanceGet,
         "fetchTodayAttendance",
       );
+  Future<Response> fetchAttendanceHistory() async => await apiClient.getData(
+        AppConstants.attendanceHistoryGet,
+        "fetchAttendanceHistory",
+      );
 }

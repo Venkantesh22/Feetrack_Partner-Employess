@@ -165,7 +165,7 @@ class AppConstants {
   static const String loginPost = '/hrms/login';
   static const String logOutPost = '/hrms/logout';
   static const String updateFCMTokenPost = '/partner/fcm-token';
-  static const String deleteAccountPost = '/partner/account/destroy';
+  static const String deleteAccountPost = ' /hrms/account/destroy';
 
   //* profile
   static const String getProfile = '/hrms/profile';
@@ -175,6 +175,7 @@ class AppConstants {
   static const String punchInAttendancePost = '/hrms/attendance/punch-in';
   static const String punchOutAttendancePost = '/hrms/attendance/punch-out';
   static const String todayAttendanceGet = '/hrms/attendance/today';
+  static const String attendanceHistoryGet = '/hrms/attendance/history';
 
   //
   static const double horizontalPadding = 16;

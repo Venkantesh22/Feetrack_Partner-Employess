@@ -35,6 +35,7 @@ Color greyLight3 = const Color(0xFFEBE7E7);
 Color greyLight4 = const Color(0xFFF1F5F9);
 Color greyLight5 = const Color(0xFF94A3B8);
 Color greyLight6 = const Color(0xFFC3C6D7);
+Color greyLight7 = const Color(0xFFF3F4F6);
 Color greyDart = const Color(0xFF73777F);
 Color greyDart2 = const Color(0xFF434654);
 Color greyDart3 = const Color(0xFF475569);
@@ -44,16 +45,18 @@ Color pinLight = const Color(0xFFFBF1F2);
 Color pinkLight2 = const Color(0xFFFFEDD5);
 
 //* Green colors
-const Color greenDark = Color(0xFF006A61);
 const Color green = Color(0xFF006C49);
 const Color green2 = Color(0xFF0E9A41);
+const Color greenDark = Color(0xFF006A61);
+const Color greenDark1 = Color(0xFF006A61);
 const Color greenLight = Color(0xFF108548);
 
 //* Yellow colors
+const Color yellow = Color(0xFFF59E0B);
 const Color goldColor = Color(0xFFFFB400);
 
 //* red colorsp
-// const Color red = Colors.red;
+const Color red = Colors.red;
 const Color red1 = Color(0xFFE11D48);
 const Color redDark = Color(0xFFBA1A1A);
 
