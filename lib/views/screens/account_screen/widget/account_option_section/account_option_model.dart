@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/attendance_history_screen.dart';
+import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendance_history_screen.dart';
+import 'package:vlr/views/screens/attendance/today_team_attendance/today_team_attendance_screen.dart';
 import 'package:vlr/views/screens/leave/apply_leave/apply_leave_screen.dart';
 
 class AccountOptionModel {
@@ -25,12 +27,25 @@ List<AccountOptionModel> accountOptionModelList(
           title: "Apply for Leave",
           onTap: () {
             navigate(context: context, page: const ApplyLeaveScreen());
-            
           }),
       AccountOptionModel(
-          icon: Assets.svgsClock, title: "Attendance History", onTap: () {
-                        navigate(context: context, page: const AttendanceHistoryScreen());
-
+          icon: Assets.svgsClock,
+          title: "Attendance History",
+          onTap: () {
+            navigate(context: context, page: const AttendanceHistoryScreen());
+          }),
+      AccountOptionModel(
+          icon: Assets.svgsClock,
+          title: "Today Team Attendance",
+          onTap: () {
+            navigate(context: context, page: const TodayTeamAttendanceScreen());
+          }),
+      AccountOptionModel(
+          icon: Assets.svgsClock,
+          title: "Team Attendance History",
+          onTap: () {
+            navigate(
+                context: context, page: const TeamAttendanceHistoryScreen());
           }),
       AccountOptionModel(
           icon: Assets.svgsNotification, title: "Notifications", onTap: () {}),

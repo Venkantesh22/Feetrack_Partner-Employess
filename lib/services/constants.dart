@@ -177,6 +177,11 @@ class AppConstants {
   static const String todayAttendanceGet = '/hrms/attendance/today';
   static const String attendanceHistoryGet = '/hrms/attendance/history';
 
+  //* Attendance Team
+  static const String teamAttendanceGet = '/hrms/team-attendance/today';
+  static const String teamAttendanceHistoryGet =
+      '/hrms/team-attendance/history';
+
   //
   static const double horizontalPadding = 16;
   static const double verticalPadding = 20;

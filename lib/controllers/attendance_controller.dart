@@ -289,4 +289,92 @@ class AttendanceController extends GetxController implements GetxService {
   }
 
   DateTime selectedMonth = DateTime.now();
+
+  Future<ResponseModel> fetchTodayTeamAttendance() async {
+    log('----------- fetchTodayTeamAttendance Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Response response = await attendanceRepo.fetchTodayTeamAttendance();
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "fetchTodayTeamAttendance successful",
+        );
+
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
+        log("message : attendanceModel ${attendanceModel?.checkIn}");
+
+        // employeesStatus = attendanceModel.status ;
+      } else {
+        String errorMessage = response.body['message'] ??
+            "Error while fetchTodayTeamAttendance user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT fetchTodayTeamAttendance(): $e');
+      responseModel =
+          ResponseModel(false, "Error while fetchTodayTeamAttendance user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> fetchTeamAttendanceHistory() async {
+    log('----------- fetchTeamAttendanceHistory Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Response response = await attendanceRepo.fetchTeamAttendanceHistory();
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "fetchTeamAttendanceHistory successful",
+        );
+
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
+        log("message : attendanceModel ${attendanceModel?.checkIn}");
+
+        // employeesStatus = attendanceModel.status ;
+      } else {
+        String errorMessage = response.body['message'] ??
+            "Error while fetchTeamAttendanceHistory user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT fetchTeamAttendanceHistory(): $e');
+      responseModel = ResponseModel(
+          false, "Error while fetchTeamAttendanceHistory user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
 }
