@@ -88,7 +88,7 @@ class AttendanceSummarySection extends StatelessWidget {
                 Expanded(
                   flex: 7,
                   child: SizedBox(
-                    height: 120.h,
+                    height: 100.h,
                     child: Row(
                       children: List.generate(
                         list.length * 2,

@@ -5,6 +5,7 @@ import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_list_section/attendance_list_section.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_summary_section/attendance_summary_section.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/select_month_widget.dart';
 import 'package:vlr/views/widget/button/appbar_back_button.dart';
@@ -56,13 +57,15 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Padding(
           padding: AppConstants.screenPadding,
           child: Column(
             children: [
               SelectMonthWidget(),
               sizedBoxHeight(height: 24.h),
-              AttendanceSummarySection()
+              AttendanceSummarySection(),
+              sizedBoxHeight(height: 24.h),
+              AttendanceListSection()
             ],
           ),
         ),

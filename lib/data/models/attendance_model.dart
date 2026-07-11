@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:vlr/services/theme.dart';
+
 class AttendanceModel {
   final int? id;
   final String? employeeId;
@@ -97,4 +101,42 @@ class AttendanceModel {
         "check_in_photo_url": checkInPhotoUrl,
         "check_out_photo_url": checkOutPhotoUrl,
       };
+
+  Color get statusColor => status == "present"
+      ? yellow
+      : status == "Checkout"
+          ? greenDark1
+          : status == "Checkout"
+              ? red1
+              : primaryColor;
+
+  bool get hasCheckOutLocation =>
+      (checkOutLat?.isNotEmpty ?? false) && (checkOutLng?.isNotEmpty ?? false);
+
+  bool get hasCheckInLocation =>
+      (checkInLat?.isNotEmpty ?? false) && (checkInLng?.isNotEmpty ?? false);
+
+  String get location {
+    if (hasCheckOutLocation) {
+      return "$checkOutLat, $checkOutLng";
+    }
+
+    if (hasCheckInLocation) {
+      return "$checkInLat, $checkInLng";
+    }
+
+    return "--";
+  }
+
+  String? get image {
+    if (hasCheckOutLocation) {
+      return checkOutSelfieUrl;
+    }
+
+    if (hasCheckInLocation) {
+      return checkInSelfieUrl;
+    }
+
+    return "";
+  }
 }
