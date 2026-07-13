@@ -5,6 +5,7 @@ import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_in_and_punch_out_widget.dart';
 
 class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
@@ -28,19 +29,23 @@ class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
                 color: greyLight6,
               ),
             ),
-            child: PunchInAndPunchOutWidget(
-                title: "Punch In TIME",
-                subTitle: (attendanceController.attendanceModel?.checkIn !=
-                            null ||
-                        (attendanceController
-                                .attendanceModel?.checkIn?.isNotEmpty ??
-                            false))
-                    ? convertTo12HourFormat(
-                        time24:
-                            attendanceController.attendanceModel?.checkIn ?? "",
-                        isShowAMPM: true,
-                      )
-                    : "-- : --"),
+            child: CustomShimmer(
+              isLoading: attendanceController.isLoading,
+              child: PunchInAndPunchOutWidget(
+                  title: "Punch In Time",
+                  subTitle: (attendanceController.attendanceModel?.checkIn !=
+                              null ||
+                          (attendanceController
+                                  .attendanceModel?.checkIn?.isNotEmpty ??
+                              false))
+                      ? convertTo12HourFormat(
+                          time24:
+                              attendanceController.attendanceModel?.checkIn ??
+                                  "",
+                          isShowAMPM: true,
+                        )
+                      : "-- : --"),
+            ),
           ),
           sizedBoxWidth(width: 6.w),
           Container(
@@ -53,15 +58,20 @@ class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
                 color: greyLight6,
               ),
             ),
-            child: PunchInAndPunchOutWidget(
-              title: "Punch out TIME",
-              subTitle: (attendanceController.attendanceModel?.checkOut != null)
-                  ? convertTo12HourFormat(
-                      time24:
-                          attendanceController.attendanceModel?.checkOut ?? "",
-                      isShowAMPM: true,
-                    )
-                  : "-- : --",
+            child: CustomShimmer(
+              isLoading: attendanceController.isLoading,
+              child: PunchInAndPunchOutWidget(
+                title: "Punch out Time",
+                subTitle: (attendanceController.attendanceModel?.checkOut !=
+                        null)
+                    ? convertTo12HourFormat(
+                        time24:
+                            attendanceController.attendanceModel?.checkOut ??
+                                "",
+                        isShowAMPM: true,
+                      )
+                    : "-- : --",
+              ),
             ),
           ),
         ],

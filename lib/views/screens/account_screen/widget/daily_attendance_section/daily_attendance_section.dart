@@ -99,22 +99,25 @@ class DailyAttendanceSection extends StatelessWidget {
             ),
             Row(
               children: [
-                Expanded(
-                  child: PunchInAndPunchOutWidget(
-                      title: "Punch In",
-                      subTitle:
-                          (attendanceController.attendanceModel?.checkIn !=
-                                      null ||
-                                  (attendanceController.attendanceModel?.checkIn
-                                          ?.isNotEmpty ??
-                                      false))
-                              ? convertTo12HourFormat(
-                                  time24: attendanceController
-                                          .attendanceModel?.checkIn ??
-                                      "",
-                                  isShowAMPM: true,
-                                )
-                              : "-- : --"),
+                CustomShimmer(
+                  isLoading: attendanceController.isLoading,
+                  child: Expanded(
+                    child: PunchInAndPunchOutWidget(
+                        title: "Punch In",
+                        subTitle:
+                            (attendanceController.attendanceModel?.checkIn !=
+                                        null ||
+                                    (attendanceController.attendanceModel
+                                            ?.checkIn?.isNotEmpty ??
+                                        false))
+                                ? convertTo12HourFormat(
+                                    time24: attendanceController
+                                            .attendanceModel?.checkIn ??
+                                        "",
+                                    isShowAMPM: true,
+                                  )
+                                : "-- : --"),
+                  ),
                 ),
                 Container(
                   width: 1,
@@ -122,18 +125,21 @@ class DailyAttendanceSection extends StatelessWidget {
                   color: greyLight6,
                 ),
                 Expanded(
-                  child: PunchInAndPunchOutWidget(
-                      title: "Punch out",
-                      subTitle:
-                          (attendanceController.attendanceModel?.checkOut !=
-                                  null)
-                              ? convertTo12HourFormat(
-                                  time24: attendanceController
-                                          .attendanceModel?.checkOut ??
-                                      "",
-                                  isShowAMPM: true,
-                                )
-                              : "-- : --"),
+                  child: CustomShimmer(
+                    isLoading: attendanceController.isLoading,
+                    child: PunchInAndPunchOutWidget(
+                        title: "Punch out",
+                        subTitle:
+                            (attendanceController.attendanceModel?.checkOut !=
+                                    null)
+                                ? convertTo12HourFormat(
+                                    time24: attendanceController
+                                            .attendanceModel?.checkOut ??
+                                        "",
+                                    isShowAMPM: true,
+                                  )
+                                : "-- : --"),
+                  ),
                 ),
               ],
             ),

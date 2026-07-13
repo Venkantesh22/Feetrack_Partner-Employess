@@ -21,15 +21,15 @@ class PunchButtonWidget extends StatelessWidget {
       IconData? icon;
       Color? color;
       if (attendanceController.attendanceModel?.status == "Not Checked") {
-        title = "PunchedIn";
+        title = "Punch In";
         icon = Icons.login;
         color = green;
       } else if (attendanceController.attendanceModel?.status == "Punch out") {
-        title = "Punchedout Done";
+        title = "Punch out Done";
         icon = Icons.logout;
         color = primaryColor;
       } else if (attendanceController.attendanceModel?.status == "present") {
-        title = "PunchedOut";
+        title = "Punch Out";
         icon = Icons.logout;
         color = redDark;
       }
