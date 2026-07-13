@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
-import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/attendance/team_attendance_history/widget/appbar_and_searchbar.dart';
 import 'package:vlr/views/screens/attendance/team_attendance_history/widget/employee_widget.dart';
 
@@ -14,6 +12,7 @@ class TeamAttendanceHistoryScreen extends StatefulWidget {
   @override
   State<TeamAttendanceHistoryScreen> createState() =>
       _TeamAttendanceHistoryScreenState();
+      
 }
 
 class _TeamAttendanceHistoryScreenState
@@ -37,7 +36,7 @@ class _TeamAttendanceHistoryScreenState
             child: Padding(
               padding: AppConstants.screenPadding,
               child: ListView.separated(
-                padding: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return EmployeeWidget();
                   },

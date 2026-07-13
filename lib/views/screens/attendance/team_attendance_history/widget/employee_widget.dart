@@ -23,7 +23,7 @@ class EmployeeWidget extends StatelessWidget {
           color: white,
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 1),
+              offset: const Offset(0, 1),
               blurRadius: 2,
               spreadRadius: 0,
               color: black.withValues(alpha: 0.05),

@@ -61,11 +61,11 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
           padding: AppConstants.screenPadding,
           child: Column(
             children: [
-              SelectMonthWidget(),
+              const SelectMonthWidget(),
               sizedBoxHeight(height: 24.h),
-              AttendanceSummarySection(),
+              const AttendanceSummarySection(),
               sizedBoxHeight(height: 24.h),
-              AttendanceListSection()
+              const AttendanceListSection()
             ],
           ),
         ),
