@@ -12,7 +12,6 @@ class TeamAttendanceHistoryScreen extends StatefulWidget {
   @override
   State<TeamAttendanceHistoryScreen> createState() =>
       _TeamAttendanceHistoryScreenState();
-      
 }
 
 class _TeamAttendanceHistoryScreenState
@@ -31,7 +30,10 @@ class _TeamAttendanceHistoryScreenState
     return Scaffold(
       body: Column(
         children: [
-          const AppBarAndSearchBar(),
+          AppBarAndSearchBar(
+            title: "Team Attendance History",
+            onChanged: (value) {},
+          ),
           Expanded(
             child: Padding(
               padding: AppConstants.screenPadding,

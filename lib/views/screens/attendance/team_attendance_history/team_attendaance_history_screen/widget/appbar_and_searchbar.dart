@@ -9,8 +9,12 @@ import 'package:vlr/views/widget/button/appbar_back_button.dart';
 import 'package:vlr/views/widget/text_box/app_text_box.dart';
 
 class AppBarAndSearchBar extends StatelessWidget {
+  final String title;
+  final Function(String)? onChanged;
   const AppBarAndSearchBar({
     super.key,
+    required this.title,
+    this.onChanged,
   });
 
   @override
@@ -37,7 +41,7 @@ class AppBarAndSearchBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    "Team Attendance History",
+                    title,
                     style: Helper(context).textTheme.titleLarge?.copyWith(
                           fontSize: 20.sp,
                           color: white,
@@ -76,6 +80,7 @@ class AppBarAndSearchBar extends StatelessWidget {
                 controller: attendanceController.searchBarController,
                 bgColor: white,
                 hindText: "Search employee by name, position, employee id...",
+                onChanged: onChanged,
               ),
             );
           })
