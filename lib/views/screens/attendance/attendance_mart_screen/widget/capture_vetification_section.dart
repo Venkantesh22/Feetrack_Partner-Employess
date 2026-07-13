@@ -10,7 +10,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
-import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_out_button.dart';
+import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_out_button.dart';
 
 class CaptureVerificationSection extends StatelessWidget {
   const CaptureVerificationSection({
@@ -222,7 +222,7 @@ class CaptureVerificationSection extends StatelessWidget {
               GetBuilder<AttendanceController>(builder: (attendanceController) {
                 return GetBuilder<PermissionController>(
                     builder: (permissionController) {
-                  return CheckButtonWidget(
+                  return PunchButtonWidget(
                     onTap: () {
                       if (permissionController.selfie == null) {
                         return showToast(
@@ -331,7 +331,7 @@ class CaptureVerificationSection extends StatelessWidget {
               //           ),
               //           sizedBoxWidth(width: 12.w),
               //           CustomText(
-              //             "Check In",
+              //             "Punch In",
               //             style:
               //                 Helper(context).textTheme.titleMedium?.copyWith(
               //                       fontSize: 24.sp,

@@ -51,7 +51,7 @@ class CheckOutSelfeSection extends StatelessWidget {
               ),
               sizedBoxWidth(width: 8.w),
               CustomText(
-                "Check Out Selfie",
+                "Punch out Selfie",
                 style: Helper(context).textTheme.titleMedium?.copyWith(
                       fontSize: 14,
                       color: blackText1,

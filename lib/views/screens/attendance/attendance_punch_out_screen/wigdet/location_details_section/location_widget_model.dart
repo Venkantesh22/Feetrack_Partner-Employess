@@ -23,7 +23,7 @@ List<LocationWidgetModel> locationWidgetModelList(
     [
       LocationWidgetModel(
           color: green2,
-          title: "Check In Location",
+          title: "Punch In Location",
           lat: attendanceController.attendanceModel?.checkInLat ?? "",
           lng: attendanceController.attendanceModel?.checkInLng ?? "",
           onTap: () {
@@ -34,7 +34,7 @@ List<LocationWidgetModel> locationWidgetModelList(
           }),
       LocationWidgetModel(
           color: red1,
-          title: "Check Out Location",
+          title: "Punch out Location",
           lat: attendanceController.attendanceModel?.checkOutLat ?? "",
           lng: attendanceController.attendanceModel?.checkOutLng ?? "",
           onTap: () {

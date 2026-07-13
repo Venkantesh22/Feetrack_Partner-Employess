@@ -5,7 +5,7 @@ import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_in_and_check_out_widget.dart';
+import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_in_and_punch_out_widget.dart';
 
 class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
   const CheckInandCheckOutWidgetTodayStatus({
@@ -28,8 +28,8 @@ class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
                 color: greyLight6,
               ),
             ),
-            child: CheckInAndCheckOutWidget(
-                title: "CHECK IN TIME",
+            child: PunchInAndPunchOutWidget(
+                title: "Punch In TIME",
                 subTitle: (attendanceController.attendanceModel?.checkIn !=
                             null ||
                         (attendanceController
@@ -53,8 +53,8 @@ class CheckInandCheckOutWidgetTodayStatus extends StatelessWidget {
                 color: greyLight6,
               ),
             ),
-            child: CheckInAndCheckOutWidget(
-              title: "CHECK OUT TIME",
+            child: PunchInAndPunchOutWidget(
+              title: "Punch out TIME",
               subTitle: (attendanceController.attendanceModel?.checkOut != null)
                   ? convertTo12HourFormat(
                       time24:

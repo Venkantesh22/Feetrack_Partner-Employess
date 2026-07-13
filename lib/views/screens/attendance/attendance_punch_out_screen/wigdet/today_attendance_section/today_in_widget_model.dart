@@ -26,7 +26,7 @@ List<TodayInWidgetModel> todayInWidgetModelList(
       TodayInWidgetModel(
         icon: Icons.login,
         color: green2,
-        title: "Check In",
+        title: "Punch In",
         widget: Column(
           children: [
             CustomText(
@@ -54,7 +54,7 @@ List<TodayInWidgetModel> todayInWidgetModelList(
       TodayInWidgetModel(
         icon: Icons.logout,
         color: red1,
-        title: "Check out",
+        title: "Punch out",
         widget: Column(
           children: [
             CustomText(

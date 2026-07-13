@@ -53,7 +53,7 @@ class _AttendanceMartScreenState extends State<AttendanceMartScreen> {
                   ),
             ),
             CustomText(
-              "Capture your selfie and GPS location to check in/out.",
+              "Capture your selfie and GPS location to Punch In/out.",
               style: Helper(context).textTheme.bodySmall?.copyWith(
                     fontSize: 14,
                     color: greyDart2,

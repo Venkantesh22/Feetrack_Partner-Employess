@@ -6,11 +6,10 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
-import 'package:vlr/views/screens/attendance/attendance_mart_screen/attendance_mart_screen.dart';
 
-class CheckButtonWidget extends StatelessWidget {
+class PunchButtonWidget extends StatelessWidget {
   final Function() onTap;
-  const CheckButtonWidget({
+  const PunchButtonWidget({
     super.key,
     required this.onTap,
   });
@@ -22,15 +21,15 @@ class CheckButtonWidget extends StatelessWidget {
       IconData? icon;
       Color? color;
       if (attendanceController.attendanceModel?.status == "Not Checked") {
-        title = "Checked In";
+        title = "PunchedIn";
         icon = Icons.login;
         color = green;
-      } else if (attendanceController.attendanceModel?.status == "Check out") {
-        title = "Checked out Done";
+      } else if (attendanceController.attendanceModel?.status == "Punch out") {
+        title = "Punchedout Done";
         icon = Icons.logout;
         color = primaryColor;
       } else if (attendanceController.attendanceModel?.status == "present") {
-        title = "Checked Out";
+        title = "PunchedOut";
         icon = Icons.logout;
         color = redDark;
       }

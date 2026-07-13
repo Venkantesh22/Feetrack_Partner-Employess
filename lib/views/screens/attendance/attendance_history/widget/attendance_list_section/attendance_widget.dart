@@ -127,7 +127,7 @@ class AttendanceWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CustomText(
-                                      "Check In",
+                                      "Punch In",
                                       style: Helper(context)
                                           .textTheme
                                           .titleMedium
@@ -176,7 +176,7 @@ class AttendanceWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CustomText(
-                                      "Check out",
+                                      "Punch out",
                                       style: Helper(context)
                                           .textTheme
                                           .titleMedium
@@ -430,7 +430,7 @@ class AttendanceWidget extends StatelessWidget {
 //                                   crossAxisAlignment: CrossAxisAlignment.start,
 //                                   children: [
 //                                     CustomText(
-//                                       "Check In",
+//                                       "Punch In",
 //                                       style: Helper(context)
 //                                           .textTheme
 //                                           .titleMedium
@@ -479,7 +479,7 @@ class AttendanceWidget extends StatelessWidget {
 //                                   crossAxisAlignment: CrossAxisAlignment.start,
 //                                   children: [
 //                                     CustomText(
-//                                       "Check out",
+//                                       "Punch out",
 //                                       style: Helper(context)
 //                                           .textTheme
 //                                           .titleMedium

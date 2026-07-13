@@ -7,8 +7,8 @@ import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/shimmer.dart';
-import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_in_and_check_out_widget.dart';
-import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/check_out_button.dart';
+import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_in_and_punch_out_widget.dart';
+import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_out_button.dart';
 import 'package:vlr/views/screens/attendance/attendance_mart_screen/attendance_mart_screen.dart';
 
 class DailyAttendanceSection extends StatelessWidget {
@@ -49,7 +49,7 @@ class DailyAttendanceSection extends StatelessWidget {
           bgColor = green.withValues(alpha: 0.1);
           textColor = greenDark;
         } else if (attendanceController.attendanceModel?.status ==
-            "Check out") {
+            "Punch out") {
           title = attendanceController.attendanceModel?.status;
           bgColor = greyLight6;
           textColor = greyDart3;
@@ -100,8 +100,8 @@ class DailyAttendanceSection extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: CheckInAndCheckOutWidget(
-                      title: "Check In",
+                  child: PunchInAndPunchOutWidget(
+                      title: "Punch In",
                       subTitle:
                           (attendanceController.attendanceModel?.checkIn !=
                                       null ||
@@ -122,8 +122,8 @@ class DailyAttendanceSection extends StatelessWidget {
                   color: greyLight6,
                 ),
                 Expanded(
-                  child: CheckInAndCheckOutWidget(
-                      title: "Check Out",
+                  child: PunchInAndPunchOutWidget(
+                      title: "Punch out",
                       subTitle:
                           (attendanceController.attendanceModel?.checkOut !=
                                   null)
@@ -168,7 +168,7 @@ class DailyAttendanceSection extends StatelessWidget {
                 ],
               ),
             ),
-            CheckButtonWidget(
+            PunchButtonWidget(
               onTap: () {
                 navigate(context: context, page: const AttendanceMartScreen());
               },

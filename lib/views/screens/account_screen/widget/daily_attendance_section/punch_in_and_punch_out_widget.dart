@@ -4,10 +4,10 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 
-class CheckInAndCheckOutWidget extends StatelessWidget {
+class PunchInAndPunchOutWidget extends StatelessWidget {
   final String title;
   final String? subTitle;
-  const CheckInAndCheckOutWidget({
+  const PunchInAndPunchOutWidget({
     super.key,
     required this.title,
     this.subTitle,
