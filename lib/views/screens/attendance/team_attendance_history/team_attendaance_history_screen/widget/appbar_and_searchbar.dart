@@ -37,12 +37,13 @@ class AppBarAndSearchBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    "Team Attendance",
+                    "Team Attendance History",
                     style: Helper(context).textTheme.titleLarge?.copyWith(
                           fontSize: 20.sp,
                           color: white,
                         ),
                   ),
+                  sizedBoxHeight(height: 6.h),
                   CustomText(
                     "Track and manage your team's attendance.",
                     style: Helper(context).textTheme.bodyMedium?.copyWith(
