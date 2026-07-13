@@ -35,7 +35,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
       appBar: AppBar(
         toolbarHeight: 85.h,
         backgroundColor: primaryColor,
-        leading: const AppbarBackButton(),
+        leading: const AppBarBackButton(),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

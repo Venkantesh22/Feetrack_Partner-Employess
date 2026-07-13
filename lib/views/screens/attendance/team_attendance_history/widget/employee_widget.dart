@@ -1,0 +1,109 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vlr/services/constants.dart';
+import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/custom_image.dart';
+
+class EmployeeWidget extends StatelessWidget {
+  const EmployeeWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24.r),
+          border: Border.all(
+            width: 1,
+            color: greyLight1,
+          ),
+          color: white,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 1),
+              blurRadius: 2,
+              spreadRadius: 0,
+              color: black.withValues(alpha: 0.05),
+            )
+          ]),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 64.h,
+            width: 64.w,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  width: 2,
+                  color: greyLight6,
+                )),
+            child: CustomImage(
+              path: Assets.imagesProfile,
+              radius: 999.r,
+              fit: BoxFit.cover,
+            ),
+          ),
+          sizedBoxWidth(width: 16.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  "Venkatesh Rathod",
+                  maxLines: 2,
+                  style: Helper(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 18.sp,
+                        color: blackText3,
+                      ),
+                ),
+                CustomText(
+                  "Developer",
+                  style: Helper(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 14.sp,
+                        color: primaryColor,
+                      ),
+                ),
+                CustomText(
+                  "Employee Id : D1232323",
+                  style: Helper(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 14.sp,
+                      ),
+                ),
+                sizedBoxHeight(height: 16.h),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomText(
+                          "View History",
+                          style:
+                              Helper(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 14.sp,
+                                    color: tertiaryColor,
+                                  ),
+                        ),
+                        SizedBox(width: 4.w),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16.sp,
+                          color: tertiaryColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

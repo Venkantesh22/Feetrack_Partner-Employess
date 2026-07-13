@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/data/models/attendance_model.dart';
 import 'package:vlr/data/models/pagination/pagination_state.dart';
@@ -376,5 +377,14 @@ class AttendanceController extends GetxController implements GetxService {
     isLoading = false;
     update();
     return responseModel;
+  }
+
+  TextEditingController searchBarController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchBarController.dispose();
   }
 }
