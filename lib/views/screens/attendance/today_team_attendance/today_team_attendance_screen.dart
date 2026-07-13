@@ -33,20 +33,22 @@ class _TodayTeamAttendanceScreenState extends State<TodayTeamAttendanceScreen> {
             title: "Today Team Attendance",
             onChanged: (value) {},
           ),
-          Padding(
-            padding: AppConstants.screenPadding,
-            child: Column(
-              children: [
-                TodayTeamAttendanceSummarySection(),
-                ListView.separated(
-                  itemBuilder: (context, index) {
-                    return Container();
-                  },
-                  separatorBuilder: (_, __) => sizedBoxHeight(height: 16.h),
-                  itemCount: 10,
-                  shrinkWrap: true,
-                ),
-              ],
+          Expanded(
+            child: Padding(
+              padding: AppConstants.screenPadding,
+              child: Column(
+                children: [
+                  TodayTeamAttendanceSummarySection(),
+                  ListView.separated(
+                    itemBuilder: (context, index) {
+                      return Container();
+                    },
+                    separatorBuilder: (_, __) => sizedBoxHeight(height: 16.h),
+                    itemCount: 10,
+                    shrinkWrap: true,
+                  ),
+                ],
+              ),
             ),
           )
         ],

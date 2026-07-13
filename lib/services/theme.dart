@@ -55,6 +55,9 @@ const Color greenLight = Color(0xFF108548);
 const Color yellow = Color(0xFFF59E0B);
 const Color goldColor = Color(0xFFFFB400);
 
+//* Organ colors
+const Color organ = Color(0xFFF97316);
+
 //* red colorsp
 const Color red = Colors.red;
 const Color red1 = Color(0xFFE11D48);

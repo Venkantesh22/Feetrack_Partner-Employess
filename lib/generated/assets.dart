@@ -34,6 +34,10 @@ class Assets {
   /// assets/images/splace-bg.jpeg
   static const String imagesSplaceBg = "assets/images/splace-bg.jpeg";
 
+  /// Assets for svgsAbsent
+  /// assets/svgs/Absent.svg
+  static const String svgsAbsent = "assets/svgs/Absent.svg";
+
   /// Assets for svgsCalender
   /// assets/svgs/calender.svg
   static const String svgsCalender = "assets/svgs/calender.svg";
@@ -62,6 +66,10 @@ class Assets {
   /// assets/svgs/Icon-down.svg
   static const String svgsIconDown = "assets/svgs/Icon-down.svg";
 
+  /// Assets for svgsLeave
+  /// assets/svgs/Leave.svg
+  static const String svgsLeave = "assets/svgs/Leave.svg";
+
   /// Assets for svgsList
   /// assets/svgs/List.svg
   static const String svgsList = "assets/svgs/List.svg";
@@ -73,6 +81,10 @@ class Assets {
   /// Assets for svgsLocationOutline
   /// assets/svgs/location_outline.svg
   static const String svgsLocationOutline = "assets/svgs/location_outline.svg";
+
+  /// Assets for svgsLogout
+  /// assets/svgs/logout.svg
+  static const String svgsLogout = "assets/svgs/logout.svg";
 
   /// Assets for svgsMegaphone
   /// assets/svgs/Megaphone.svg
@@ -93,6 +105,10 @@ class Assets {
   /// Assets for svgsPrivacyPolicy
   /// assets/svgs/Privacy-Policy.svg
   static const String svgsPrivacyPolicy = "assets/svgs/Privacy-Policy.svg";
+
+  /// Assets for svgsPunchIn
+  /// assets/svgs/punch-in.svg
+  static const String svgsPunchIn = "assets/svgs/punch-in.svg";
 
   /// Assets for svgsTask
   /// assets/svgs/task.svg
