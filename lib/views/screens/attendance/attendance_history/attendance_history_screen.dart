@@ -65,7 +65,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
               sizedBoxHeight(height: 24.h),
               const AttendanceSummarySection(),
               sizedBoxHeight(height: 24.h),
-              const AttendanceListSection()
+              const Expanded(child: AttendanceListSection())
             ],
           ),
         ),
