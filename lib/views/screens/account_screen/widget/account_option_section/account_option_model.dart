@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/attendance_history_screen.dart';
-import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendance_history_screen.dart';
+import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendaance_history_screen/team_attendance_history_screen.dart';
 import 'package:vlr/views/screens/attendance/today_team_attendance/today_team_attendance_screen.dart';
 import 'package:vlr/views/screens/leave/apply_leave/apply_leave_screen.dart';
 

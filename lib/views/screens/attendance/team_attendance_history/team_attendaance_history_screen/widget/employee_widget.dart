@@ -4,6 +4,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_image.dart';
+import 'package:vlr/views/screens/attendance/team_attendance_history/employee_attendance_history_screen/employee_attendance_history_screen.dart';
 
 class EmployeeWidget extends StatelessWidget {
   const EmployeeWidget({
@@ -77,7 +78,12 @@ class EmployeeWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      navigate(
+                        context: context,
+                        page: const EmployeeAttendanceHistoryScreen(),
+                      );
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

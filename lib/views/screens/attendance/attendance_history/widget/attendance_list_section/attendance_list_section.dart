@@ -80,6 +80,7 @@ class _AttendanceListSectionState extends State<AttendanceListSection> {
           },
           child: ListView.separated(
             controller: scrollController,
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             primary: false,
             physics: const AlwaysScrollableScrollPhysics(),

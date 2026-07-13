@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
-import 'package:vlr/views/screens/attendance/team_attendance_history/widget/appbar_and_searchbar.dart';
-import 'package:vlr/views/screens/attendance/team_attendance_history/widget/employee_widget.dart';
+import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendaance_history_screen/widget/appbar_and_searchbar.dart';
+import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendaance_history_screen/widget/employee_widget.dart';
 
 class TeamAttendanceHistoryScreen extends StatefulWidget {
   const TeamAttendanceHistoryScreen({super.key});
@@ -31,14 +31,14 @@ class _TeamAttendanceHistoryScreenState
     return Scaffold(
       body: Column(
         children: [
-          AppBarAndSearchBar(),
+          const AppBarAndSearchBar(),
           Expanded(
             child: Padding(
               padding: AppConstants.screenPadding,
               child: ListView.separated(
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    return EmployeeWidget();
+                    return const EmployeeWidget();
                   },
                   separatorBuilder: (_, __) => sizedBoxHeight(height: 16.h),
                   shrinkWrap: true,
