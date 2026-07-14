@@ -184,8 +184,7 @@ class AppConstants {
 
   //* Check list point
 
-  // static const String teamAttendanceHistoryGet =
-  // '/hrms/team-attendance/history';
+  static const String checkListPointGet = '/hrms/attendance/checklists';
 
   //
   static const double horizontalPadding = 16;

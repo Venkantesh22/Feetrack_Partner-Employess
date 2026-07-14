@@ -379,6 +379,46 @@ class AttendanceController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  Future<ResponseModel> fetchCheckListPoint() async {
+    log('----------- fetchCheckListPoint Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic>? data = {"mode": "punch_in"};
+      Response response = await attendanceRepo.fetchCheckListPoint(data: data);
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "fetchCheckListPoint successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while fetchCheckListPoint user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT fetchCheckListPoint(): $e');
+      responseModel =
+          ResponseModel(false, "Error while fetchCheckListPoint user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
   TextEditingController searchBarController = TextEditingController();
 
   @override

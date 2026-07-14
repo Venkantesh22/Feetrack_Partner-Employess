@@ -43,7 +43,7 @@ class ApiClient extends GetConnect implements GetxService {
     };
   }
 
- Future<Response> getData(
+  Future<Response> getData(
     String uri,
     String name, {
     Map<String, dynamic>? query,
@@ -55,6 +55,22 @@ class ApiClient extends GetConnect implements GetxService {
       if (kDebugMode) {
         log('====> GetX Call: $uri\nToken: $token');
       }
+      final requestHeaders = headers ?? _mainHeaders;
+
+      // Build full URL
+      final Uri fullUri = Uri.parse("${AppConstants.baseUrl}$uri").replace(
+        queryParameters: query?.map(
+          (key, value) => MapEntry(key, value.toString()),
+        ),
+      );
+
+      log("=========================================");
+      log("GET REQUEST");
+      log("URL     : $fullUri");
+      log("QUERY   : $query");
+      log("HEADERS : $requestHeaders");
+      log("=========================================");
+
       Response response = await get(
         uri,
         contentType: contentType,

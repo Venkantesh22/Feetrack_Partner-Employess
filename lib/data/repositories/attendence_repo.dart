@@ -41,4 +41,12 @@ class AttendanceRepo {
         AppConstants.teamAttendanceHistoryGet,
         "fetchTeamAttendanceHistory",
       );
+
+  Future<Response> fetchCheckListPoint(
+          {required Map<String, dynamic>? data}) async =>
+      await apiClient.getData(
+        AppConstants.checkListPointGet,
+        "fetchCheckListPoint",
+        query: data,
+      );
 }

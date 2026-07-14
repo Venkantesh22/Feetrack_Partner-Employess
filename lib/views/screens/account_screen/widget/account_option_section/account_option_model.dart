@@ -5,6 +5,7 @@ import 'package:vlr/views/screens/attendance/attendance_history/attendance_histo
 import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendaance_history_screen/team_attendance_history_screen.dart';
 import 'package:vlr/views/screens/attendance/today_team_attendance/today_team_attendance_screen.dart';
 import 'package:vlr/views/screens/leave/apply_leave/apply_leave_screen.dart';
+import 'package:vlr/views/screens/privacy_policy/privacy_policy_screen.dart';
 
 class AccountOptionModel {
   final String icon;
@@ -52,7 +53,9 @@ List<AccountOptionModel> accountOptionModelList(
       AccountOptionModel(
           icon: Assets.svgsPrivacyPolicy,
           title: "Privacy Policy",
-          onTap: () {}),
+          onTap: () {
+            navigate(context: context, page: const PrivacyPolicyScreen());
+          }),
       AccountOptionModel(
           icon: Assets.svgsHelpAndSupport,
           title: "Help & Support",
