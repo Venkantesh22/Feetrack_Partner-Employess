@@ -70,6 +70,10 @@ class Assets {
   /// assets/svgs/Icon-down.svg
   static const String svgsIconDown = "assets/svgs/Icon-down.svg";
 
+  /// Assets for svgsInfo
+  /// assets/svgs/info.svg
+  static const String svgsInfo = "assets/svgs/info.svg";
+
   /// Assets for svgsLeave
   /// assets/svgs/Leave.svg
   static const String svgsLeave = "assets/svgs/Leave.svg";

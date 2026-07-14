@@ -27,8 +27,8 @@ class PunchInAndPunchOutWidget extends StatelessWidget {
         sizedBoxHeight(height: 4.h),
         CustomText(
           subTitle ?? "-- : --",
-          style: Helper(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 16.sp,
+          style: Helper(context).textTheme.titleMedium?.copyWith(
+                fontSize: 20.sp,
                 color: green,
               ),
         )

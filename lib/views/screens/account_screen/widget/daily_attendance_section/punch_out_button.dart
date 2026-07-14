@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
+import 'package:vlr/generated/assets.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
@@ -34,7 +36,8 @@ class PunchButtonWidget extends StatelessWidget {
         color = redDark;
       }
 
-      if (attendanceController.attendanceModel?.isNotPunchIn ?? false) {
+      if ((attendanceController.attendanceModel?.isNotPunchIn ?? false) ||
+          (attendanceController.attendanceModel?.isPresent ?? false)) {
         return Column(
           children: [
             CustomButton(
@@ -60,39 +63,93 @@ class PunchButtonWidget extends StatelessWidget {
                 ],
               ),
             ),
-            sizedBoxHeight(height: 16.h),
-            Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
-                  color: greenDark2.withValues(
-                    alpha: 0.1,
-                  ),
-                  border: Border.all(
-                    width: 1,
-                    color: greenDark2.withValues(
-                      alpha: 0.2,
-                    ),
-                  )),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: green2,
-                  ),
-                  sizedBoxWidth(width: 12.w),
-                  Expanded(
-                    child: CustomText(
-                      "Please punch in when you start working.",
-                      style: Helper(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 12,
-                            color: greyDart3,
+            (attendanceController.attendanceModel?.isNotPunchIn ?? false)
+                ? Container(
+                    margin: EdgeInsets.only(top: 16.h),
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: greenDark2.withValues(
+                          alpha: 0.1,
+                        ),
+                        border: Border.all(
+                          width: 1,
+                          color: greenDark2.withValues(
+                            alpha: 0.2,
                           ),
+                        )),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.info_outline,
+                          color: green2,
+                        ),
+                        sizedBoxWidth(width: 12.w),
+                        Expanded(
+                          child: CustomText(
+                            "Please punch in when you start working.",
+                            style:
+                                Helper(context).textTheme.bodySmall?.copyWith(
+                                      fontSize: 12.sp,
+                                      color: greyDart3,
+                                    ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            )
+                  )
+                : (attendanceController.attendanceModel?.isPresent ?? false)
+                    ? Container(
+                        margin: EdgeInsets.only(top: 16.h),
+                        padding: EdgeInsets.all(12.w),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.r),
+                            color: blueLight3.withValues(
+                              alpha: 0.1,
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: blueLight3.withValues(
+                                alpha: 0.2,
+                              ),
+                            )),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              Assets.svgsInfo,
+                            ),
+                            sizedBoxWidth(width: 12.w),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomText(
+                                    "You are currently punched in.",
+                                    style: Helper(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                          fontSize: 12.sp,
+                                          color: blueDark1,
+                                        ),
+                                  ),
+                                  CustomText(
+                                    "Don't forget to punch out.",
+                                    style: Helper(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          fontSize: 11.sp,
+                                          color: blueDark1,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox()
           ],
         );
       }

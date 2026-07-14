@@ -20,6 +20,7 @@ Color whiteSmoke = const Color(0xFFF5ECED);
 
 Color blueLight3 = const Color(0xFF003DA6);
 Color blueDark2 = const Color(0xFF36446E);
+Color blueDark1 = const Color(0xFF1E40AF);
 
 //* purple Colors
 Color purpleLight = const Color(0xFFEADDFF);
