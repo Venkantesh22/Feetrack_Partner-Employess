@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:vlr/services/theme.dart';
 
+enum EmployeesStatus { notPunchIn, present, punchOut, leave }
+
 class AttendanceModel {
   final int? id;
   final String? employeeId;
@@ -56,7 +58,9 @@ class AttendanceModel {
         date: json["date"] == null ? null : DateTime.parse(json["date"]),
         checkIn: json["check_in"],
         checkOut: json["check_out"],
-        status: json["status"],
+        // status: json["status"],
+        status: json["status"] ?? "notPunchIn",
+
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -109,6 +113,11 @@ class AttendanceModel {
           : status == "Checkout"
               ? red1
               : primaryColor;
+
+  bool get isNotPunchIn => status == "notPunchIn";
+  bool get isPresent => status == "present";
+  bool get isPunchOut => status == "punchOut";
+  bool get isLeave => status == "leave";
 
   bool get hasCheckOutLocation =>
       (checkOutLat?.isNotEmpty ?? false) && (checkOutLng?.isNotEmpty ?? false);

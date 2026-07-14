@@ -20,7 +20,7 @@ class PunchButtonWidget extends StatelessWidget {
       String? title;
       IconData? icon;
       Color? color;
-      if (attendanceController.attendanceModel?.status == "Not Checked") {
+      if (attendanceController.attendanceModel?.isNotPunchIn ?? false) {
         title = "Punch In";
         icon = Icons.login;
         color = green;
@@ -34,29 +34,69 @@ class PunchButtonWidget extends StatelessWidget {
         color = redDark;
       }
 
-      return CustomButton(
-        height: 48.h,
-        onTap: onTap,
-        color: color,
-        borderColor: color,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+      if (attendanceController.attendanceModel?.isNotPunchIn ?? false) {
+        return Column(
           children: [
-            Icon(
-              icon,
-              color: white,
-            ),
-            sizedBoxWidth(width: 12.w),
-            CustomText(
-              title ?? "",
-              style: Helper(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 16.sp,
+            CustomButton(
+              height: 48.h,
+              onTap: onTap,
+              color: color,
+              borderColor: color,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
                     color: white,
                   ),
+                  sizedBoxWidth(width: 12.w),
+                  CustomText(
+                    title ?? "",
+                    style: Helper(context).textTheme.bodyLarge?.copyWith(
+                          fontSize: 16.sp,
+                          color: white,
+                        ),
+                  ),
+                ],
+              ),
             ),
+            sizedBoxHeight(height: 16.h),
+            Container(
+              padding: EdgeInsets.all(12.w),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.r),
+                  color: greenDark2.withValues(
+                    alpha: 0.1,
+                  ),
+                  border: Border.all(
+                    width: 1,
+                    color: greenDark2.withValues(
+                      alpha: 0.2,
+                    ),
+                  )),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.info_outline,
+                    color: green2,
+                  ),
+                  sizedBoxWidth(width: 12.w),
+                  Expanded(
+                    child: CustomText(
+                      "Please punch in when you start working.",
+                      style: Helper(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 12,
+                            color: greyDart3,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
-        ),
-      );
+        );
+      }
+      return const SizedBox();
     });
   }
 }

@@ -8,11 +8,7 @@ import 'package:vlr/data/models/pagination/pagination_state.dart';
 import 'package:vlr/data/models/response/response_model.dart';
 import 'package:vlr/data/repositories/attendence_repo.dart';
 
-enum EmployeesStatus {
-  notCheckedIn,
-  present,
-  checkedOut,
-}
+
 
 class AttendanceController extends GetxController implements GetxService {
   final AttendanceRepo attendanceRepo;
@@ -21,7 +17,7 @@ class AttendanceController extends GetxController implements GetxService {
 
   bool isLoading = false;
 
-  EmployeesStatus employeesStatus = EmployeesStatus.notCheckedIn;
+  EmployeesStatus employeesStatus = EmployeesStatus.notPunchIn;
 
   Future<ResponseModel> punchInAttendance({
     required String lat,
