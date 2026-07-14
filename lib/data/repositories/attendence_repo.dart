@@ -49,4 +49,12 @@ class AttendanceRepo {
         "fetchCheckListPoint",
         query: data,
       );
+
+  Future<Response> submitCheckListPoint(
+          {required Map<String, dynamic>? data}) async =>
+      await apiClient.getData(
+        AppConstants.submitCheckListPointGet,
+        "submitCheckListPoint",
+        query: data,
+      );
 }

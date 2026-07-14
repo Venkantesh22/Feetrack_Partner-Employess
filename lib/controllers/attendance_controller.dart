@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/data/models/check_point_model.dart';
 import 'package:vlr/data/models/pagination/pagination_state.dart';
 import 'package:vlr/data/models/response/response_model.dart';
 import 'package:vlr/data/repositories/attendence_repo.dart';
@@ -378,7 +379,7 @@ class AttendanceController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
-
+List<CheckPointModel> checkPointModelList = [];
   Future<ResponseModel> fetchCheckListPoint() async {
     log('----------- fetchCheckListPoint Called ----------');
 
@@ -412,6 +413,50 @@ class AttendanceController extends GetxController implements GetxService {
       log('ERROR AT fetchCheckListPoint(): $e');
       responseModel =
           ResponseModel(false, "Error while fetchCheckListPoint user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> submitCheckListPoint() async {
+    log('----------- submitCheckListPoint Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+       
+      Map<String, dynamic>? data = {
+        "mode": " punch_out",
+        "checklistAnswers" : checkPointModelList
+      };
+      Response response = await attendanceRepo.submitCheckListPoint(data: data);
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "submitCheckListPoint successful",
+        );
+      } else {
+        String errorMessage =
+            response.body['message'] ?? "Error while submitCheckListPoint user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT submitCheckListPoint(): $e');
+      responseModel =
+          ResponseModel(false, "Error while submitCheckListPoint user $e");
     }
 
     isLoading = false;

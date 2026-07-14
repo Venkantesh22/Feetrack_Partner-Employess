@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
+import 'package:vlr/services/constants.dart';
+import 'package:vlr/views/base/custom_button.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
   const PrivacyPolicyScreen({super.key});
@@ -15,12 +17,39 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<AttendanceController>().fetchCheckListPoint();
+      Get.find<AttendanceController>().fetchCheckListPoint()
+        ..then((value) {
+          if (value.isSuccess) {
+            showToast(message: value.message, typeCheck: value.isSuccess);
+          } else {
+            showToast(message: value.message, typeCheck: value.isSuccess);
+          }
+        });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: AppConstants.screenPadding,
+          child: CustomButton(
+            onTap: () {
+              Get.find<AttendanceController>()
+                  .submitCheckListPoint()
+                  .then((value) {
+                if (value.isSuccess) {
+                  showToast(message: value.message, typeCheck: value.isSuccess);
+                } else {
+                  showToast(message: value.message, typeCheck: value.isSuccess);
+                }
+              });
+            },
+            title: "Submit",
+          ),
+        ),
+      ),
+    );
   }
 }
