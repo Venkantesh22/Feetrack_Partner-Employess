@@ -99,9 +99,9 @@ class DailyAttendanceSection extends StatelessWidget {
             ),
             Row(
               children: [
-                CustomShimmer(
-                  isLoading: attendanceController.isLoading,
-                  child: Expanded(
+                Expanded(
+                  child: CustomShimmer(
+                    isLoading: attendanceController.isLoading,
                     child: PunchInAndPunchOutWidget(
                         title: "Punch In",
                         subTitle:
