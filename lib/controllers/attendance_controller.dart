@@ -335,7 +335,8 @@ class AttendanceController extends GetxController implements GetxService {
     update();
 
     try {
-      final Response response = await attendanceRepo.fetchTeamEmployeesList(data : data);
+      final Response response =
+          await attendanceRepo.fetchTeamEmployeesList(data: data);
 
       // log("Raw response body: ${response.body}");
 

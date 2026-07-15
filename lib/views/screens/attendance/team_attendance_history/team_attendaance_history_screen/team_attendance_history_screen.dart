@@ -97,6 +97,7 @@ class _TeamAttendanceHistoryScreenState
                           isLoading: true,
                           child: EmployeeWidget(
                             employeesModel: EmployeesModel(),
+                            isLoading: true,
                           ),
                         );
                       },
@@ -129,6 +130,7 @@ class _TeamAttendanceHistoryScreenState
 
                         return EmployeeWidget(
                           employeesModel: controller.employeesModelList[index],
+                          isLoading: controller.isLoading,
                         );
                       },
                     ),
