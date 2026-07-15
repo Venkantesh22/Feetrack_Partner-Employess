@@ -46,6 +46,10 @@ class Assets {
   /// assets/svgs/calender.svg
   static const String svgsCalender = "assets/svgs/calender.svg";
 
+  /// Assets for svgsCheckCircle
+  /// assets/svgs/check-circle.svg
+  static const String svgsCheckCircle = "assets/svgs/check-circle.svg";
+
   /// Assets for svgsCheckInCircle
   /// assets/svgs/check-in-circle.svg
   static const String svgsCheckInCircle = "assets/svgs/check-in-circle.svg";
@@ -101,6 +105,10 @@ class Assets {
   /// Assets for svgsNotification
   /// assets/svgs/notification.svg
   static const String svgsNotification = "assets/svgs/notification.svg";
+
+  /// Assets for svgsParty
+  /// assets/svgs/party.svg
+  static const String svgsParty = "assets/svgs/party.svg";
 
   /// Assets for svgsPerson
   /// assets/svgs/person.svg

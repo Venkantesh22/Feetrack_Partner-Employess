@@ -180,7 +180,7 @@ class AppConstants {
   //* Attendance Team
   static const String teamAttendanceGet = '/hrms/team-attendance/today';
   static const String teamAttendanceHistoryGet =
-      '/hrms/team-attendance/history';
+      '/hrms/team-attendance/employees';
 
   //* Check list point
 

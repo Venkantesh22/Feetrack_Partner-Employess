@@ -153,6 +153,34 @@ class PunchButtonWidget extends StatelessWidget {
           ],
         );
       }
+      if (attendanceController.attendanceModel?.isPunchOut ?? false) {
+        return Container(
+          padding: EdgeInsets.all(12.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: blueLight3.withValues(alpha: 0.1),
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                Assets.svgsInfo,
+                colorFilter: ColorFilter.mode(blueDark2, BlendMode.srcIn),
+              ),
+              sizedBoxWidth(width: 12.w),
+              Expanded(
+                child: CustomText(
+                  "You have completed your work session. Thank you!",
+                  maxLines: 2,
+                  style: Helper(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 12.sp,
+                        color: greyDart3,
+                      ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
       return const SizedBox();
     });
   }

@@ -76,6 +76,63 @@ class DailyTopMidSection extends StatelessWidget {
           ),
         );
       }
+      if (attendanceController.attendanceModel?.isPunchOut ?? false) {
+        return Container(
+          margin: EdgeInsets.only(
+            top: 16.h,
+            left: 24.w,
+            right: 24.w,
+          ),
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.r),
+            color: greenDark2.withValues(
+              alpha: 0.2,
+            ),
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                Assets.svgsCheckCircle,
+              ),
+              sizedBoxWidth(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      "Punch Out Successful!",
+                      textAlign: TextAlign.center,
+                      style: Helper(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 14.sp,
+                            color: greenDark2,
+                          ),
+                    ),
+                    CustomText(
+                      "Have a great day!",
+                      textAlign: TextAlign.center,
+                      style: Helper(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 12.sp,
+                            color: greenDark2,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              SvgPicture.asset(
+                Assets.svgsParty,
+                height: 40.h,
+                width: 40.w,
+                fit: BoxFit.cover,
+                colorFilter: const ColorFilter.mode(
+                  greenDark2,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ],
+          ),
+        );
+      }
       return SizedBox();
     });
   }
