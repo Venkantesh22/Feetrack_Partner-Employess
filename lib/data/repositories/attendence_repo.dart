@@ -50,11 +50,10 @@ class AttendanceRepo {
         query: data,
       );
 
-  Future<Response> submitCheckListPoint(
-          {required Map<String, dynamic>? data}) async =>
-      await apiClient.getData(
+  Future<Response> submitCheckListPoint({required FormData data}) async =>
+      await apiClient.postData(
         AppConstants.submitCheckListPointGet,
         "submitCheckListPoint",
-        query: data,
+        data,
       );
 }

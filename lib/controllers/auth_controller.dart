@@ -19,9 +19,9 @@ class AuthController extends GetxController implements GetxService {
   bool get acceptTerms => _acceptTerms;
 
   TextEditingController emailController =
-      TextEditingController(text: "venkatesh2420023@gmail.com");
+      TextEditingController(text: "app@tpipay.ai");
   TextEditingController passwordController =
-      TextEditingController(text: "Ven12345678");
+      TextEditingController(text: "Tpipay@123");
   TextEditingController confirmPasswordController =
       TextEditingController(text: "Ven12345678");
   TextEditingController fullNameController =

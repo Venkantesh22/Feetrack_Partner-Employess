@@ -56,10 +56,10 @@ class AttendanceModel {
         id: json["id"],
         employeeId: json["employee_id"],
         date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        checkIn: json["check_in"] ?? "09:15 AM",
-        checkOut: json["check_out"] ?? "06:15 PM",
+        checkIn: json["check_in"],
+        checkOut: json["check_out"],
         // status: json["status"],
-        status: json["status"] ?? "punchOut",
+        status: json["status"] ?? "notPunchIn",
 
         createdAt: json["created_at"] == null
             ? null

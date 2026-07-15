@@ -18,7 +18,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<AttendanceController>().fetchCheckListPoint()
-        ..then((value) {
+        .then((value) {
           if (value.isSuccess) {
             showToast(message: value.message, typeCheck: value.isSuccess);
           } else {
@@ -39,11 +39,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               Get.find<AttendanceController>()
                   .submitCheckListPoint()
                   .then((value) {
-                if (value.isSuccess) {
-                  showToast(message: value.message, typeCheck: value.isSuccess);
-                } else {
-                  showToast(message: value.message, typeCheck: value.isSuccess);
-                }
+
               });
             },
             title: "Submit",

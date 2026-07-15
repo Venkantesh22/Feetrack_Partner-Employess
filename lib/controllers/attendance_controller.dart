@@ -8,8 +8,6 @@ import 'package:vlr/data/models/pagination/pagination_state.dart';
 import 'package:vlr/data/models/response/response_model.dart';
 import 'package:vlr/data/repositories/attendence_repo.dart';
 
-
-
 class AttendanceController extends GetxController implements GetxService {
   final AttendanceRepo attendanceRepo;
 
@@ -375,7 +373,8 @@ class AttendanceController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
-List<CheckPointModel> checkPointModelList = [];
+
+  List<CheckPointModel> checkPointModelList = [];
   Future<ResponseModel> fetchCheckListPoint() async {
     log('----------- fetchCheckListPoint Called ----------');
 
@@ -392,6 +391,12 @@ List<CheckPointModel> checkPointModelList = [];
           true,
           response.body['message'] ?? "fetchCheckListPoint successful",
         );
+        final List data = response.body['data'];
+
+        checkPointModelList =
+            data.map((e) => CheckPointModel.fromJson(e)).toList();
+
+        log("checkPointModelList : ${checkPointModelList.length}");
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while fetchCheckListPoint user";
@@ -416,6 +421,17 @@ List<CheckPointModel> checkPointModelList = [];
     return responseModel;
   }
 
+  void updateCheckListPoint({required int id}) {
+    final index = checkPointModelList.indexWhere((e) => e.id == id);
+
+    if (index != -1) {
+      checkPointModelList[index].isCheck =
+          !(checkPointModelList[index].isCheck ?? false);
+
+      update();
+    }
+  }
+
   Future<ResponseModel> submitCheckListPoint() async {
     log('----------- submitCheckListPoint Called ----------');
 
@@ -424,12 +440,13 @@ List<CheckPointModel> checkPointModelList = [];
     update();
 
     try {
-       
       Map<String, dynamic>? data = {
         "mode": " punch_out",
-        "checklistAnswers" : checkPointModelList
+        "checklistAnswers": checkPointModelList
       };
-      Response response = await attendanceRepo.submitCheckListPoint(data: data);
+      Response response = await attendanceRepo.submitCheckListPoint(
+        data: FormData(data),
+      );
 
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
