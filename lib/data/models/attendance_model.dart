@@ -2,7 +2,16 @@ import 'dart:ui';
 
 import 'package:vlr/services/theme.dart';
 
-enum EmployeesStatus { notPunchIn, working, punchOut, leave }
+enum EmployeesStatus {
+  notPunchIn,
+  punchIn,
+  punchOut,
+  leave,
+  weekOff,
+  holiday,
+  absent,
+  halfDay
+}
 
 class AttendanceModel {
   final int? id;
@@ -106,14 +115,6 @@ class AttendanceModel {
         "check_out_photo_url": checkOutPhotoUrl,
       };
 
-  Color get statusColor => status == "present"
-      ? yellow
-      : status == "Checkout"
-          ? greenDark1
-          : status == "Checkout"
-              ? red1
-              : primaryColor;
-
   bool get isNotPunchIn => status == "notPunchIn";
   bool get isWorking => status == "working";
   bool get isPunchOut => status == "punchOut";
@@ -124,6 +125,14 @@ class AttendanceModel {
 
   bool get hasCheckInLocation =>
       (checkInLat?.isNotEmpty ?? false) && (checkInLng?.isNotEmpty ?? false);
+
+  Color get statusColor => status == "present"
+      ? yellow
+      : status == "Checkout"
+          ? greenDark1
+          : status == "Checkout"
+              ? red1
+              : primaryColor;
 
   String get location {
     if (hasCheckOutLocation) {
@@ -148,4 +157,33 @@ class AttendanceModel {
 
     return "";
   }
+}
+
+class EmployeesAttendanceSummaryModel {
+  final int? present;
+  final int? working;
+  final int? absent;
+  final int? leave;
+
+  EmployeesAttendanceSummaryModel({
+    this.present,
+    this.working,
+    this.absent,
+    this.leave,
+  });
+
+  factory EmployeesAttendanceSummaryModel.fromJson(Map<String, dynamic> json) =>
+      EmployeesAttendanceSummaryModel(
+        present: json["present"],
+        working: json["working"],
+        absent: json["absent"],
+        leave: json["leave"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "present": present,
+        "working": working,
+        "absent": absent,
+        "leave": leave,
+      };
 }

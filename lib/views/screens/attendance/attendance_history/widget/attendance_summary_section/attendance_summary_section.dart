@@ -37,7 +37,7 @@ class AttendanceSummarySection extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 1),
+              offset: const Offset(0, 1),
               spreadRadius: 0,
               blurRadius: 12,
               color: black.withValues(

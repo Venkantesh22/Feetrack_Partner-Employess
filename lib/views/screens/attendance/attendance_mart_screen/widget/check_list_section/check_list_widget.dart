@@ -30,7 +30,7 @@ class CheckListPointWidget extends StatelessWidget {
         GetBuilder<AttendanceController>(builder: (attendanceController) {
           return Checkbox(
             activeColor: blueLight3,
-            value: checkPointModel?.isCheck ?? false,
+            value: checkPointModel?.isChecked ?? false,
             onChanged: (value) {
               attendanceController.updateCheckListPoint(
                   id: checkPointModel?.id ?? 0);

@@ -24,7 +24,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<AttendanceController>().fetchAttendanceHistoryPagination();
+      Get.find<AttendanceController>().fetchAttendanceHistory();
     });
   }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
+import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_list_section/attendance_widget.dart';
 
 class AttendanceListSection extends StatefulWidget {
@@ -11,51 +13,21 @@ class AttendanceListSection extends StatefulWidget {
 }
 
 class _AttendanceListSectionState extends State<AttendanceListSection> {
-  final AttendanceController controller = Get.find<AttendanceController>();
-
-  final ScrollController scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
 
-    scrollController.addListener(_scrollListener);
-  }
-
-  void _scrollListener() {
-    if (!scrollController.hasClients) return;
-
-    if (scrollController.position.pixels >=
-        scrollController.position.maxScrollExtent - 150) {
-      if (!controller.attendanceState.isMoreLoading &&
-          !controller.attendanceState.isInitialLoading &&
-          controller.attendanceState.canLoadMore) {
-        controller.fetchAttendanceHistoryPagination(loadMore: true);
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    scrollController.removeListener(_scrollListener);
-    scrollController.dispose();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<AttendanceController>().fetchAttendanceHistory();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(
-      builder: (_) {
-        /// Initial Loading
-        if (controller.attendanceState.isInitialLoading &&
-            controller.attendanceList.isEmpty) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        /// Empty State
-        if (controller.attendanceList.isEmpty) {
+      builder: (attendanceController) {
+        if (!attendanceController.isLoading &&
+            attendanceController.attendanceList.isEmpty) {
           return Center(
             child: Column(
               children: [
@@ -63,7 +35,7 @@ class _AttendanceListSectionState extends State<AttendanceListSection> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    controller.fetchAttendanceHistoryPagination();
+                    attendanceController.fetchAttendanceHistory();
                   },
                   child: const Text("Retry"),
                 ),
@@ -72,36 +44,26 @@ class _AttendanceListSectionState extends State<AttendanceListSection> {
           );
         }
 
-        return RefreshIndicator(
-          onRefresh: () async {
-            await controller.fetchAttendanceHistoryPagination(
-              refresh: true,
+        return ListView.separated(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          primary: false,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: attendanceController.isLoading
+              ? 4
+              : attendanceController.attendanceList.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 12),
+          itemBuilder: (context, index) {
+            final model = attendanceController.isLoading
+                ? AttendanceModel()
+                : attendanceController.attendanceList[index];
+            return CustomShimmer(
+              isLoading: attendanceController.isLoading,
+              child: AttendanceWidget(
+                attendanceModel: model,
+              ),
             );
           },
-          child: ListView.separated(
-            controller: scrollController,
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            primary: false,
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: controller.attendanceList.length +
-                (controller.attendanceState.isMoreLoading ? 1 : 0),
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, index) {
-              if (index == controller.attendanceList.length) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-
-              return AttendanceWidget(
-                attendanceModel: controller.attendanceList[index],
-              );
-            },
-          ),
         );
       },
     );

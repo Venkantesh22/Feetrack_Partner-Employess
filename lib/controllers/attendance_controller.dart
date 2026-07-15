@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/data/models/attendance_model.dart';
 import 'package:vlr/data/models/check_point_model.dart';
+import 'package:vlr/data/models/employee_model.dart';
 import 'package:vlr/data/models/pagination/pagination_state.dart';
 import 'package:vlr/data/models/response/response_model.dart';
 import 'package:vlr/data/repositories/attendence_repo.dart';
@@ -172,117 +173,168 @@ class AttendanceController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  final PaginationState<AttendanceModel> attendanceState =
-      PaginationState<AttendanceModel>();
+  List<AttendanceModel> attendanceList = [];
+  EmployeesAttendanceSummaryModel? employeesAttendanceSummaryModel;
+  EmployeesModel? employeesModel;
+  Future<ResponseModel> fetchAttendanceHistory() async {
+    log('----------- fetchTodayAttendance Called ----------');
 
-  List<AttendanceModel> get attendanceList => attendanceState.items;
-
-  Future<ResponseModel> fetchAttendanceHistoryPagination({
-    bool loadMore = false,
-    bool refresh = false,
-  }) async {
-    log('searchFetchCategoriesListingPagination called '
-        '(loadMore: $loadMore, refresh: $refresh)');
-
-    ResponseModel responseModel = ResponseModel(false, "Unknown error");
-
-    if (refresh) {
-      attendanceState.page = 1;
-      attendanceState.lastPage = 1;
-      attendanceState.items.clear();
-      attendanceState.dedupeIds.clear();
-    }
-
-    if (loadMore) {
-      if (!attendanceState.canLoadMore) {
-        return ResponseModel(false, "No more pages");
-      }
-      attendanceState.isMoreLoading = true;
-      attendanceState.page += 1;
-    } else {
-      attendanceState.isInitialLoading = true;
-      attendanceState.page = 1;
-      attendanceState.items.clear();
-      attendanceState.dedupeIds.clear();
-    }
-
+    ResponseModel responseModel;
+    isLoading = true;
     update();
 
     try {
-      final Response response = await attendanceRepo.fetchAttendanceHistory();
+      Response response = await attendanceRepo.fetchAttendanceHistory();
 
-      // log("Raw response body: ${response.body}");
-
-      if (response.statusCode != 200) {
-        responseModel =
-            ResponseModel(false, "Status code: ${response.statusCode}");
-      } else if (response.body is Map<String, dynamic> &&
-          response.body['status'] == "success") {
-        final paginated = response.body['data'];
-
-        if (paginated is Map<String, dynamic> && paginated['data'] is List) {
-          final List itemsJson = paginated['data'] as List;
-
-          final List<AttendanceModel> parsedData = itemsJson
-              .map((e) => AttendanceModel.fromJson(e as Map<String, dynamic>))
-              .toList();
-
-          final int currentPage =
-              int.tryParse(paginated['current_page'].toString()) ??
-                  attendanceState.page;
-          final int lastPage =
-              int.tryParse(paginated['last_page'].toString()) ?? currentPage;
-
-          attendanceState.lastPage = lastPage;
-          attendanceState.page = currentPage;
-
-          if (loadMore) {
-            for (final item in parsedData) {
-              if (!attendanceState.dedupeIds.contains(item.id)) {
-                attendanceState.dedupeIds.add(item.id);
-                attendanceState.items.add(item);
-              }
-            }
-          } else {
-            attendanceState.items
-              ..clear()
-              ..addAll(parsedData);
-
-            attendanceState.dedupeIds
-              ..clear()
-              ..addAll(parsedData.map((e) => e.id));
-          }
-
-          log("Listing count: ${attendanceState.items.length}");
-          responseModel = ResponseModel(
-            true,
-            response.body['message'] ??
-                "success searchFetchCategoriesListingPagination",
-          );
-        } else {
-          responseModel =
-              ResponseModel(false, "Invalid listing response format");
-        }
-      } else {
+      if (response.body['status'] == "success") {
         responseModel = ResponseModel(
-          false,
-          response.body is Map<String, dynamic>
-              ? (response.body['message'] ??
-                  "Error while searchFetchCategoriesListingPagination")
-              : "Invalid server response",
+          true,
+          response.body['message'] ?? "fetchAttendanceHistory successful",
         );
+
+        final List data = response.body['data'];
+        final summaryData = response.body['summary'];
+        final employeeData = response.body['employee'];
+
+        employeesModel = EmployeesModel.fromJson(employeeData);
+        employeesAttendanceSummaryModel =
+            EmployeesAttendanceSummaryModel.fromJson(summaryData);
+        attendanceList = data.map((e) => AttendanceModel.fromJson(e)).toList();
+      } else {
+        String errorMessage = response.body['message'] ??
+            "Error while fetchAttendanceHistory user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
       }
     } catch (e) {
-      log('ERROR AT searchFetchCategoriesListingPagination(): $e');
-      responseModel = ResponseModel(
-          false, "Error while searchFetchCategoriesListingPagination $e");
+      log('ERROR AT fetchAttendanceHistory(): $e');
+      responseModel =
+          ResponseModel(false, "Error while fetchAttendanceHistory user $e");
     }
 
-    attendanceState.isInitialLoading = false;
-    attendanceState.isMoreLoading = false;
+    isLoading = false;
     update();
     return responseModel;
   }
+
+  // final PaginationState<AttendanceModel> attendanceState =
+  //     PaginationState<AttendanceModel>();
+
+  // List<AttendanceModel> get attendanceList => attendanceState.items;
+
+  // Future<ResponseModel> fetchAttendanceHistoryPagination({
+  //   bool loadMore = false,
+  //   bool refresh = false,
+  // }) async {
+  //   log('searchFetchCategoriesListingPagination called '
+  //       '(loadMore: $loadMore, refresh: $refresh)');
+
+  //   ResponseModel responseModel = ResponseModel(false, "Unknown error");
+
+  //   if (refresh) {
+  //     attendanceState.page = 1;
+  //     attendanceState.lastPage = 1;
+  //     attendanceState.items.clear();
+  //     attendanceState.dedupeIds.clear();
+  //   }
+
+  //   if (loadMore) {
+  //     if (!attendanceState.canLoadMore) {
+  //       return ResponseModel(false, "No more pages");
+  //     }
+  //     attendanceState.isMoreLoading = true;
+  //     attendanceState.page += 1;
+  //   } else {
+  //     attendanceState.isInitialLoading = true;
+  //     attendanceState.page = 1;
+  //     attendanceState.items.clear();
+  //     attendanceState.dedupeIds.clear();
+  //   }
+
+  //   update();
+
+  //   try {
+  //     final Response response = await attendanceRepo.fetchAttendanceHistory();
+
+  //     // log("Raw response body: ${response.body}");
+
+  //     if (response.statusCode != 200) {
+  //       responseModel =
+  //           ResponseModel(false, "Status code: ${response.statusCode}");
+  //     } else if (response.body is Map<String, dynamic> &&
+  //         response.body['status'] == "success") {
+  //       final paginated = response.body['data'];
+
+  //       if (paginated is Map<String, dynamic> && paginated['data'] is List) {
+  //         final List itemsJson = paginated['data'] as List;
+
+  //         final List<AttendanceModel> parsedData = itemsJson
+  //             .map((e) => AttendanceModel.fromJson(e as Map<String, dynamic>))
+  //             .toList();
+
+  //         final int currentPage =
+  //             int.tryParse(paginated['current_page'].toString()) ??
+  //                 attendanceState.page;
+  //         final int lastPage =
+  //             int.tryParse(paginated['last_page'].toString()) ?? currentPage;
+
+  //         attendanceState.lastPage = lastPage;
+  //         attendanceState.page = currentPage;
+
+  //         if (loadMore) {
+  //           for (final item in parsedData) {
+  //             if (!attendanceState.dedupeIds.contains(item.id)) {
+  //               attendanceState.dedupeIds.add(item.id);
+  //               attendanceState.items.add(item);
+  //             }
+  //           }
+  //         } else {
+  //           attendanceState.items
+  //             ..clear()
+  //             ..addAll(parsedData);
+
+  //           attendanceState.dedupeIds
+  //             ..clear()
+  //             ..addAll(parsedData.map((e) => e.id));
+  //         }
+
+  //         log("Listing count: ${attendanceState.items.length}");
+  //         responseModel = ResponseModel(
+  //           true,
+  //           response.body['message'] ??
+  //               "success searchFetchCategoriesListingPagination",
+  //         );
+  //       } else {
+  //         responseModel =
+  //             ResponseModel(false, "Invalid listing response format");
+  //       }
+  //     } else {
+  //       responseModel = ResponseModel(
+  //         false,
+  //         response.body is Map<String, dynamic>
+  //             ? (response.body['message'] ??
+  //                 "Error while searchFetchCategoriesListingPagination")
+  //             : "Invalid server response",
+  //       );
+  //     }
+  //   } catch (e) {
+  //     log('ERROR AT searchFetchCategoriesListingPagination(): $e');
+  //     responseModel = ResponseModel(
+  //         false, "Error while searchFetchCategoriesListingPagination $e");
+  //   }
+
+  //   attendanceState.isInitialLoading = false;
+  //   attendanceState.isMoreLoading = false;
+  //   update();
+  //   return responseModel;
+  // }
 
   DateTime selectedMonth = DateTime.now();
 
@@ -431,8 +483,8 @@ class AttendanceController extends GetxController implements GetxService {
     final index = checkPointModelList.indexWhere((e) => e.id == id);
 
     if (index != -1) {
-      checkPointModelList[index].isCheck =
-          !(checkPointModelList[index].isCheck ?? false);
+      checkPointModelList[index].isChecked =
+          !(checkPointModelList[index].isChecked ?? false);
 
       update();
     }
@@ -446,13 +498,14 @@ class AttendanceController extends GetxController implements GetxService {
     update();
 
     try {
-      Map<String, dynamic>? data = {
+      Map<String, dynamic> data = {
         "mode": (attendanceModel?.isNotPunchIn ?? false)
             ? "punch_in"
             : (attendanceModel?.isWorking ?? false)
                 ? "punch_out"
                 : "",
-        "checklistAnswers": checkPointModelList
+        "checklistAnswers":
+            checkPointModelList.map((e) => e.toSubmitJson()).toList(),
       };
       Response response = await attendanceRepo.submitCheckListPoint(
         data: FormData(data),
