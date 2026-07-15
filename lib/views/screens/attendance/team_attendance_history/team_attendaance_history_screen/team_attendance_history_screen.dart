@@ -21,7 +21,6 @@ class TeamAttendanceHistoryScreen extends StatefulWidget {
 class _TeamAttendanceHistoryScreenState
     extends State<TeamAttendanceHistoryScreen> {
   late final ScrollController _scrollController;
-
   Timer? _debounce;
 
   @override
@@ -85,6 +84,7 @@ class _TeamAttendanceHistoryScreenState
               padding: AppConstants.screenPadding,
               child: GetBuilder<AttendanceController>(
                 builder: (controller) {
+                  // Uses the corrected non-conflicting getter
                   if (controller.isLoading &&
                       controller.employeesModelList.isEmpty) {
                     return ListView.separated(
@@ -101,6 +101,13 @@ class _TeamAttendanceHistoryScreenState
                           ),
                         );
                       },
+                    );
+                  }
+
+                  // Optional Empty State
+                  if (controller.employeesModelList.isEmpty) {
+                    return const Center(
+                      child: Text("No records found"),
                     );
                   }
 
@@ -128,8 +135,13 @@ class _TeamAttendanceHistoryScreenState
                           );
                         }
 
+                        // Uses isInitialLoading to safely select model mock or real data
+                        final model = controller.isLoading
+                            ? EmployeesModel()
+                            : controller.employeesModelList[index];
+
                         return EmployeeWidget(
-                          employeesModel: controller.employeesModelList[index],
+                          employeesModel: model,
                           isLoading: controller.isLoading,
                         );
                       },

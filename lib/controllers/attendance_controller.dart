@@ -195,6 +195,8 @@ class AttendanceController extends GetxController implements GetxService {
       Response response =
           await attendanceRepo.fetchAttendanceHistory(data: data);
 
+      log("Raw Response: ${response.body}");
+
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
           true,
@@ -251,6 +253,7 @@ class AttendanceController extends GetxController implements GetxService {
 
   DateTime selectedMonth = DateTime.now();
 
+  List<EmployeesModel> employeesModelTodayAttendanceList = [];
   Future<ResponseModel> fetchTodayTeamAttendance() async {
     log('----------- fetchTodayTeamAttendance Called ----------');
 
@@ -267,10 +270,19 @@ class AttendanceController extends GetxController implements GetxService {
           response.body['message'] ?? "fetchTodayTeamAttendance successful",
         );
 
-        attendanceModel = AttendanceModel.fromJson(response.body['data']);
-        log("message : attendanceModel ${attendanceModel?.checkIn}");
+        final List<dynamic> data = response.body['data'] ?? [];
+        final summar = response.body['summary'] ?? [];
 
-        // employeesStatus = attendanceModel.status ;
+        employeesAttendanceSummaryModel =
+            EmployeesAttendanceSummaryModel.fromJson(summar);
+
+        employeesModelTodayAttendanceList = data
+            .map((e) => EmployeesModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+
+        log(
+          "employeesModelTodayAttendanceList : ${employeesModelTodayAttendanceList.length}",
+        );
       } else {
         String errorMessage = response.body['message'] ??
             "Error while fetchTodayTeamAttendance user";
@@ -532,5 +544,61 @@ class AttendanceController extends GetxController implements GetxService {
     // TODO: implement dispose
     super.dispose();
     searchBarController.dispose();
+  }
+
+  EmployeesModel? selectEmployeeModel;
+
+  void updateSelectEmployeeModel({
+    required EmployeesModel employeesModel,
+  }) {
+    selectEmployeeModel = employeesModel;
+    update();
+  }
+
+  Future<ResponseModel> fetchTeamEmployeeAttendanceList() async {
+    log('----------- fetchTeamEmployeeAttendanceList Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {
+        "employee_id": selectEmployeeModel?.id ?? "",
+        "month": selectedMonth.month,
+        "year": selectedMonth.year,
+      };
+      Response response = await attendanceRepo.fetchTeamEmployeeAttendanceList(
+        data: data,
+      );
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ??
+              "fetchTeamEmployeeAttendanceList successful",
+        );
+      } else {
+        String errorMessage = response.body['message'] ??
+            "Error while fetchTeamEmployeeAttendanceList user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT fetchTeamEmployeeAttendanceList(): $e');
+      responseModel = ResponseModel(
+          false, "Error while fetchTeamEmployeeAttendanceList user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
   }
 }

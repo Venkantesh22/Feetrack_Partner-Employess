@@ -1,51 +1,55 @@
 class EmployeesModel {
-    final String? id;
-    final dynamic createdBy;
-    final String? parentId;
-    final String? departmentId;
-    final String? reportingTo;
-    final String? name;
-    final String? email;
-    final String? mobile;
-    final String? role;
-    final String? status;
-    final String? walletBalance;
-    final String? basicSalary;
-    final dynamic emailVerifiedAt;
-    final dynamic mobileVerifiedAt;
-    final dynamic profileImage;
-    final dynamic fcmToken;
-    final DateTime? createdAt;
-    final DateTime? updatedAt;
-    final dynamic deletedAt;
-    final String? todayStatus;
-    final dynamic profileImageUrl;
+  final String? id;
+  final dynamic createdBy;
+  final String? parentId;
+  final String? departmentId;
+  final String? reportingTo;
+  final String? name;
+  final String? email;
+  final String? mobile;
+  final String? role;
+  final String? status;
+  final String? walletBalance;
+  final String? basicSalary;
+  final dynamic emailVerifiedAt;
+  final dynamic mobileVerifiedAt;
+  final dynamic profileImage;
+  final dynamic fcmToken;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final dynamic deletedAt;
+  final String? todayStatus;
+  final String? checkInTime;
+  final String? checkOutTime;
+  final dynamic profileImageUrl;
 
-    EmployeesModel({
-        this.id,
-        this.createdBy,
-        this.parentId,
-        this.departmentId,
-        this.reportingTo,
-        this.name,
-        this.email,
-        this.mobile,
-        this.role,
-        this.status,
-        this.walletBalance,
-        this.basicSalary,
-        this.emailVerifiedAt,
-        this.mobileVerifiedAt,
-        this.profileImage,
-        this.fcmToken,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.todayStatus,
-        this.profileImageUrl,
-    });
+  EmployeesModel({
+    this.id,
+    this.createdBy,
+    this.parentId,
+    this.departmentId,
+    this.reportingTo,
+    this.name,
+    this.email,
+    this.mobile,
+    this.role,
+    this.status,
+    this.walletBalance,
+    this.basicSalary,
+    this.emailVerifiedAt,
+    this.mobileVerifiedAt,
+    this.profileImage,
+    this.fcmToken,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.todayStatus,
+    this.checkInTime,
+    this.checkOutTime,
+    this.profileImageUrl,
+  });
 
-    factory EmployeesModel.fromJson(Map<String, dynamic> json) => EmployeesModel(
+  factory EmployeesModel.fromJson(Map<String, dynamic> json) => EmployeesModel(
         id: json["id"],
         createdBy: json["created_by"],
         parentId: json["parent_id"],
@@ -62,14 +66,20 @@ class EmployeesModel {
         mobileVerifiedAt: json["mobile_verified_at"],
         profileImage: json["profile_image"],
         fcmToken: json["fcm_token"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
         todayStatus: json["today_status"],
+        checkInTime: json["check_in_time"],
+        checkOutTime: json["check_out_time"],
         profileImageUrl: json["profile_image_url"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "created_by": createdBy,
         "parent_id": parentId,
@@ -90,6 +100,8 @@ class EmployeesModel {
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
         "today_status": todayStatus,
+        "check_in_time": checkInTime,
+        "check_out_time": checkOutTime,
         "profile_image_url": profileImageUrl,
-    };
+      };
 }

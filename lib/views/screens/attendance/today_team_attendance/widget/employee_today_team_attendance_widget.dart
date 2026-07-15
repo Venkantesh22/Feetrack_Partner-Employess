@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vlr/data/models/employee_model.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
@@ -8,8 +9,10 @@ import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/attendance/team_attendance_history/employee_attendance_history_screen/employee_attendance_history_screen.dart';
 
 class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
+  final EmployeesModel? employeesModel;
   const EmployeeTodayTeamAttendanceWidget({
     super.key,
+    this.employeesModel,
   });
 
   @override
@@ -48,7 +51,7 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                           color: greyLight6,
                         )),
                     child: CustomImage(
-                      path: Assets.imagesProfile,
+                      path: employeesModel?.profileImageUrl ?? "",
                       radius: 999.r,
                       fit: BoxFit.cover,
                     ),
@@ -73,7 +76,7 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      "Venkatesh Rathod",
+                      employeesModel?.name ?? "",
                       maxLines: 2,
                       style: Helper(context).textTheme.titleMedium?.copyWith(
                             fontSize: 18.sp,
@@ -81,14 +84,14 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                           ),
                     ),
                     CustomText(
-                      "Developer",
+                      employeesModel?.role ?? "",
                       style: Helper(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 14.sp,
                             color: primaryColor,
                           ),
                     ),
                     CustomText(
-                      "Employee Id : D1232323",
+                      "Employee Id : ${employeesModel?.id ?? ""}",
                       style: Helper(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 14.sp,
                           ),
@@ -135,7 +138,9 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                                     ),
                           ),
                           CustomText(
-                            convertTo12HourFormat(time24: "09:10 AM"),
+                            convertTo12HourFormat(
+                              time24: employeesModel?.checkInTime ?? "",
+                            ),
                             style:
                                 Helper(context).textTheme.titleMedium?.copyWith(
                                       fontSize: 10,
@@ -178,7 +183,9 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                                     ),
                           ),
                           CustomText(
-                            convertTo12HourFormat(time24: "06:30 AM"),
+                            convertTo12HourFormat(
+                              time24: employeesModel?.checkOutTime ?? "",
+                            ),
                             style:
                                 Helper(context).textTheme.titleMedium?.copyWith(
                                       fontSize: 10,
