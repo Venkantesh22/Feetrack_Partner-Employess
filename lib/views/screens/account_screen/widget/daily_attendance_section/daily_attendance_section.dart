@@ -52,7 +52,7 @@ class DailyAttendanceSection extends StatelessWidget {
                         fontSize: 18,
                       ),
                 ),
-                attendanceController.attendanceModel?.isPresent ?? false
+                attendanceController.attendanceModel?.isWorking ?? false
                     ? const AttendanceStatusWidget()
                     : const SizedBox(),
               ],

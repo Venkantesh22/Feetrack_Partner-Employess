@@ -15,7 +15,7 @@ class WorkingHoursRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
       if ((attendanceController.attendanceModel?.isPunchOut ?? false) ||
-          (attendanceController.attendanceModel?.isPresent ?? false)) {
+          (attendanceController.attendanceModel?.isWorking ?? false)) {
         return Padding(
           padding: EdgeInsets.only(bottom: 16.h),
           child: Row(

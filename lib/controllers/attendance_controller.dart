@@ -383,7 +383,13 @@ class AttendanceController extends GetxController implements GetxService {
     update();
 
     try {
-      Map<String, dynamic>? data = {"mode": "punch_in"};
+      Map<String, dynamic>? data = {
+        "mode": (attendanceModel?.isNotPunchIn ?? false)
+            ? "punch_in"
+            : (attendanceModel?.isWorking ?? false)
+                ? "punch_out"
+                : ""
+      };
       Response response = await attendanceRepo.fetchCheckListPoint(data: data);
 
       if (response.body['status'] == "success") {
@@ -441,7 +447,11 @@ class AttendanceController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic>? data = {
-        "mode": " punch_out",
+        "mode": (attendanceModel?.isNotPunchIn ?? false)
+            ? "punch_in"
+            : (attendanceModel?.isWorking ?? false)
+                ? "punch_out"
+                : "",
         "checklistAnswers": checkPointModelList
       };
       Response response = await attendanceRepo.submitCheckListPoint(

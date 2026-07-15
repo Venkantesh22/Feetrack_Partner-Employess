@@ -116,17 +116,18 @@ class CheckListSection extends StatelessWidget {
                     selfie: permissionController.selfie,
                   )
                       .then((value) {
-                    attendanceController.submitCheckListPoint().then((value) {
-                      if (value.isSuccess) {
-                        navigate(
-                            context: context, page: AttendancePunchOutScreen());
-                      } else {
-                        showToast(
-                            message: value.message, typeCheck: value.isSuccess);
-                      }
-                    });
-
                     if (value.isSuccess) {
+                      attendanceController.submitCheckListPoint().then((value) {
+                        if (value.isSuccess) {
+                          navigate(
+                              context: context,
+                              page: AttendancePunchOutScreen());
+                        } else {
+                          showToast(
+                              message: value.message,
+                              typeCheck: value.isSuccess);
+                        }
+                      });
                       showToast(
                           message: value.message, typeCheck: value.isSuccess);
                     } else {
@@ -134,7 +135,7 @@ class CheckListSection extends StatelessWidget {
                           message: value.message, typeCheck: value.isSuccess);
                     }
                   });
-                } else if (attendanceController.attendanceModel?.isPresent ??
+                } else if (attendanceController.attendanceModel?.isWorking ??
                     false) {
                   attendanceController
                       .punchOutAttendance(
@@ -144,6 +145,17 @@ class CheckListSection extends StatelessWidget {
                   )
                       .then((value) {
                     if (value.isSuccess) {
+                      attendanceController.submitCheckListPoint().then((value) {
+                        if (value.isSuccess) {
+                          navigate(
+                              context: context,
+                              page: AttendancePunchOutScreen());
+                        } else {
+                          showToast(
+                              message: value.message,
+                              typeCheck: value.isSuccess);
+                        }
+                      });
                       showToast(
                           message: value.message, typeCheck: value.isSuccess);
                     } else {

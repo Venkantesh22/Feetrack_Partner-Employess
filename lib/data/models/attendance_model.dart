@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:vlr/services/theme.dart';
 
-enum EmployeesStatus { notPunchIn, present, punchOut, leave }
+enum EmployeesStatus { notPunchIn, working, punchOut, leave }
 
 class AttendanceModel {
   final int? id;
@@ -115,7 +115,7 @@ class AttendanceModel {
               : primaryColor;
 
   bool get isNotPunchIn => status == "notPunchIn";
-  bool get isPresent => status == "present";
+  bool get isWorking => status == "working";
   bool get isPunchOut => status == "punchOut";
   bool get isLeave => status == "leave";
 

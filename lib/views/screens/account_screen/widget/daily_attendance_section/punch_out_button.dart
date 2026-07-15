@@ -26,18 +26,18 @@ class PunchButtonWidget extends StatelessWidget {
         title = "Punch In";
         icon = Icons.login;
         color = green;
-      } else if (attendanceController.attendanceModel?.status == "Punch out") {
+      } else if (attendanceController.attendanceModel?.isPunchOut ?? false) {
         title = "Punch out Done";
         icon = Icons.logout;
         color = primaryColor;
-      } else if (attendanceController.attendanceModel?.status == "present") {
+      } else if (attendanceController.attendanceModel?.isWorking ?? false) {
         title = "Punch Out";
         icon = Icons.logout;
         color = redDark;
       }
 
       if ((attendanceController.attendanceModel?.isNotPunchIn ?? false) ||
-          (attendanceController.attendanceModel?.isPresent ?? false)) {
+          (attendanceController.attendanceModel?.isWorking ?? false)) {
         return Column(
           children: [
             CustomButton(
@@ -98,7 +98,7 @@ class PunchButtonWidget extends StatelessWidget {
                       ],
                     ),
                   )
-                : (attendanceController.attendanceModel?.isPresent ?? false)
+                : (attendanceController.attendanceModel?.isWorking ?? false)
                     ? Container(
                         margin: EdgeInsets.only(top: 16.h),
                         padding: EdgeInsets.all(12.w),
