@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/controllers/auth_controller.dart';
 import 'package:vlr/services/constants.dart';
+import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/account_screen/account_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/notification_section/notification_section.dart';
@@ -24,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<AuthController>().fetchProfile();
+      final attendanceController = Get.find<AttendanceController>();
+      attendanceController.selectedMonth = getDateTime();
     });
   }
 

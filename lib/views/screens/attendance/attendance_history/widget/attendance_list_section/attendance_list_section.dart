@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
-import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/data/models/attendance_short_model.dart';
 import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_list_section/attendance_widget.dart';
 
@@ -13,14 +13,7 @@ class AttendanceListSection extends StatefulWidget {
 }
 
 class _AttendanceListSectionState extends State<AttendanceListSection> {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<AttendanceController>().fetchAttendanceHistory();
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +48,12 @@ class _AttendanceListSectionState extends State<AttendanceListSection> {
           separatorBuilder: (_, __) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
             final model = attendanceController.isLoading
-                ? AttendanceModel()
+                ? AttendanceShortModel()
                 : attendanceController.attendanceList[index];
             return CustomShimmer(
               isLoading: attendanceController.isLoading,
               child: AttendanceWidget(
-                attendanceModel: model,
+                attendanceShortModel: model,
               ),
             );
           },

@@ -127,7 +127,7 @@ class AttendanceSummarySection extends StatelessWidget {
                       SizedBox(
                         height: 90.h,
                         child: HalfCircleProgress(
-                          percent: 0.79,
+                          percent: attendanceController.attendancePer ,
                           progressColor: tertiaryColor,
                         ),
                       ),

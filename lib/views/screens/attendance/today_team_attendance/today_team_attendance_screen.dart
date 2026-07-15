@@ -21,7 +21,7 @@ class _TodayTeamAttendanceScreenState extends State<TodayTeamAttendanceScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<AttendanceController>().fetchTodayAttendance();
+      Get.find<AttendanceController>().fetchTodayTeamAttendance();
     });
   }
 

@@ -26,20 +26,26 @@ class AttendanceRepo {
         AppConstants.todayAttendanceGet,
         "fetchTodayAttendance",
       );
-  Future<Response> fetchAttendanceHistory() async => await apiClient.getData(
+  Future<Response> fetchAttendanceHistory(
+          {required Map<String, dynamic>? data}) async =>
+      await apiClient.getData(
         AppConstants.attendanceHistoryGet,
         "fetchAttendanceHistory",
+        query: data,
       );
 
   Future<Response> fetchTodayTeamAttendance() async => await apiClient.getData(
-        AppConstants.attendanceHistoryGet,
+        AppConstants.todayTeamAttendanceGet,
         "fetchTodayTeamAttendance",
+        // query: data,
       );
 
-  Future<Response> fetchTeamAttendanceHistory() async =>
+  Future<Response> fetchTeamEmployeesList(
+          {required Map<String, dynamic>? data}) async =>
       await apiClient.getData(
-        AppConstants.teamAttendanceHistoryGet,
-        "fetchTeamAttendanceHistory",
+        AppConstants.teamEmployeesListGet,
+        "fetchTeamEmployeesList",
+        query: data,
       );
 
   Future<Response> fetchCheckListPoint(

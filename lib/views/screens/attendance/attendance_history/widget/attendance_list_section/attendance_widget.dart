@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/data/models/attendance_short_model.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 
 class AttendanceWidget extends StatelessWidget {
-  final AttendanceModel attendanceModel;
+  final AttendanceShortModel attendanceShortModel;
   const AttendanceWidget({
     super.key,
-    required this.attendanceModel,
+    required this.attendanceShortModel,
   });
 
   @override
@@ -50,24 +50,25 @@ class AttendanceWidget extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(99.r),
-                              color: attendanceModel.statusColor
+                              color: attendanceShortModel.statusColor
                                   .withValues(alpha: 0.10),
                             ),
                             child: Row(
                               children: [
                                 CircleAvatar(
                                   radius: 4.r,
-                                  backgroundColor: attendanceModel.statusColor,
+                                  backgroundColor:
+                                      attendanceShortModel.statusColor,
                                 ),
                                 sizedBoxWidth(width: 4.w),
                                 CustomText(
-                                  capitalize(attendanceModel.status ?? ""),
+                                  capitalize(attendanceShortModel.status ?? ""),
                                   style: Helper(context)
                                       .textTheme
                                       .titleMedium
                                       ?.copyWith(
                                         fontSize: 10.sp,
-                                        color: attendanceModel.statusColor,
+                                        color: attendanceShortModel.statusColor,
                                       ),
                                 )
                               ],
@@ -77,7 +78,8 @@ class AttendanceWidget extends StatelessWidget {
                             children: [
                               CustomText(
                                 DateFormatters().dMyDash.format(
-                                      attendanceModel.date ?? getDateTime(),
+                                      attendanceShortModel.date ??
+                                          getDateTime(),
                                     ),
                                 style: Helper(context)
                                     .textTheme
@@ -137,8 +139,9 @@ class AttendanceWidget extends StatelessWidget {
                                     ),
                                     CustomText(
                                       convertTo12HourFormat(
-                                          time24:
-                                              attendanceModel.checkIn ?? ""),
+                                          time24: attendanceShortModel
+                                                  .checkInTime ??
+                                              ""),
                                       style: Helper(context)
                                           .textTheme
                                           .titleMedium
@@ -186,8 +189,9 @@ class AttendanceWidget extends StatelessWidget {
                                     ),
                                     CustomText(
                                       convertTo12HourFormat(
-                                          time24:
-                                              attendanceModel.checkOut ?? ""),
+                                          time24: attendanceShortModel
+                                                  .checkOutTime ??
+                                              ""),
                                       style: Helper(context)
                                           .textTheme
                                           .titleMedium
@@ -235,7 +239,7 @@ class AttendanceWidget extends StatelessWidget {
                             ),
                           ),
                           CustomText(
-                            "09h, 23m",
+                            attendanceShortModel.workingHours ?? "",
                             style: Helper(context)
                                 .textTheme
                                 .titleMedium
@@ -256,7 +260,7 @@ class AttendanceWidget extends StatelessWidget {
               bottom: 0,
               child: Container(
                 width: 6.w,
-                color: attendanceModel.statusColor,
+                color: attendanceShortModel.statusColor,
               )),
         ],
       ),
@@ -273,10 +277,10 @@ class AttendanceWidget extends StatelessWidget {
 // import 'package:vlr/views/base/custom_image.dart';
 
 // class AttendanceWidget extends StatelessWidget {
-//   final AttendanceModel attendanceModel;
+//   final AttendanceModel attendanceShortModel;
 //   const AttendanceWidget({
 //     super.key,
-//     required this.attendanceModel,
+//     required this.attendanceShortModel,
 //   });
 
 //   @override
@@ -307,37 +311,37 @@ class AttendanceWidget extends StatelessWidget {
 //                   padding: EdgeInsets.all(8.w),
 //                   decoration: BoxDecoration(
 //                       color:
-//                           attendanceModel.statusColor.withValues(alpha: 0.10),
+//                           attendanceShortModel.statusColor.withValues(alpha: 0.10),
 //                       borderRadius: BorderRadius.circular(12.r)),
 //                   child: Column(
 //                     children: [
 //                       CustomText(
 //                         DateFormatters()
 //                             .date
-//                             .format(attendanceModel.date ?? getDateTime()),
+//                             .format(attendanceShortModel.date ?? getDateTime()),
 //                         style: Helper(context).textTheme.titleMedium?.copyWith(
 //                               fontSize: 24.sp,
-//                               color: attendanceModel.statusColor,
+//                               color: attendanceShortModel.statusColor,
 //                             ),
 //                       ),
 //                       sizedBoxHeight(height: 6.h),
 //                       CustomText(
 //                         DateFormatters()
 //                             .month
-//                             .format(attendanceModel.date ?? getDateTime()),
+//                             .format(attendanceShortModel.date ?? getDateTime()),
 //                         style: Helper(context).textTheme.titleMedium?.copyWith(
 //                               fontSize: 8.sp,
-//                               color: attendanceModel.statusColor,
+//                               color: attendanceShortModel.statusColor,
 //                             ),
 //                       ),
 //                       sizedBoxHeight(height: 6.h),
 //                       CustomText(
 //                         DateFormatters()
 //                             .day
-//                             .format(attendanceModel.date ?? getDateTime()),
+//                             .format(attendanceShortModel.date ?? getDateTime()),
 //                         style: Helper(context).textTheme.titleMedium?.copyWith(
 //                               fontSize: 8.sp,
-//                               color: attendanceModel.statusColor,
+//                               color: attendanceShortModel.statusColor,
 //                             ),
 //                       ),
 //                     ],
@@ -357,24 +361,24 @@ class AttendanceWidget extends StatelessWidget {
 //                             ),
 //                             decoration: BoxDecoration(
 //                               borderRadius: BorderRadius.circular(99.r),
-//                               color: attendanceModel.statusColor
+//                               color: attendanceShortModel.statusColor
 //                                   .withValues(alpha: 0.10),
 //                             ),
 //                             child: Row(
 //                               children: [
 //                                 CircleAvatar(
 //                                   radius: 4.r,
-//                                   backgroundColor: attendanceModel.statusColor,
+//                                   backgroundColor: attendanceShortModel.statusColor,
 //                                 ),
 //                                 sizedBoxWidth(width: 4.w),
 //                                 CustomText(
-//                                   capitalize(attendanceModel.status ?? ""),
+//                                   capitalize(attendanceShortModel.status ?? ""),
 //                                   style: Helper(context)
 //                                       .textTheme
 //                                       .titleMedium
 //                                       ?.copyWith(
 //                                         fontSize: 10.sp,
-//                                         color: attendanceModel.statusColor,
+//                                         color: attendanceShortModel.statusColor,
 //                                       ),
 //                                 )
 //                               ],
@@ -384,7 +388,7 @@ class AttendanceWidget extends StatelessWidget {
 //                             children: [
 //                               Icon(
 //                                 Icons.watch_later_outlined,
-//                                 color: attendanceModel.statusColor,
+//                                 color: attendanceShortModel.statusColor,
 //                               ),
 //                               sizedBoxWidth(width: 4.w),
 //                               CustomText(
@@ -394,7 +398,7 @@ class AttendanceWidget extends StatelessWidget {
 //                                     .titleMedium
 //                                     ?.copyWith(
 //                                       fontSize: 10.sp,
-//                                       color: attendanceModel.statusColor,
+//                                       color: attendanceShortModel.statusColor,
 //                                     ),
 //                               )
 //                             ],
@@ -441,7 +445,7 @@ class AttendanceWidget extends StatelessWidget {
 //                                     CustomText(
 //                                       convertTo12HourFormat(
 //                                           time24:
-//                                               attendanceModel.checkIn ?? ""),
+//                                               attendanceShortModel.checkIn ?? ""),
 //                                       style: Helper(context)
 //                                           .textTheme
 //                                           .titleMedium
@@ -490,7 +494,7 @@ class AttendanceWidget extends StatelessWidget {
 //                                     CustomText(
 //                                       convertTo12HourFormat(
 //                                           time24:
-//                                               attendanceModel.checkOut ?? ""),
+//                                               attendanceShortModel.checkOut ?? ""),
 //                                       style: Helper(context)
 //                                           .textTheme
 //                                           .titleMedium
@@ -531,7 +535,7 @@ class AttendanceWidget extends StatelessWidget {
 //                           ),
 //                           sizedBoxWidth(width: 8.w),
 //                           CustomText(
-//                             attendanceModel.location,
+//                             attendanceShortModel.location,
 //                             style: Helper(context)
 //                                 .textTheme
 //                                 .titleMedium
@@ -551,13 +555,13 @@ class AttendanceWidget extends StatelessWidget {
 //               bottom: 0,
 //               child: Container(
 //                 width: 6.w,
-//                 color: attendanceModel.statusColor,
+//                 color: attendanceShortModel.statusColor,
 //               )),
 //           Positioned(
 //             right: 16.h,
 //             bottom: 16.w,
 //             child: CustomImage(
-//               path: attendanceModel.image ?? "",
+//               path: attendanceShortModel.image ?? "",
 //               height: 48.h,
 //               width: 48.w,
 //               fit: BoxFit.cover,

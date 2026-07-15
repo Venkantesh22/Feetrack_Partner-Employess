@@ -178,15 +178,17 @@ class AppConstants {
   static const String attendanceHistoryGet = '/hrms/attendance/history';
 
   //* Attendance Team
-  static const String teamAttendanceGet = '/hrms/team-attendance/today';
-  static const String teamAttendanceHistoryGet =
+  static const String todayTeamAttendanceGet = '/hrms/team-attendance/today';
+  static const String teamEmployeesListGet =
       '/hrms/team-attendance/employees';
 
   //* Check list point
-
   static const String checkListPointGet = '/hrms/attendance/checklists';
   static const String submitCheckListPointGet =
       '/hrms/attendance/submit-checklist';
+
+  //*  list point
+
 
   //
   static const double horizontalPadding = 16;
