@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_list_section/attendance_list_section.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_summary_section/attendance_summary_section.dart';
@@ -25,7 +26,9 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final attendanceController = Get.find<AttendanceController>();
+      attendanceController.selectedMonth = getDateTime();
       attendanceController.fetchAttendanceHistory();
+      attendanceController.update();
     });
   }
 
