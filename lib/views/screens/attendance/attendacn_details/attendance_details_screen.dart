@@ -7,6 +7,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/punch_in_and_out_attendance_section.dart';
+import 'package:vlr/views/screens/attendance/attendacn_details/widget/session_summary_section/session_summary_section.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/top_status_section.dart';
 import 'package:vlr/views/widget/button/appbar_back_button.dart';
 
@@ -66,6 +67,7 @@ class _AttendanceDetailsScreenState extends State<AttendanceDetailsScreen> {
             sizedBoxHeight(height: 16.h),
             PunchInAndOutAttendanceDetailsSection(),
             sizedBoxHeight(height: 16.h),
+            SessionSummarySection()
           ],
         ),
       ),

@@ -37,6 +37,7 @@ class AttendanceModel {
   final dynamic checkInPhotoUrl;
   final dynamic checkOutPhotoUrl;
   final int? workingMinutes;
+  final String? lateMinutes;
 
   AttendanceModel({
     this.id,
@@ -61,6 +62,7 @@ class AttendanceModel {
     this.checkInPhotoUrl,
     this.checkOutPhotoUrl,
     this.workingMinutes,
+    this.lateMinutes,
   });
 
   factory AttendanceModel.fromJson(Map<String, dynamic> json) =>
@@ -93,6 +95,7 @@ class AttendanceModel {
         checkInPhotoUrl: json["check_in_photo_url"],
         checkOutPhotoUrl: json["check_out_photo_url"],
         workingMinutes: json["working_minutes"],
+        lateMinutes: json["late_minutes"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -118,6 +121,7 @@ class AttendanceModel {
         "check_in_photo_url": checkInPhotoUrl,
         "check_out_photo_url": checkOutPhotoUrl,
         "working_minutes": workingMinutes,
+        "late_minutes": lateMinutes,
       };
 
   bool get isNotPunchIn => status == "notPunchIn";
