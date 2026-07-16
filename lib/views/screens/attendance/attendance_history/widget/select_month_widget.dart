@@ -25,10 +25,18 @@ class SelectMonthWidget extends StatelessWidget {
             lastDate: DateTime(2035),
           );
 
-          if (month != null) {
-            attendanceController.selectedMonth = month;
-            attendanceController.update();
+          // User pressed Cancel
+          if (month == null) return;
+
+          // Don't call API if same month is selected
+          if (month.month == attendanceController.selectedMonth.month &&
+              month.year == attendanceController.selectedMonth.year) {
+            return;
           }
+
+          attendanceController.selectedMonth = month;
+
+          await attendanceController.fetchAttendanceHistory();
         },
         child: Container(
           padding: EdgeInsets.all(16.w),

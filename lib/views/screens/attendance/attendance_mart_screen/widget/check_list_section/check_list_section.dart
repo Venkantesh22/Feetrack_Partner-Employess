@@ -135,7 +135,7 @@ class CheckListSection extends StatelessWidget {
                           message: value.message, typeCheck: value.isSuccess);
                     }
                   });
-                } else if (attendanceController.attendanceModel?.isWorking ??
+                } else if (attendanceController.attendanceModel?.isPunchIn ??
                     false) {
                   attendanceController
                       .punchOutAttendance(

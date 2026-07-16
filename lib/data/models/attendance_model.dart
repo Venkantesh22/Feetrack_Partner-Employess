@@ -4,13 +4,14 @@ import 'package:vlr/services/theme.dart';
 
 enum EmployeesStatus {
   notPunchIn,
-  punchIn,
-  punchOut,
-  leave,
-  weekOff,
-  holiday,
+  working,
+  present,
+  short_leave,
+  half_day,
   absent,
-  halfDay
+  leave,
+  holiday,
+  weekOff
 }
 
 class AttendanceModel {
@@ -35,6 +36,7 @@ class AttendanceModel {
   final String? checkOutSelfieUrl;
   final dynamic checkInPhotoUrl;
   final dynamic checkOutPhotoUrl;
+  final int? workingMinutes;
 
   AttendanceModel({
     this.id,
@@ -58,6 +60,7 @@ class AttendanceModel {
     this.checkOutSelfieUrl,
     this.checkInPhotoUrl,
     this.checkOutPhotoUrl,
+    this.workingMinutes,
   });
 
   factory AttendanceModel.fromJson(Map<String, dynamic> json) =>
@@ -89,6 +92,7 @@ class AttendanceModel {
         checkOutSelfieUrl: json["check_out_selfie_url"],
         checkInPhotoUrl: json["check_in_photo_url"],
         checkOutPhotoUrl: json["check_out_photo_url"],
+        workingMinutes: json["working_minutes"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -113,12 +117,18 @@ class AttendanceModel {
         "check_out_selfie_url": checkOutSelfieUrl,
         "check_in_photo_url": checkInPhotoUrl,
         "check_out_photo_url": checkOutPhotoUrl,
+        "working_minutes": workingMinutes,
       };
 
   bool get isNotPunchIn => status == "notPunchIn";
-  bool get isWorking => status == "working";
-  bool get isPunchOut => status == "punchOut";
+  bool get isPunchIn => status == "working";
+  bool get isPunchOut => status == "present";
+  bool get isShortLeave => status == "short_leave";
+  bool get isHalfDay => status == "half_day";
+  bool get isAbsent => status == "absent";
   bool get isLeave => status == "leave";
+  bool get isHoliday => status == "holiday";
+  bool get isWeekOff => status == "weekOff";
 
   bool get hasCheckOutLocation =>
       (checkOutLat?.isNotEmpty ?? false) && (checkOutLng?.isNotEmpty ?? false);
@@ -126,21 +136,19 @@ class AttendanceModel {
   bool get hasCheckInLocation =>
       (checkInLat?.isNotEmpty ?? false) && (checkInLng?.isNotEmpty ?? false);
 
-  Color get statusColor => status == "present"
-      ? yellow
-      : status == "Checkout"
-          ? greenDark1
-          : status == "Checkout"
-              ? red1
-              : primaryColor;
+  Color get statusColor {
+    if (isNotPunchIn) return notPunchIn;
+    if (isPunchIn) return working;
+    if (isPunchOut) return present;
+    if (isShortLeave) return shortLeave;
+    if (isHalfDay) return halfDay;
+    if (isAbsent) return absent;
+    if (isLeave) return leave;
+    if (isHoliday) return holiday;
+    if (isWeekOff) return weekOff;
 
-  Color get statusColors => isNotPunchIn
-      ? yellow
-      : isWorking
-          ? green2
-          : isPunchOut
-              ? organ
-              : primaryColor;
+    return defaultColor;
+  }
 
   String get location {
     if (hasCheckOutLocation) {
@@ -169,29 +177,45 @@ class AttendanceModel {
 
 class EmployeesAttendanceSummaryModel {
   final int? present;
-  final int? working;
   final int? absent;
+  final int? halfDay;
+  final int? working;
   final int? leave;
+  final int? holiday;
+  final int? weekOff;
+  final int? late;
 
   EmployeesAttendanceSummaryModel({
     this.present,
-    this.working,
     this.absent,
+    this.halfDay,
+    this.working,
     this.leave,
+    this.holiday,
+    this.weekOff,
+    this.late,
   });
 
   factory EmployeesAttendanceSummaryModel.fromJson(Map<String, dynamic> json) =>
       EmployeesAttendanceSummaryModel(
         present: json["present"],
-        working: json["working"],
         absent: json["absent"],
+        halfDay: json["half_day"],
+        working: json["working"],
         leave: json["leave"],
+        holiday: json["holiday"],
+        weekOff: json["weekOff"],
+        late: json["late"],
       );
 
   Map<String, dynamic> toJson() => {
         "present": present,
-        "working": working,
         "absent": absent,
+        "half_day": halfDay,
+        "working": working,
         "leave": leave,
+        "holiday": holiday,
+        "weekOff": weekOff,
+        "late": late,
       };
 }

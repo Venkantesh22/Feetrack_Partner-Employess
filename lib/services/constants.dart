@@ -181,7 +181,7 @@ class AppConstants {
   //* Attendance Team
   static const String todayTeamAttendanceGet = '/hrms/team-attendance/today';
   static const String teamEmployeesListGet = '/hrms/team-attendance/employees';
-  static const String employeeAttendanceGet = '/hrms/attendance/';
+  static const String employeeAttendanceGet = '/hrms/team-attendance/history';
 
   //* Check list point
   static const String checkListPointGet = '/hrms/attendance/checklists';

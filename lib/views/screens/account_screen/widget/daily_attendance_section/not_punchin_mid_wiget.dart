@@ -56,7 +56,7 @@ class DailyTopMidSection extends StatelessWidget {
           ),
         );
       }
-      if (attendanceController.attendanceModel?.isWorking ?? false) {
+      if (attendanceController.attendanceModel?.isPunchIn ?? false) {
         return Center(
           child: Column(
             children: [

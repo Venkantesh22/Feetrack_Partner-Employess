@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/data/models/attendance_model.dart';
-import 'package:vlr/data/models/attendance_short_model.dart';
 import 'package:vlr/data/models/check_point_model.dart';
 import 'package:vlr/data/models/employee_model.dart';
 import 'package:vlr/data/models/pagination/pagination_state.dart';
@@ -174,7 +173,7 @@ class AttendanceController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  List<AttendanceShortModel> attendanceList = [];
+  List<AttendanceModel> attendanceList = [];
   EmployeesAttendanceSummaryModel? employeesAttendanceSummaryModel;
   EmployeesModel? employeesModel;
 
@@ -187,15 +186,18 @@ class AttendanceController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic>? data = {
-        "month": selectedMonth.month,
-        "year": selectedMonth.year
+        "month": selectedMonth.month.toString(),
+        "year": selectedMonth.year.toString(),
       };
       log("month : ${selectedMonth.month}, year : ${selectedMonth.year} ");
 
       Response response =
           await attendanceRepo.fetchAttendanceHistory(data: data);
 
-      log("Raw Response: ${response.body}");
+      log("Status Code : ${response.statusCode}");
+      log("Body        : ${response.body}");
+      log("Body String : ${response.bodyString}");
+      log("Status Text : ${response.statusText}");
 
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
@@ -210,8 +212,7 @@ class AttendanceController extends GetxController implements GetxService {
         employeesModel = EmployeesModel.fromJson(employeeData);
         employeesAttendanceSummaryModel =
             EmployeesAttendanceSummaryModel.fromJson(summaryData);
-        attendanceList =
-            data.map((e) => AttendanceShortModel.fromJson(e)).toList();
+        attendanceList = data.map((e) => AttendanceModel.fromJson(e)).toList();
 
         attendancePerCal(employeesAttendanceSummaryModel?.present ?? 0);
       } else {
@@ -435,7 +436,7 @@ class AttendanceController extends GetxController implements GetxService {
       Map<String, dynamic>? data = {
         "mode": (attendanceModel?.isNotPunchIn ?? false)
             ? "punch_in"
-            : (attendanceModel?.isWorking ?? false)
+            : (attendanceModel?.isPunchOut ?? false)
                 ? "punch_out"
                 : ""
       };
@@ -498,7 +499,7 @@ class AttendanceController extends GetxController implements GetxService {
       Map<String, dynamic> data = {
         "mode": (attendanceModel?.isNotPunchIn ?? false)
             ? "punch_in"
-            : (attendanceModel?.isWorking ?? false)
+            : (attendanceModel?.isPunchOut ?? false)
                 ? "punch_out"
                 : "",
         "checklistAnswers":
@@ -558,48 +559,71 @@ class AttendanceController extends GetxController implements GetxService {
   Future<ResponseModel> fetchTeamEmployeeAttendanceList() async {
     log('----------- fetchTeamEmployeeAttendanceList Called ----------');
 
-    ResponseModel responseModel;
     isLoading = true;
     update();
 
     try {
-      Map<String, dynamic> data = {
+      attendanceList.clear();
+      employeesAttendanceSummaryModel == null;
+      employeesModel == null;
+
+      final Map<String, dynamic> data = {
         "employee_id": selectEmployeeModel?.id ?? "",
-        "month": selectedMonth.month,
-        "year": selectedMonth.year,
+        "month": selectedMonth.month.toString(),
+        "year": selectedMonth.year.toString(),
       };
-      Response response = await attendanceRepo.fetchTeamEmployeeAttendanceList(
-        data: data,
-      );
 
-      if (response.body['status'] == "success") {
-        responseModel = ResponseModel(
+      final Response response =
+          await attendanceRepo.fetchTeamEmployeeAttendanceList(data: data);
+
+      if (response.body != null && response.body['status'] == "success") {
+        final List<dynamic> list = response.body['data'] ?? [];
+        final employee = response.body['employee'] ?? [];
+        final summary = response.body['summary'] ?? [];
+
+        employeesAttendanceSummaryModel =
+            EmployeesAttendanceSummaryModel.fromJson(summary);
+
+        employeesModel = EmployeesModel.fromJson(employee);
+
+        attendanceList = list
+            .map((e) => AttendanceModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+
+        isLoading = false;
+        update();
+
+        return ResponseModel(
           true,
-          response.body['message'] ??
-              "fetchTeamEmployeeAttendanceList successful",
+          response.body['message'] ?? "Attendance fetched successfully",
         );
-      } else {
-        String errorMessage = response.body['message'] ??
-            "Error while fetchTeamEmployeeAttendanceList user";
-
-        if (response.body['errors'] != null) {
-          final errors = response.body['errors'] as Map<String, dynamic>;
-          if (errors.isNotEmpty) {
-            errorMessage = (errors.values.first as List).first.toString();
-          }
-        }
-
-        responseModel = ResponseModel(false, errorMessage);
       }
-    } catch (e) {
-      log('ERROR AT fetchTeamEmployeeAttendanceList(): $e');
-      responseModel = ResponseModel(
-          false, "Error while fetchTeamEmployeeAttendanceList user $e");
-    }
 
-    isLoading = false;
-    update();
-    return responseModel;
+      String errorMessage = response.body?['message'] ?? "Something went wrong";
+
+      if (response.body?['errors'] != null) {
+        final errors = response.body['errors'] as Map<String, dynamic>;
+        if (errors.isNotEmpty) {
+          errorMessage = (errors.values.first as List).first.toString();
+        }
+      }
+
+      isLoading = false;
+      update();
+
+      return ResponseModel(false, errorMessage);
+    } catch (e, stackTrace) {
+      log("fetchTeamEmployeeAttendanceList Error: $e");
+      log(stackTrace.toString());
+
+      isLoading = false;
+      update();
+
+      return ResponseModel(
+        false,
+        "Failed to fetch attendance.",
+      );
+    }
   }
 
   int? attendanceId;
@@ -649,4 +673,7 @@ class AttendanceController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
+
+  Future<void> fetchAttendanceHistoryPagination(
+      {required bool refresh}) async {}
 }

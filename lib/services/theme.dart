@@ -81,6 +81,28 @@ Color blackText4 = const Color(0xFF1E293B);
 
 const Color textPrimary = Color(0xff000000);
 const Color textSecondary = Color(0xff838383);
+
+//* Status color
+const Color notPunchIn = Color(0xFF2563EB); // Blue
+
+const Color working = Color(0xFFF59E0B); // Orange
+
+const Color present = Color(0xFF16A34A); // Green
+
+const Color shortLeave = Color(0xFF8B5CF6); // Purple
+
+const Color halfDay = Color(0xFF0EA5E9); // Sky Blue
+
+const Color absent = Color(0xFFEF4444); // Red
+
+const Color leave = Color(0xFF0052D9); // Primary Blue
+
+const Color holiday = Color(0xFF14B8A6); // Teal
+
+const Color weekOff = Color(0xFF6B7280); // Gray
+
+const Color defaultColor = Color(0xFF0052D9);
+
 Map<int, Color> color = const {
   50: Color.fromRGBO(255, 244, 149, .1),
   100: Color.fromRGBO(255, 244, 149, .2),

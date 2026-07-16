@@ -43,10 +43,18 @@ class RowOfAttendanceHeading extends StatelessWidget {
                   lastDate: DateTime(2035),
                 );
 
-                if (month != null) {
-                  attendanceController.selectedMonth = month;
-                  attendanceController.update();
+                // User pressed Cancel
+                if (month == null) return;
+
+                // Don't call API if same month is selected
+                if (month.month == attendanceController.selectedMonth.month &&
+                    month.year == attendanceController.selectedMonth.year) {
+                  return;
                 }
+
+                attendanceController.selectedMonth = month;
+
+                await attendanceController.fetchTeamEmployeeAttendanceList();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

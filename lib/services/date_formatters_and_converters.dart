@@ -108,3 +108,22 @@ String formatDateTime(String dateTime) {
 
   return DateFormat("dd MMM yyyy, hh:mm a").format(localTime);
 }
+
+String formatMinutesToHours(int? minutes) {
+  if (minutes == null || minutes <= 0) {
+    return "0m";
+  }
+
+  final hours = minutes ~/ 60;
+  final remainingMinutes = minutes % 60;
+
+  if (hours == 0) {
+    return "${remainingMinutes}m";
+  }
+
+  if (remainingMinutes == 0) {
+    return "${hours}h";
+  }
+
+  return "${hours}h ${remainingMinutes}m";
+}
