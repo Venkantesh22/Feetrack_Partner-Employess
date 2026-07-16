@@ -15,89 +15,115 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AttendanceController>(
-      builder: (attendanceController) {
-        return Container(
-          padding: EdgeInsets.all(24.w),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24.r),
-              border:
-                  Border.all(width: 1, color: greyLight6.withValues(alpha: 0.30)),
-              color: white,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 1),
-                  blurRadius: 2,
-                  spreadRadius: 0,
-                  color: black.withValues(alpha: 0.05),
-                )
-              ]),
-          child: Column(
-            children: [
-              CustomText(
-                "Today Team Attendance Summary",
-                maxLines: 2,
-                style: Helper(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 24.sp,
-                      color: blackText3,
-                    ),
-              ),
-              sizedBoxHeight(height: 24.h),
-              Row(
-                children: [
-                  const Expanded(
-                    child: TodayTeamAttendanceSummaryWidget(
-                      title: "Punch In",
-                      subTitle: "18",
-                      icon: Assets.svgsPunchIn,
-                      color: greenDark1,
-                    ),
+    return GetBuilder<AttendanceController>(builder: (attendanceController) {
+      return Container(
+        padding: EdgeInsets.all(24.w),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24.r),
+            border:
+                Border.all(width: 1, color: greyLight6.withValues(alpha: 0.30)),
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 1),
+                blurRadius: 2,
+                spreadRadius: 0,
+                color: black.withValues(alpha: 0.05),
+              )
+            ]),
+        child: Column(
+          children: [
+            CustomText(
+              "Today Team Attendance Summary",
+              maxLines: 2,
+              style: Helper(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 24.sp,
+                    color: blackText3,
                   ),
-                  Container(
-                    width: 1,
-                    height: 100.h,
-                    color: greyLight2,
+            ),
+            sizedBoxHeight(height: 24.h),
+            Row(
+              children: [
+                Expanded(
+                  child: TodayTeamAttendanceSummaryWidget(
+                    onTap: () {
+                      attendanceController.fetchTodayTeamAttendance(
+                          status: "punchIn");
+                    },
+                    title: "Punch In",
+                    subTitle: attendanceController
+                            .employeesAttendanceSummaryModel?.working
+                            .toString() ??
+                        "",
+                    icon: Assets.svgsPunchIn,
+                    color: punchIn,
                   ),
-                  const Expanded(
-                    child: TodayTeamAttendanceSummaryWidget(
-                      title: "Punch out",
-                      subTitle: "10",
-                      icon: Assets.svgsLogout,
-                      color: organ,
-                    ),
+                ),
+                Container(
+                  width: 1,
+                  height: 100.h,
+                  color: greyLight2,
+                ),
+                Expanded(
+                  child: TodayTeamAttendanceSummaryWidget(
+                    onTap: () {
+                      attendanceController.fetchTodayTeamAttendance(
+                          status: "punchOut");
+                    },
+                    title: "Punch out",
+                    subTitle: attendanceController
+                            .employeesAttendanceSummaryModel?.present
+                            .toString() ??
+                        "",
+                    icon: Assets.svgsLogout,
+                    color: punchOut,
                   ),
-                  Container(
-                    width: 1,
-                    height: 100.h,
-                    color: greyLight2,
+                ),
+                Container(
+                  width: 1,
+                  height: 100.h,
+                  color: greyLight2,
+                ),
+                Expanded(
+                  child: TodayTeamAttendanceSummaryWidget(
+                    onTap: () {
+                      attendanceController.fetchTodayTeamAttendance(
+                          status: "absent");
+                    },
+                    title: "Absent",
+                    subTitle: attendanceController
+                            .employeesAttendanceSummaryModel?.absent
+                            .toString() ??
+                        "",
+                    icon: Assets.svgsAbsent,
+                    color: absent,
                   ),
-                  const Expanded(
-                    child: TodayTeamAttendanceSummaryWidget(
-                      title: "Absent",
-                      subTitle: "10",
-                      icon: Assets.svgsAbsent,
-                      color: red1,
-                    ),
+                ),
+                Container(
+                  width: 1,
+                  height: 100.h,
+                  color: greyLight2,
+                ),
+                Expanded(
+                  child: TodayTeamAttendanceSummaryWidget(
+                    onTap: () {
+                      attendanceController.fetchTodayTeamAttendance(
+                          status: "leave");
+                    },
+                    title: "Leave",
+                    subTitle: attendanceController
+                            .employeesAttendanceSummaryModel?.absent
+                            .toString() ??
+                        "",
+                    icon: Assets.svgsLeave,
+                    color: leave,
                   ),
-                  Container(
-                    width: 1,
-                    height: 100.h,
-                    color: greyLight2,
-                  ),
-                  Expanded(
-                    child: TodayTeamAttendanceSummaryWidget(
-                      title: "Leave",
-                      subTitle: "2",
-                      icon: Assets.svgsLeave,
-                      color: blueLight3,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }
-    );
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:vlr/services/theme.dart';
+
 class EmployeesModel {
   final String? id;
   final dynamic createdBy;
@@ -22,7 +26,7 @@ class EmployeesModel {
   final String? checkInTime;
   final String? checkOutTime;
   final dynamic profileImageUrl;
-  
+  final int? attendanceId;
 
   EmployeesModel({
     this.id,
@@ -48,6 +52,7 @@ class EmployeesModel {
     this.checkInTime,
     this.checkOutTime,
     this.profileImageUrl,
+    this.attendanceId,
   });
 
   factory EmployeesModel.fromJson(Map<String, dynamic> json) => EmployeesModel(
@@ -78,6 +83,7 @@ class EmployeesModel {
         checkInTime: json["check_in_time"],
         checkOutTime: json["check_out_time"],
         profileImageUrl: json["profile_image_url"],
+        attendanceId: json["attendance_id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -104,5 +110,30 @@ class EmployeesModel {
         "check_in_time": checkInTime,
         "check_out_time": checkOutTime,
         "profile_image_url": profileImageUrl,
+        "attendance_id": attendanceId,
       };
+
+  bool get isNotPunchIn => todayStatus == "notPunchIn";
+  bool get isPunchIn => todayStatus == "working";
+  bool get isPunchOut => todayStatus == "present";
+  bool get isShortLeave => todayStatus == "short_leave";
+  bool get isHalfDay => todayStatus == "half_day";
+  bool get isAbsent => todayStatus == "absent";
+  bool get isLeave => todayStatus == "leave";
+  bool get isHoliday => todayStatus == "holiday";
+  bool get isWeekOff => todayStatus == "weekOff";
+
+  Color get statusColor {
+    if (isNotPunchIn) return notPunchIn;
+    if (isPunchIn) return punchIn;
+    if (isPunchOut) return punchOut;
+    if (isShortLeave) return shortLeave;
+    if (isHalfDay) return halfDay;
+    if (isAbsent) return absent;
+    if (isLeave) return leave;
+    if (isHoliday) return holiday;
+    if (isWeekOff) return weekOff;
+
+    return defaultColor;
+  }
 }

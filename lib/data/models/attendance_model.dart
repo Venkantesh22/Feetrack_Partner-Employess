@@ -138,8 +138,8 @@ class AttendanceModel {
 
   Color get statusColor {
     if (isNotPunchIn) return notPunchIn;
-    if (isPunchIn) return working;
-    if (isPunchOut) return present;
+    if (isPunchIn) return punchIn;
+    if (isPunchOut) return punchOut;
     if (isShortLeave) return shortLeave;
     if (isHalfDay) return halfDay;
     if (isAbsent) return absent;

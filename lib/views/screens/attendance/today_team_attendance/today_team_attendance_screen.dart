@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/data/models/employee_model.dart';
 import 'package:vlr/services/constants.dart';
+import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/attendance/team_attendance_history/team_attendaance_history_screen/widget/appbar_and_searchbar.dart';
 import 'package:vlr/views/screens/attendance/today_team_attendance/widget/employee_today_team_attendance_widget.dart';
@@ -18,6 +21,13 @@ class TodayTeamAttendanceScreen extends StatefulWidget {
 }
 
 class _TodayTeamAttendanceScreenState extends State<TodayTeamAttendanceScreen> {
+  Timer? _debounce;
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,7 +45,20 @@ class _TodayTeamAttendanceScreenState extends State<TodayTeamAttendanceScreen> {
           children: [
             AppBarAndSearchBar(
               title: "Today Team Attendance",
-              onChanged: (value) {},
+              onChanged: (value) {
+                _debounce?.cancel();
+
+                _debounce = Timer(
+                  const Duration(milliseconds: 500),
+                  () {
+                    final controller = Get.find<AttendanceController>();
+
+                    controller.searchBarController.text = value.trim();
+
+                    controller.fetchTodayTeamAttendance();
+                  },
+                );
+              },
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -43,6 +66,22 @@ class _TodayTeamAttendanceScreenState extends State<TodayTeamAttendanceScreen> {
                 child: Column(
                   children: [
                     const TodayTeamAttendanceSummarySection(),
+                    !attendanceController.isLoading &&
+                            attendanceController
+                                .employeesModelTodayAttendanceList.isEmpty
+                        ? Padding(
+                            padding: EdgeInsets.only(top: 30.h),
+                            child: Center(
+                              child: CustomText(
+                                "No Employee Found",
+                                style: Helper(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                     ListView.separated(
                       itemBuilder: (context, index) {
                         final model = attendanceController.isLoading

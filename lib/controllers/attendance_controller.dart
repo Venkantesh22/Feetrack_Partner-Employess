@@ -255,7 +255,8 @@ class AttendanceController extends GetxController implements GetxService {
   DateTime selectedMonth = DateTime.now();
 
   List<EmployeesModel> employeesModelTodayAttendanceList = [];
-  Future<ResponseModel> fetchTodayTeamAttendance() async {
+  Future<ResponseModel> fetchTodayTeamAttendance(
+      {String status = "all status"}) async {
     log('----------- fetchTodayTeamAttendance Called ----------');
 
     ResponseModel responseModel;
@@ -263,7 +264,16 @@ class AttendanceController extends GetxController implements GetxService {
     update();
 
     try {
-      Response response = await attendanceRepo.fetchTodayTeamAttendance();
+      employeesAttendanceSummaryModel = null;
+      employeesModelTodayAttendanceList.clear();
+
+      Map<String, dynamic>? data = {
+        "search": searchBarController.text,
+        "status": status,
+      };
+
+      Response response =
+          await attendanceRepo.fetchTodayTeamAttendance(data: data);
 
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(

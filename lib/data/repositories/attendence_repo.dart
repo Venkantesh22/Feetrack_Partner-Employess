@@ -33,10 +33,12 @@ class AttendanceRepo {
         query: data,
       );
 
-  Future<Response> fetchTodayTeamAttendance() async => await apiClient.getData(
+  Future<Response> fetchTodayTeamAttendance(
+          {required Map<String, dynamic>? data}) async =>
+      await apiClient.getData(
         AppConstants.todayTeamAttendanceGet,
         "fetchTodayTeamAttendance",
-        // query: data,
+        query: data,
       );
 
   Future<Response> fetchTeamEmployeesList(

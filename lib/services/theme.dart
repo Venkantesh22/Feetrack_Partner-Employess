@@ -85,9 +85,9 @@ const Color textSecondary = Color(0xff838383);
 //* Status color
 const Color notPunchIn = Color(0xFF2563EB); // Blue
 
-const Color working = Color(0xFFF59E0B); // Orange
+const Color punchIn = Color(0xFFF59E0B); // Orange
 
-const Color present = Color(0xFF16A34A); // Green
+const Color punchOut = Color(0xFF16A34A); // Green
 
 const Color shortLeave = Color(0xFF8B5CF6); // Purple
 
