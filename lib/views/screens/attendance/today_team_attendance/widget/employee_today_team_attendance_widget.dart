@@ -210,7 +210,7 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {
-                    attendanceController.updateAttendanceId(attendanceId: 0);
+                    attendanceController.updateAttendanceId(attendanceId:employeesModel?.attendanceId ?? 0);
 
                     navigate(
                       context: context,
