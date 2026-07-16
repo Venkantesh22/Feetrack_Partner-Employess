@@ -601,4 +601,52 @@ class AttendanceController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
+
+  int? attendanceId;
+
+  void updateAttendanceId({required int attendanceId}) {
+    this.attendanceId = attendanceId;
+    update();
+  }
+
+  Future<ResponseModel> fetchAttendanceDetails() async {
+    log('----------- fetchAttendanceDetails Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Response response = await attendanceRepo.fetchAttendanceDetails(
+        attendanceId: attendanceId ?? 0,
+      );
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ?? "fetchAttendanceDetails successful",
+        );
+      } else {
+        String errorMessage = response.body['message'] ??
+            "Error while fetchAttendanceDetails user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT fetchAttendanceDetails(): $e');
+      responseModel =
+          ResponseModel(false, "Error while fetchAttendanceDetails user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
 }

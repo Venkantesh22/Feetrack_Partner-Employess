@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:vlr/data/api/api_client.dart';
 import 'package:vlr/services/constants.dart';
 
@@ -69,5 +68,11 @@ class AttendanceRepo {
         AppConstants.employeeAttendanceGet,
         "fetchTeamEmployeeAttendanceList",
         query: data,
+      );
+
+  Future<Response> fetchAttendanceDetails({required int attendanceId}) async =>
+      await apiClient.getData(
+        "${AppConstants.employeeAttendanceGet}/$attendanceId",
+        "fetchAttendanceDetails",
       );
 }

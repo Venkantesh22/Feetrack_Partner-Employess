@@ -42,6 +42,10 @@ class Assets {
   /// assets/svgs/aleam-watch.svg
   static const String svgsAleamWatch = "assets/svgs/aleam-watch.svg";
 
+  /// Assets for svgsArrowUp
+  /// assets/svgs/arrow-up.svg
+  static const String svgsArrowUp = "assets/svgs/arrow-up.svg";
+
   /// Assets for svgsCalender
   /// assets/svgs/calender.svg
   static const String svgsCalender = "assets/svgs/calender.svg";

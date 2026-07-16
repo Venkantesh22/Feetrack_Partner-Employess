@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 const Color primaryColor = const Color(0xFF021A45);
 Color tertiaryColor = Color(0xFF0052D9);
+
 Color secondaryColor = const Color(0xFF0D9488);
 Color backgroundDark = const Color(0xff231F20);
 Color backgroundLight = const Color(0xFFF4F5F7);
 
 //black
 const Color black = Colors.black;
-const Color black2 = Color(0);
 
 //* white Colors
 Color white = Colors.white;

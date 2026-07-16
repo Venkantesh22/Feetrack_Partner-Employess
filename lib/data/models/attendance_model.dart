@@ -68,7 +68,7 @@ class AttendanceModel {
         checkIn: json["check_in"],
         checkOut: json["check_out"],
         // status: json["status"],
-        status: json["status"] ?? "notPunchIn",
+        status: json["status"] ?? "working",
 
         createdAt: json["created_at"] == null
             ? null
@@ -132,6 +132,14 @@ class AttendanceModel {
           ? greenDark1
           : status == "Checkout"
               ? red1
+              : primaryColor;
+
+  Color get statusColors => isNotPunchIn
+      ? yellow
+      : isWorking
+          ? green2
+          : isPunchOut
+              ? organ
               : primaryColor;
 
   String get location {

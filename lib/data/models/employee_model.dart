@@ -22,6 +22,7 @@ class EmployeesModel {
   final String? checkInTime;
   final String? checkOutTime;
   final dynamic profileImageUrl;
+  
 
   EmployeesModel({
     this.id,
