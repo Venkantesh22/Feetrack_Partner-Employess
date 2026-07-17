@@ -8,12 +8,15 @@ import 'package:vlr/data/models/attendance/attendance_model.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/custom_button.dart';
 
 class AttendanceWidget extends StatefulWidget {
   final AttendanceModel attendanceModel;
+  final Function()? onTap;
   const AttendanceWidget({
     super.key,
     required this.attendanceModel,
+    required this.onTap,
   });
 
   @override
@@ -110,15 +113,18 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                           ),
                           Row(
                             children: [
-                              CustomText(
-                                widget.attendanceModel.dataFormat ?? "",
-                                style: Helper(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontSize: 12.sp,
-                                      color: greyDart2,
-                                    ),
+                              GestureDetector(
+                                onTap: widget.onTap,
+                                child: CustomText(
+                                  widget.attendanceModel.dataFormat ?? "",
+                                  style: Helper(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontSize: 12.sp,
+                                        color: greyDart2,
+                                      ),
+                                ),
                               ),
                               sizedBoxWidth(width: 4.w),
                               Icon(
