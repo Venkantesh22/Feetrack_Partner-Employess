@@ -7,6 +7,7 @@ class CheckPointModel {
   bool? isChecked;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final bool? answer;
 
   CheckPointModel({
     this.id,
@@ -17,6 +18,7 @@ class CheckPointModel {
     this.isChecked,
     this.createdAt,
     this.updatedAt,
+    this.answer,
   });
 
   factory CheckPointModel.fromJson(Map<String, dynamic> json) =>
@@ -33,6 +35,7 @@ class CheckPointModel {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
+        answer: json["answer"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,6 +47,7 @@ class CheckPointModel {
         "is_checked": isChecked,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "answer": answer,
       };
 
   Map<String, dynamic> toSubmitJson() {

@@ -90,6 +90,11 @@ class LaunchHelper {
     required String lat,
     required String lng,
   }) async {
+    if (lat.isEmpty || lng.isEmpty) {
+      return showToast(
+          message: "Location is not available", toastType: ToastType.warning);
+    }
+
     final url = Uri.parse(
       "https://www.google.com/maps/search/?api=1&query=$lat,$lng",
     );

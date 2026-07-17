@@ -6,9 +6,14 @@ import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/custom_button.dart';
+import 'package:vlr/views/screens/attendance/attendacn_details/widget/checklist_responses_section/checklist_respones.dart';
+import 'package:vlr/views/screens/attendance/attendacn_details/widget/location_attendance_section/location_attendance_section.dart';
+import 'package:vlr/views/screens/attendance/attendacn_details/widget/notic_container.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/punch_in_and_out_attendance_section.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/session_summary_section/session_summary_section.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/top_status_section.dart';
+import 'package:vlr/views/screens/attendance/attendacn_details/widget/verification_section/verification_section.dart';
 import 'package:vlr/views/widget/button/appbar_back_button.dart';
 
 class AttendanceDetailsScreen extends StatefulWidget {
@@ -59,15 +64,44 @@ class _AttendanceDetailsScreenState extends State<AttendanceDetailsScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: AppConstants.screenPadding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomButton(
+              onTap: () {
+                pop(context);
+              },
+              height: 56.h,
+              child: CustomText(
+                "Back to Dashboard",
+                style: Helper(context).textTheme.titleMedium?.copyWith(
+                      fontSize: 16.sp,
+                      color: white,
+                    ),
+              ),
+            )
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         padding: AppConstants.screenPadding,
         child: Column(
           children: [
-            TopStatusSection(),
+            const TopStatusSection(),
             sizedBoxHeight(height: 16.h),
-            PunchInAndOutAttendanceDetailsSection(),
+            const PunchInAndOutAttendanceDetailsSection(),
             sizedBoxHeight(height: 16.h),
-            SessionSummarySection()
+            const SessionSummarySection(),
+            sizedBoxHeight(height: 16.h),
+            const LocationAttendanceSection(),
+            sizedBoxHeight(height: 16.h),
+            const VerificationSection(),
+            sizedBoxHeight(height: 16.h),
+            const ChecklistResponsesSection(),
+            sizedBoxHeight(height: 16.h),
+            const NoticeContainer()
           ],
         ),
       ),

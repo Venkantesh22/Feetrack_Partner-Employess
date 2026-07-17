@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,17 +7,46 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_image.dart';
 
-class TopStatusSection extends StatelessWidget {
+class TopStatusSection extends StatefulWidget {
   const TopStatusSection({
     super.key,
   });
 
   @override
+  State<TopStatusSection> createState() => _TopStatusSectionState();
+}
+
+class _TopStatusSectionState extends State<TopStatusSection> {
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
+      final workingTime = getWorkingTime(
+        attendanceController.attendanceModel?.checkIn,
+      );
+
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -40,7 +71,12 @@ class TopStatusSection extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      Assets.svgsArrowUp,
+                      (attendanceController.attendanceModel?.isPunchIn ?? false)
+                          ? Assets.svgsArrowUp
+                          : (attendanceController.attendanceModel?.isPunchOut ??
+                                  false)
+                              ? Assets.svgsArrowDownCircle
+                              : Assets.svgsArrowUp,
                       height: 24.h,
                       width: 24.w,
                       colorFilter:
@@ -48,7 +84,12 @@ class TopStatusSection extends StatelessWidget {
                     ),
                     sizedBoxWidth(width: 8.w),
                     CustomText(
-                      "Punch In - Completed",
+                      (attendanceController.attendanceModel?.isPunchIn ?? false)
+                          ? "Punch In - Completed"
+                          : (attendanceController.attendanceModel?.isPunchOut ??
+                                  false)
+                              ? "Punch Out - Completed"
+                              : "",
                       style: Helper(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 14.sp,
                             color: primaryColor,
@@ -60,7 +101,12 @@ class TopStatusSection extends StatelessWidget {
                   height: 4.h,
                 ),
                 CustomText(
-                  "Work session started",
+                  (attendanceController.attendanceModel?.isPunchIn ?? false)
+                      ? "Work session started"
+                      : (attendanceController.attendanceModel?.isPunchOut ??
+                              false)
+                          ? "Work session end"
+                          : "",
                   style: Helper(context).textTheme.bodyLarge?.copyWith(
                         fontSize: 12.sp,
                         color: greyDart,
@@ -104,7 +150,7 @@ class TopStatusSection extends StatelessWidget {
                 ),
                 sizedBoxHeight(height: 4.h),
                 CustomText(
-                  "0h 00m",
+                  workingTime,
                   style: Helper(context).textTheme.titleMedium?.copyWith(
                         fontSize: 18.sp,
                         color: primaryColor,

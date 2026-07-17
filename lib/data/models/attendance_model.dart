@@ -1,18 +1,7 @@
 import 'dart:ui';
 
+import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
-
-enum EmployeesStatus {
-  notPunchIn,
-  punch_in,
-  punch_out,
-  short_leave,
-  half_day,
-  absent,
-  leave,
-  holiday,
-  weekOff
-}
 
 class AttendanceModel {
   final int? id;
@@ -23,7 +12,8 @@ class AttendanceModel {
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final dynamic checklistResponses;
+  final List<CheckchecklistResponse>? checklistResponses;
+  final List<CheckchecklistResponse>? checkOutChecklistResponses;
   final String? checkInLat;
   final String? checkInLng;
   final dynamic checkInPhoto;
@@ -49,6 +39,7 @@ class AttendanceModel {
     this.createdAt,
     this.updatedAt,
     this.checklistResponses,
+    this.checkOutChecklistResponses,
     this.checkInLat,
     this.checkInLng,
     this.checkInPhoto,
@@ -81,9 +72,19 @@ class AttendanceModel {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        checklistResponses: json["checklist_responses"],
-        checkInLat: json["check_in_lat"],
-        checkInLng: json["check_in_lng"],
+        checklistResponses: json["checklist_responses"] == null
+            ? []
+            : List<CheckchecklistResponse>.from(json["checklist_responses"]!
+                .map((x) => CheckchecklistResponse.fromJson(x))),
+        checkOutChecklistResponses:
+            json["check_out_checklist_responses"] == null
+                ? []
+                : List<CheckchecklistResponse>.from(
+                    json["check_out_checklist_responses"]!
+                        .map((x) => CheckchecklistResponse.fromJson(x))),
+
+        checkInLat: json["check_in_lat"] ?? "--",
+        checkInLng: json["check_in_lng"] ?? "--",
         checkInPhoto: json["check_in_photo"],
         checkInSelfie: json["check_in_selfie"],
         checkOutLat: json["check_out_lat"],
@@ -107,7 +108,13 @@ class AttendanceModel {
         "status": status,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-        "checklist_responses": checklistResponses,
+        "checklist_responses": checklistResponses == null
+            ? []
+            : List<dynamic>.from(checklistResponses!.map((x) => x.toJson())),
+        "check_out_checklist_responses": checkOutChecklistResponses == null
+            ? []
+            : List<dynamic>.from(
+                checkOutChecklistResponses!.map((x) => x.toJson())),
         "check_in_lat": checkInLat,
         "check_in_lng": checkInLng,
         "check_in_photo": checkInPhoto,
@@ -123,6 +130,20 @@ class AttendanceModel {
         "working_minutes": workingMinutes,
         "late_minutes": lateMinutes,
       };
+
+  String? get checkInTimeFormat {
+    if (checkIn == null || (checkIn?.isEmpty ?? false)) {
+      return "-- : --";
+    }
+    return convertTo12HourFormat(time24: checkIn, isShowAMPM: true);
+  }
+
+  String? get checkOutTimeFormat {
+    if (checkOut == null || (checkOut?.isEmpty ?? false)) {
+      return "-- : --";
+    }
+    return convertTo12HourFormat(time24: checkOut, isShowAMPM: true);
+  }
 
   bool get isNotPunchIn => status == "notPunchIn";
   bool get isPunchIn => status == "punch_in";
@@ -152,6 +173,20 @@ class AttendanceModel {
     if (isWeekOff) return weekOff;
 
     return defaultColor;
+  }
+
+  String get statusName {
+    if (isNotPunchIn) return "Check-In Pending";
+    if (isPunchIn) return "Working";
+    if (isPunchOut) return "Punched Out";
+    if (isShortLeave) return "Short Leave";
+    if (isHalfDay) return "Half Day";
+    if (isAbsent) return "Absent";
+    if (isLeave) return "On Leave";
+    if (isHoliday) return "Holiday";
+    if (isWeekOff) return "Week Off";
+
+    return "Unknown";
   }
 
   String get location {
@@ -221,5 +256,26 @@ class EmployeesAttendanceSummaryModel {
         "holiday": holiday,
         "weekOff": weekOff,
         "late": late,
+      };
+}
+
+class CheckchecklistResponse {
+  final String? question;
+  final bool? answer;
+
+  CheckchecklistResponse({
+    this.question,
+    this.answer,
+  });
+
+  factory CheckchecklistResponse.fromJson(Map<String, dynamic> json) =>
+      CheckchecklistResponse(
+        question: json["question"],
+        answer: json["answer"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "question": question,
+        "answer": answer,
       };
 }

@@ -127,3 +127,34 @@ String formatMinutesToHours(int? minutes) {
 
   return "${hours}h ${remainingMinutes}m";
 }
+
+String getWorkingTime(String? punchInTime) {
+  if (punchInTime == null || punchInTime.isEmpty) {
+    return "--";
+  }
+
+  try {
+    final now = DateTime.now();
+
+    final parts = punchInTime.split(":");
+
+    final checkIn = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      int.parse(parts[0]),
+      int.parse(parts[1]),
+      parts.length > 2 ? int.parse(parts[2]) : 0,
+    );
+
+    final difference = now.difference(checkIn);
+
+    final hours = difference.inHours;
+    final minutes = difference.inMinutes % 60;
+    final seconds = difference.inSeconds % 60;
+
+    return "${hours}h ${minutes}m ${seconds}s";
+  } catch (_) {
+    return "--";
+  }
+}

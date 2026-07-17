@@ -5,7 +5,7 @@ import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 
 class PunchInAndPunchOutIconWidget extends StatelessWidget {
-  final String time;
+  final String? time;
   final bool isCheckIn;
   const PunchInAndPunchOutIconWidget({
     super.key,
@@ -36,7 +36,7 @@ class PunchInAndPunchOutIconWidget extends StatelessWidget {
                 ),
           ),
           CustomText(
-            time,
+            time ?? "-- : --",
             style: Helper(context).textTheme.titleMedium?.copyWith(
                   fontSize: 17.sp,
                   color: blackText4,
@@ -65,7 +65,7 @@ class PunchInAndPunchOutIconWidget extends StatelessWidget {
               ),
         ),
         CustomText(
-          time,
+          time ?? "-- : --",
           style: Helper(context).textTheme.titleMedium?.copyWith(
                 fontSize: 17.sp,
                 color: blackText4,

@@ -111,7 +111,7 @@ class SessionSummarySection extends StatelessWidget {
                     iconColor: greenLight,
                     title: 'Status',
                     subtitle: capitalize(
-                        attendanceController.attendanceModel?.status ?? ""),
+                        attendanceController.attendanceModel?.statusName ?? ""),
                     subtitleColor:
                         attendanceController.attendanceModel?.statusColor,
                   ),

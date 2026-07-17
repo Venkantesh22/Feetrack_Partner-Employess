@@ -16,8 +16,6 @@ class AttendanceController extends GetxController implements GetxService {
 
   bool isLoading = false;
 
-  EmployeesStatus employeesStatus = EmployeesStatus.notPunchIn;
-
   Future<ResponseModel> punchInAttendance({
     required String lat,
     required String lng,
@@ -660,6 +658,7 @@ class AttendanceController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "fetchAttendanceDetails successful",
         );
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage = response.body['message'] ??
             "Error while fetchAttendanceDetails user";
@@ -683,7 +682,4 @@ class AttendanceController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
-
-  Future<void> fetchAttendanceHistoryPagination(
-      {required bool refresh}) async {}
 }
