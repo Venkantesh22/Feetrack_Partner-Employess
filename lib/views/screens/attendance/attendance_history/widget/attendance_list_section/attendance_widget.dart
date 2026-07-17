@@ -1,17 +1,50 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/data/models/attendance_model.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
-import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 
-class AttendanceWidget extends StatelessWidget {
+class AttendanceWidget extends StatefulWidget {
   final AttendanceModel attendanceModel;
   const AttendanceWidget({
     super.key,
     required this.attendanceModel,
   });
+
+  @override
+  State<AttendanceWidget> createState() => _AttendanceWidgetState();
+}
+
+class _AttendanceWidgetState extends State<AttendanceWidget> {
+  Timer? _timer;
+  bool showUpdateTime = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    showUpdateTime =
+        Get.find<AttendanceController>().attendanceModel?.isPunchIn ?? false;
+
+    if (showUpdateTime) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,24 +83,26 @@ class AttendanceWidget extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(99.r),
-                              color: attendanceModel.statusColor
+                              color: widget.attendanceModel.statusColor
                                   .withValues(alpha: 0.10),
                             ),
                             child: Row(
                               children: [
                                 CircleAvatar(
                                   radius: 4.r,
-                                  backgroundColor: attendanceModel.statusColor,
+                                  backgroundColor:
+                                      widget.attendanceModel.statusColor,
                                 ),
                                 sizedBoxWidth(width: 4.w),
                                 CustomText(
-                                  capitalize(attendanceModel.status ?? ""),
+                                  widget.attendanceModel.statusName,
                                   style: Helper(context)
                                       .textTheme
                                       .titleMedium
                                       ?.copyWith(
                                         fontSize: 10.sp,
-                                        color: attendanceModel.statusColor,
+                                        color:
+                                            widget.attendanceModel.statusColor,
                                       ),
                                 )
                               ],
@@ -76,9 +111,7 @@ class AttendanceWidget extends StatelessWidget {
                           Row(
                             children: [
                               CustomText(
-                                DateFormatters().dMyDash.format(
-                                      attendanceModel.date ?? getDateTime(),
-                                    ),
+                                widget.attendanceModel.dataFormat ?? "",
                                 style: Helper(context)
                                     .textTheme
                                     .titleMedium
@@ -136,9 +169,9 @@ class AttendanceWidget extends StatelessWidget {
                                           ),
                                     ),
                                     CustomText(
-                                      convertTo12HourFormat(
-                                          time24:
-                                              attendanceModel.checkIn ?? ""),
+                                      widget.attendanceModel
+                                              .checkInTimeFormat ??
+                                          "-- : --",
                                       style: Helper(context)
                                           .textTheme
                                           .titleMedium
@@ -185,9 +218,9 @@ class AttendanceWidget extends StatelessWidget {
                                           ),
                                     ),
                                     CustomText(
-                                      convertTo12HourFormat(
-                                          time24:
-                                              attendanceModel.checkOut ?? ""),
+                                      widget.attendanceModel
+                                              .checkOutTimeFormat ??
+                                          "-- : --",
                                       style: Helper(context)
                                           .textTheme
                                           .titleMedium
@@ -235,8 +268,7 @@ class AttendanceWidget extends StatelessWidget {
                             ),
                           ),
                           CustomText(
-                            formatMinutesToHours(
-                                attendanceModel.workingMinutes),
+                            widget.attendanceModel.workingTimeFormat ?? "",
                             style: Helper(context)
                                 .textTheme
                                 .titleMedium
@@ -257,7 +289,7 @@ class AttendanceWidget extends StatelessWidget {
               bottom: 0,
               child: Container(
                 width: 6.w,
-                color: attendanceModel.statusColor,
+                color: widget.attendanceModel.statusColor,
               )),
         ],
       ),

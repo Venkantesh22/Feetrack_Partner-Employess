@@ -8,10 +8,23 @@ import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/screens/attendance/today_team_attendance/widget/today_team_attendance_summary_section/today_team_attendance_summary_widget.dart';
 
-class TodayTeamAttendanceSummarySection extends StatelessWidget {
+class TodayTeamAttendanceSummarySection extends StatefulWidget {
   const TodayTeamAttendanceSummarySection({
     super.key,
   });
+
+  @override
+  State<TodayTeamAttendanceSummarySection> createState() =>
+      _TodayTeamAttendanceSummarySectionState();
+}
+
+class _TodayTeamAttendanceSummarySectionState
+    extends State<TodayTeamAttendanceSummarySection> {
+  bool isShowAllStatusData = true;
+
+  void updateShowAllStatusData() {
+    isShowAllStatusData = !isShowAllStatusData;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +60,10 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
                 Expanded(
                   child: TodayTeamAttendanceSummaryWidget(
                     onTap: () {
+                      updateShowAllStatusData();
                       attendanceController.fetchTodayTeamAttendance(
-                          status: "punchIn");
+                          status: "punch_in",
+                          isShowAllStatusData: isShowAllStatusData);
                     },
                     title: "Punch In",
                     subTitle: attendanceController
@@ -67,8 +82,10 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
                 Expanded(
                   child: TodayTeamAttendanceSummaryWidget(
                     onTap: () {
+                      updateShowAllStatusData();
                       attendanceController.fetchTodayTeamAttendance(
-                          status: "punchOut");
+                          status: "punch_out",
+                          isShowAllStatusData: isShowAllStatusData);
                     },
                     title: "Punch out",
                     subTitle: attendanceController
@@ -87,8 +104,10 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
                 Expanded(
                   child: TodayTeamAttendanceSummaryWidget(
                     onTap: () {
+                      updateShowAllStatusData();
                       attendanceController.fetchTodayTeamAttendance(
-                          status: "absent");
+                          status: "absent",
+                          isShowAllStatusData: isShowAllStatusData);
                     },
                     title: "Absent",
                     subTitle: attendanceController
@@ -107,8 +126,10 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
                 Expanded(
                   child: TodayTeamAttendanceSummaryWidget(
                     onTap: () {
+                      updateShowAllStatusData();
                       attendanceController.fetchTodayTeamAttendance(
-                          status: "leave");
+                          status: "leave",
+                          isShowAllStatusData: isShowAllStatusData);
                     },
                     title: "Leave",
                     subTitle: attendanceController

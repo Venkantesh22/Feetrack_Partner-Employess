@@ -150,8 +150,13 @@ class AttendanceModel {
       return getWorkingTime(checkIn);
     }
     return formatMinutesToHours(
-         workingMinutes,);
+      workingMinutes,
+    );
   }
+
+  String? get dataFormat => DateFormatters().dMyDash.format(
+        date ?? getDateTime(),
+      );
 
   bool get isNotPunchIn => status == "notPunchIn";
   bool get isPunchIn => status == "punch_in";
