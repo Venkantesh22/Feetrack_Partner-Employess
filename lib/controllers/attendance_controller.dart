@@ -2,7 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/data/models/attendance/attendance_model.dart';
+import 'package:vlr/data/models/attendance/employees_attendance_summary_model.dart';
 import 'package:vlr/data/models/check_point_model.dart';
 import 'package:vlr/data/models/employee_model.dart';
 import 'package:vlr/data/models/pagination/pagination_state.dart';
@@ -578,7 +579,7 @@ class AttendanceController extends GetxController implements GetxService {
       employeesModel == null;
 
       final Map<String, dynamic> data = {
-        "employee_id": selectEmployeeModel?.id ?? "",
+        "employee_id": selectEmployeeModel?.id.toString() ?? "",
         "month": selectedMonth.month.toString(),
         "year": selectedMonth.year.toString(),
       };

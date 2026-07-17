@@ -153,7 +153,7 @@ class AppBarOfEmployeeSection extends StatelessWidget {
                                 .employeesAttendanceSummaryModel?.punchOut
                                 .toString() ??
                             "",
-                        subtitle: 'PRESENT',
+                        subtitle: 'Present',
                         color: green2,
                       ),
                     ),
@@ -168,7 +168,7 @@ class AppBarOfEmployeeSection extends StatelessWidget {
                                 .employeesAttendanceSummaryModel?.absent
                                 .toString() ??
                             "",
-                        subtitle: 'ABSENT',
+                        subtitle: 'Absent',
                         color: red1,
                       ),
                     ),
@@ -183,7 +183,7 @@ class AppBarOfEmployeeSection extends StatelessWidget {
                                 .employeesAttendanceSummaryModel?.leave
                                 .toString() ??
                             "",
-                        subtitle: 'LEAVE',
+                        subtitle: 'Leave',
                         color: tertiaryColor,
                       ),
                     ),
@@ -209,10 +209,10 @@ class AppBarOfEmployeeSection extends StatelessWidget {
                     ),
                     Expanded(
                       child: EmployeeCountWidget(
-                        title: attendanceController
-                                .employeesAttendanceSummaryModel?.late
-                                .toString() ??
-                            "",
+                        title: (attendanceController
+                                    .employeesAttendanceSummaryModel?.late ??
+                                0)
+                            .toString(),
                         subtitle: 'Late',
                         color: shortLeave,
                       ),

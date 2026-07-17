@@ -176,12 +176,13 @@ class AppConstants {
   static const String punchOutAttendancePost = '/hrms/attendance/punch-out';
   static const String todayAttendanceGet = '/hrms/attendance/today';
   static const String attendanceHistoryGet = '/hrms/attendance/history';
-  static const String attendanceDetailsGet = '/hrms/attendance/{attendance_id}';
 
   //* Attendance Team
   static const String todayTeamAttendanceGet = '/hrms/team-attendance/today';
   static const String teamEmployeesListGet = '/hrms/team-attendance/employees';
-  static const String employeeAttendanceGet = '/hrms/attendance';
+  static const String attendanceDetailsGet = '/hrms/attendance';
+  static const String employeeAttendanceDetailsGet =
+      '/hrms/team-attendance/history';
 
   //* Check list point
   static const String checkListPointGet = '/hrms/attendance/checklists';

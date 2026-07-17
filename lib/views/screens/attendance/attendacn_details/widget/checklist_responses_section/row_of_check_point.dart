@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/data/models/attendance/attendance_model.dart';
 import 'package:vlr/generated/assets.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';

@@ -65,14 +65,14 @@ class AttendanceRepo {
   Future<Response> fetchTeamEmployeeAttendanceList(
           {required Map<String, dynamic>? data}) async =>
       await apiClient.getData(
-        AppConstants.employeeAttendanceGet,
+        AppConstants.employeeAttendanceDetailsGet,
         "fetchTeamEmployeeAttendanceList",
         query: data,
       );
 
   Future<Response> fetchAttendanceDetails({required int attendanceId}) async =>
       await apiClient.getData(
-        "${AppConstants.employeeAttendanceGet}/$attendanceId",
+        "${AppConstants.attendanceDetailsGet}/$attendanceId",
         "fetchAttendanceDetails",
       );
 }

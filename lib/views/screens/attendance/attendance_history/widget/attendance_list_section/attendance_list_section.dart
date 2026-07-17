@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vlr/controllers/attendance_controller.dart';
-import 'package:vlr/data/models/attendance_model.dart';
+import 'package:vlr/data/models/attendance/attendance_model.dart';
 import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/attendance/attendance_history/widget/attendance_list_section/attendance_widget.dart';
 
@@ -13,8 +13,6 @@ class AttendanceListSection extends StatefulWidget {
 }
 
 class _AttendanceListSectionState extends State<AttendanceListSection> {
-  
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(
@@ -28,7 +26,7 @@ class _AttendanceListSectionState extends State<AttendanceListSection> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    attendanceController.fetchAttendanceHistory();
+                    attendanceController.fetchTeamEmployeeAttendanceList();
                   },
                   child: const Text("Retry"),
                 ),
