@@ -27,7 +27,7 @@ class AttendanceStatusWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(99.r),
           ),
           child: CustomText(
-            capitalize(attendanceController.attendanceModel?.status ?? ""),
+            capitalize(attendanceController.attendanceModel?.statusName ?? ""),
             style: Helper(context).textTheme.titleMedium?.copyWith(
                   fontSize: 14.sp,
                   color: greenDark2,

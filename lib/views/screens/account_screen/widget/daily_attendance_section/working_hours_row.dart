@@ -14,8 +14,7 @@ class WorkingHoursRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
-      if ((attendanceController.attendanceModel?.isPunchOut ?? false) ||
-          (attendanceController.attendanceModel?.isPunchIn ?? false)) {
+      if ((attendanceController.attendanceModel?.isPunchOut ?? false)) {
         return Padding(
           padding: EdgeInsets.only(bottom: 16.h),
           child: Row(
@@ -29,7 +28,7 @@ class WorkingHoursRow extends StatelessWidget {
                     ),
               ),
               CustomText(
-                "09:23 Hrs",
+                attendanceController.attendanceModel?.workingTimeFormat ?? "",
                 style: Helper(context).textTheme.titleMedium?.copyWith(
                       fontSize: 16.sp,
                       color: blackText1,

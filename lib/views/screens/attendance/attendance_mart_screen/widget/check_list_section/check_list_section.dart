@@ -19,76 +19,86 @@ class CheckListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: greyLight6),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(
-                24.r,
-              ),
-              topRight: Radius.circular(
-                24.r,
-              ),
-            ),
-          ),
-          child: Row(
+        GetBuilder<AttendanceController>(builder: (attendanceController) {
+          String title =
+              (attendanceController.attendanceModel?.isNotPunchIn ?? false)
+                  ? "Pre-Check-in Checklist"
+                  : (attendanceController.attendanceModel?.isPunchIn ?? false)
+                      ? "Post check out Checklist"
+                      : "";
+          return Column(
             children: [
-              Icon(
-                Icons.checklist_outlined,
-                color: blueLight3,
-              ),
-              sizedBoxWidth(width: 8.w),
-              CustomText(
-                "Pre-Check-in Checklist",
-                style: Helper(context).textTheme.labelMedium?.copyWith(
-                      fontSize: 14,
-                      color: greyDart2,
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: greyLight6),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      24.r,
                     ),
+                    topRight: Radius.circular(
+                      24.r,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.checklist_outlined,
+                      color: blueLight3,
+                    ),
+                    sizedBoxWidth(width: 8.w),
+                    CustomText(
+                      title,
+                      style: Helper(context).textTheme.labelMedium?.copyWith(
+                            fontSize: 14,
+                            color: greyDart2,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 1, color: greyLight6),
+                    left: BorderSide(width: 1, color: greyLight6),
+                    right: BorderSide(width: 1, color: greyLight6),
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(
+                      24.r,
+                    ),
+                    bottomRight: Radius.circular(
+                      24.r,
+                    ),
+                  ),
+                ),
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    final model = attendanceController.isLoading
+                        ? CheckPointModel()
+                        : attendanceController.checkPointModelList[index];
+                    return CustomShimmer(
+                      isLoading: attendanceController.isLoading,
+                      child: CheckListPointWidget(
+                        checkPointModel: model,
+                      ),
+                    );
+                  },
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (_, __) => Divider(
+                    color: greyLight6,
+                  ),
+                  itemCount: attendanceController.isLoading
+                      ? 4
+                      : attendanceController.checkPointModelList.length,
+                ),
               ),
             ],
-          ),
-        ),
-        GetBuilder<AttendanceController>(builder: (attendanceController) {
-          return Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(width: 1, color: greyLight6),
-                left: BorderSide(width: 1, color: greyLight6),
-                right: BorderSide(width: 1, color: greyLight6),
-              ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(
-                  24.r,
-                ),
-                bottomRight: Radius.circular(
-                  24.r,
-                ),
-              ),
-            ),
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                final model = attendanceController.isLoading
-                    ? CheckPointModel()
-                    : attendanceController.checkPointModelList[index];
-                return CustomShimmer(
-                  isLoading: attendanceController.isLoading,
-                  child: CheckListPointWidget(
-                    checkPointModel: model,
-                  ),
-                );
-              },
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (_, __) => Divider(
-                color: greyLight6,
-              ),
-              itemCount: attendanceController.isLoading
-                  ? 4
-                  : attendanceController.checkPointModelList.length,
-            ),
           );
         }),
         sizedBoxHeight(height: 32.h),
@@ -121,7 +131,7 @@ class CheckListSection extends StatelessWidget {
                         if (value.isSuccess) {
                           navigate(
                               context: context,
-                              page: AttendancePunchOutScreen());
+                              page: const AttendancePunchOutScreen());
                         } else {
                           showToast(
                               message: value.message,
@@ -149,7 +159,7 @@ class CheckListSection extends StatelessWidget {
                         if (value.isSuccess) {
                           navigate(
                               context: context,
-                              page: AttendancePunchOutScreen());
+                              page: const AttendancePunchOutScreen());
                         } else {
                           showToast(
                               message: value.message,

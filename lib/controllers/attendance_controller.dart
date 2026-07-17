@@ -507,7 +507,7 @@ class AttendanceController extends GetxController implements GetxService {
       Map<String, dynamic> data = {
         "mode": (attendanceModel?.isNotPunchIn ?? false)
             ? "punch_in"
-            : (attendanceModel?.isPunchOut ?? false)
+            : (attendanceModel?.isPunchIn ?? false)
                 ? "punch_out"
                 : "",
         "checklistAnswers":

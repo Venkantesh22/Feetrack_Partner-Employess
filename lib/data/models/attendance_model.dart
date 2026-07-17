@@ -145,6 +145,14 @@ class AttendanceModel {
     return convertTo12HourFormat(time24: checkOut, isShowAMPM: true);
   }
 
+  String? get workingTimeFormat {
+    if (isPunchIn) {
+      return getWorkingTime(checkIn);
+    }
+    return formatMinutesToHours(
+         workingMinutes,);
+  }
+
   bool get isNotPunchIn => status == "notPunchIn";
   bool get isPunchIn => status == "punch_in";
   bool get isPunchOut => status == "punch_out";
