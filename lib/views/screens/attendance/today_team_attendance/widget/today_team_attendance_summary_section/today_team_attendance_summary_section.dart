@@ -52,7 +52,7 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
                     },
                     title: "Punch In",
                     subTitle: attendanceController
-                            .employeesAttendanceSummaryModel?.working
+                            .employeesAttendanceSummaryModel?.punchIn
                             .toString() ??
                         "",
                     icon: Assets.svgsPunchIn,
@@ -72,7 +72,7 @@ class TodayTeamAttendanceSummarySection extends StatelessWidget {
                     },
                     title: "Punch out",
                     subTitle: attendanceController
-                            .employeesAttendanceSummaryModel?.present
+                            .employeesAttendanceSummaryModel?.punchOut
                             .toString() ??
                         "",
                     icon: Assets.svgsLogout,

@@ -22,7 +22,7 @@ List<AttendanceSummaryModel> attendanceSummaryModelList(
       AttendanceSummaryModel(
           icon: Assets.svgsPunchIn,
           title: "Present",
-          count: attendanceController.employeesAttendanceSummaryModel?.present
+          count: attendanceController.employeesAttendanceSummaryModel?.punchOut
                   .toString() ??
               "",
           color: greenDark1),

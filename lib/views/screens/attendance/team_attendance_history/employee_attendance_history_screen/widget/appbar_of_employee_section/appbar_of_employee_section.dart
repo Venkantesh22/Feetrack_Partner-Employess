@@ -150,7 +150,7 @@ class AppBarOfEmployeeSection extends StatelessWidget {
                     Expanded(
                       child: EmployeeCountWidget(
                         title: attendanceController
-                                .employeesAttendanceSummaryModel?.present
+                                .employeesAttendanceSummaryModel?.punchOut
                                 .toString() ??
                             "",
                         subtitle: 'PRESENT',

@@ -4,8 +4,8 @@ import 'package:vlr/services/theme.dart';
 
 enum EmployeesStatus {
   notPunchIn,
-  working,
-  present,
+  punch_in,
+  punch_out,
   short_leave,
   half_day,
   absent,
@@ -125,8 +125,8 @@ class AttendanceModel {
       };
 
   bool get isNotPunchIn => status == "notPunchIn";
-  bool get isPunchIn => status == "working";
-  bool get isPunchOut => status == "present";
+  bool get isPunchIn => status == "punch_in";
+  bool get isPunchOut => status == "punch_out";
   bool get isShortLeave => status == "short_leave";
   bool get isHalfDay => status == "half_day";
   bool get isAbsent => status == "absent";
@@ -180,20 +180,20 @@ class AttendanceModel {
 }
 
 class EmployeesAttendanceSummaryModel {
-  final int? present;
+  final int? punchOut;
   final int? absent;
   final int? halfDay;
-  final int? working;
+  final int? punchIn;
   final int? leave;
   final int? holiday;
   final int? weekOff;
   final int? late;
 
   EmployeesAttendanceSummaryModel({
-    this.present,
+    this.punchOut,
     this.absent,
     this.halfDay,
-    this.working,
+    this.punchIn,
     this.leave,
     this.holiday,
     this.weekOff,
@@ -202,10 +202,10 @@ class EmployeesAttendanceSummaryModel {
 
   factory EmployeesAttendanceSummaryModel.fromJson(Map<String, dynamic> json) =>
       EmployeesAttendanceSummaryModel(
-        present: json["present"],
+        punchOut: json["punch_out"],
         absent: json["absent"],
         halfDay: json["half_day"],
-        working: json["working"],
+        punchIn: json["punch_in"],
         leave: json["leave"],
         holiday: json["holiday"],
         weekOff: json["weekOff"],
@@ -213,10 +213,10 @@ class EmployeesAttendanceSummaryModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "present": present,
+        "punch_out": punchOut,
         "absent": absent,
         "half_day": halfDay,
-        "working": working,
+        "punch_in": punchIn,
         "leave": leave,
         "holiday": holiday,
         "weekOff": weekOff,

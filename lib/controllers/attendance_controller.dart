@@ -214,7 +214,7 @@ class AttendanceController extends GetxController implements GetxService {
             EmployeesAttendanceSummaryModel.fromJson(summaryData);
         attendanceList = data.map((e) => AttendanceModel.fromJson(e)).toList();
 
-        attendancePerCal(employeesAttendanceSummaryModel?.present ?? 0);
+        attendancePerCal(employeesAttendanceSummaryModel?.punchOut ?? 0);
       } else {
         String errorMessage = response.body['message'] ??
             "Error while fetchAttendanceHistory user";
@@ -446,7 +446,7 @@ class AttendanceController extends GetxController implements GetxService {
       Map<String, dynamic>? data = {
         "mode": (attendanceModel?.isNotPunchIn ?? false)
             ? "punch_in"
-            : (attendanceModel?.isPunchOut ?? false)
+            : (attendanceModel?.isPunchIn ?? false)
                 ? "punch_out"
                 : ""
       };
@@ -516,7 +516,7 @@ class AttendanceController extends GetxController implements GetxService {
             checkPointModelList.map((e) => e.toSubmitJson()).toList(),
       };
       Response response = await attendanceRepo.submitCheckListPoint(
-        data: FormData(data),
+        data: data,
       );
 
       if (response.body['status'] == "success") {
