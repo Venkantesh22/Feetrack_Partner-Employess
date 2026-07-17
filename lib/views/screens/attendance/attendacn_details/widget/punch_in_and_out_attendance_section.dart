@@ -5,6 +5,7 @@ import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/dotted_line.dart';
+import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/punch_in_and_out_attendance_section/punch_in_and_out_icon_widget.dart';
 
 class PunchInAndOutAttendanceDetailsSection extends StatelessWidget {
@@ -30,11 +31,14 @@ class PunchInAndOutAttendanceDetailsSection extends StatelessWidget {
             ]),
         child: Row(
           children: [
-            PunchInAndPunchOutIconWidget(
-              time: convertTo12HourFormat(
-                  time24: attendanceController.attendanceModel?.checkIn ?? "",
-                  isShowAMPM: true),
-              isCheckIn: true,
+            CustomShimmer(
+              isLoading: attendanceController.isLoading,
+              child: PunchInAndPunchOutIconWidget(
+                time: convertTo12HourFormat(
+                    time24: attendanceController.attendanceModel?.checkIn ?? "",
+                    isShowAMPM: true),
+                isCheckIn: true,
+              ),
             ),
             const CircleAvatar(
               radius: 4,
@@ -53,8 +57,11 @@ class PunchInAndOutAttendanceDetailsSection extends StatelessWidget {
               radius: 4,
               backgroundColor: red1,
             ),
-             PunchInAndPunchOutIconWidget(
-              time: attendanceController.attendanceModel?.checkOutTimeFormat,
+            CustomShimmer(
+              isLoading: attendanceController.isLoading,
+              child: PunchInAndPunchOutIconWidget(
+                time: attendanceController.attendanceModel?.checkOutTimeFormat,
+              ),
             ),
           ],
         ),

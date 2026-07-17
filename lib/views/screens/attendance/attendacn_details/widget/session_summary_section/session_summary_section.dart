@@ -9,6 +9,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/attendance/attendacn_details/widget/session_summary_section/seesion_widget.dart';
 
 class SessionSummarySection extends StatelessWidget {
@@ -52,71 +53,75 @@ class SessionSummarySection extends StatelessWidget {
               ],
             ),
             sizedBoxHeight(height: 16.h),
-            Row(
-              children: [
-                Expanded(
-                  child: SessionWidget(
-                    icon: Icons.watch_later_outlined,
-                    iconColor: blueLight3,
-                    title: 'Working Hr',
-                    subtitle: formatMinutesToHours(
-                        attendanceController.attendanceModel?.workingMinutes ??
-                            0),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  width: 1,
-                  height: 60.h,
-                  color: greyLight6,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+            CustomShimmer(
+              isLoading: attendanceController.isLoading,
+              child: Row(
+                children: [
+                  Expanded(
                     child: SessionWidget(
                       icon: Icons.watch_later_outlined,
-                      iconColor: organ,
-                      title: 'Late Hr',
-                      subtitle: formatMinutesToHours(int.tryParse(
-                          attendanceController.attendanceModel?.lateMinutes ??
-                              "")),
+                      iconColor: blueLight3,
+                      title: 'Working Hr',
+                      subtitle: formatMinutesToHours(attendanceController
+                              .attendanceModel?.workingMinutes ??
+                          0),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  width: 1,
-                  height: 60.h,
-                  color: greyLight6,
-                ),
-                Expanded(
-                  child: SessionWidget(
-                    icon: Icons.calendar_month_sharp,
-                    title: 'Check In Date',
-                    iconColor: purple,
-                    subtitle: DateFormat('MMM dd, yyyy').format(
-                        attendanceController.attendanceModel?.date ??
-                            getDateTime()),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    width: 1,
+                    height: 60.h,
+                    color: greyLight6,
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  width: 1,
-                  height: 60.h,
-                  color: greyLight6,
-                ),
-                Expanded(
-                  child: SessionWidget(
-                    icon: Icons.work_outline_outlined,
-                    iconColor: greenLight,
-                    title: 'Status',
-                    subtitle: capitalize(
-                        attendanceController.attendanceModel?.statusName ?? ""),
-                    subtitleColor:
-                        attendanceController.attendanceModel?.statusColor,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                      child: SessionWidget(
+                        icon: Icons.watch_later_outlined,
+                        iconColor: organ,
+                        title: 'Late Hr',
+                        subtitle: formatMinutesToHours(int.tryParse(
+                            attendanceController.attendanceModel?.lateMinutes ??
+                                "")),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    width: 1,
+                    height: 60.h,
+                    color: greyLight6,
+                  ),
+                  Expanded(
+                    child: SessionWidget(
+                      icon: Icons.calendar_month_sharp,
+                      title: 'Check In Date',
+                      iconColor: purple,
+                      subtitle: DateFormat('MMM dd, yyyy').format(
+                          attendanceController.attendanceModel?.date ??
+                              getDateTime()),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    width: 1,
+                    height: 60.h,
+                    color: greyLight6,
+                  ),
+                  Expanded(
+                    child: SessionWidget(
+                      icon: Icons.work_outline_outlined,
+                      iconColor: greenLight,
+                      title: 'Status',
+                      subtitle: capitalize(
+                          attendanceController.attendanceModel?.statusName ??
+                              ""),
+                      subtitleColor:
+                          attendanceController.attendanceModel?.statusColor,
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
