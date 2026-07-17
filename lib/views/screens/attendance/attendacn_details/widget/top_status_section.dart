@@ -43,9 +43,8 @@ class _TopStatusSectionState extends State<TopStatusSection> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
-      final workingTime = getWorkingTime(
-        attendanceController.attendanceModel?.checkIn,
-      );
+      final workingTime =
+          attendanceController.attendanceModel?.workingTimeFormat;
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +149,7 @@ class _TopStatusSectionState extends State<TopStatusSection> {
                 ),
                 sizedBoxHeight(height: 4.h),
                 CustomText(
-                  workingTime,
+                  workingTime ?? "-- : --",
                   style: Helper(context).textTheme.titleMedium?.copyWith(
                         fontSize: 18.sp,
                         color: primaryColor,

@@ -39,6 +39,8 @@ class SessionWidget extends StatelessWidget {
         sizedBoxHeight(height: 4.h),
         CustomText(
           subtitle,
+          maxLines: 2,
+          textAlign: TextAlign.center,
           style: Helper(context).textTheme.titleMedium?.copyWith(
                 fontSize: 12.sp,
                 color: subtitleColor ?? blackText2,
