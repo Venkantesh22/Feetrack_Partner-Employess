@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 
 class EmployeesModel {
@@ -18,15 +19,16 @@ class EmployeesModel {
   final dynamic emailVerifiedAt;
   final dynamic mobileVerifiedAt;
   final dynamic profileImage;
-  final dynamic fcmToken;
+  final String? fcmToken;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final dynamic deletedAt;
-  final String? todayStatus;
-  final String? checkInTime;
-  final String? checkOutTime;
-  final dynamic profileImageUrl;
   final int? attendanceId;
+  final String? todayStatus;
+  final String? statusReason;
+  final String? checkIn;
+  final String? checkOut;
+  final dynamic profileImageUrl;
 
   EmployeesModel({
     this.id,
@@ -48,11 +50,12 @@ class EmployeesModel {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-    this.todayStatus,
-    this.checkInTime,
-    this.checkOutTime,
-    this.profileImageUrl,
     this.attendanceId,
+    this.todayStatus,
+    this.statusReason,
+    this.checkIn,
+    this.checkOut,
+    this.profileImageUrl,
   });
 
   factory EmployeesModel.fromJson(Map<String, dynamic> json) => EmployeesModel(
@@ -79,11 +82,12 @@ class EmployeesModel {
             ? null
             : DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
-        todayStatus: json["today_status"],
-        checkInTime: json["check_in_time"],
-        checkOutTime: json["check_out_time"],
-        profileImageUrl: json["profile_image_url"],
         attendanceId: json["attendance_id"],
+        todayStatus: json["today_status"],
+        statusReason: json["status_reason"],
+        checkIn: json["check_in"],
+        checkOut: json["check_out"],
+        profileImageUrl: json["profile_image_url"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -106,16 +110,17 @@ class EmployeesModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "deleted_at": deletedAt,
-        "today_status": todayStatus,
-        "check_in_time": checkInTime,
-        "check_out_time": checkOutTime,
-        "profile_image_url": profileImageUrl,
         "attendance_id": attendanceId,
+        "today_status": todayStatus,
+        "status_reason": statusReason,
+        "check_in": checkIn,
+        "check_out": checkOut,
+        "profile_image_url": profileImageUrl,
       };
 
   bool get isNotPunchIn => todayStatus == "notPunchIn";
-  bool get isPunchIn => todayStatus == "working";
-  bool get isPunchOut => todayStatus == "present";
+  bool get isPunchIn => todayStatus == "punch_in";
+  bool get isPunchOut => todayStatus == "punch_out";
   bool get isShortLeave => todayStatus == "short_leave";
   bool get isHalfDay => todayStatus == "half_day";
   bool get isAbsent => todayStatus == "absent";
@@ -135,5 +140,19 @@ class EmployeesModel {
     if (isWeekOff) return weekOff;
 
     return defaultColor;
+  }
+
+  String? get checkInTimeFormat {
+    if (checkIn == null || (checkIn?.isEmpty ?? false)) {
+      return "-- : --";
+    }
+    return convertTo12HourFormat(time24: checkIn, isShowAMPM: true);
+  }
+
+  String? get checkOutTimeFormat {
+    if (checkOut == null || (checkOut?.isEmpty ?? false)) {
+      return "-- : --";
+    }
+    return convertTo12HourFormat(time24: checkOut, isShowAMPM: true);
   }
 }

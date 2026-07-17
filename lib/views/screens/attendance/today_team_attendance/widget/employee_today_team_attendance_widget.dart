@@ -20,6 +20,11 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool showAttendanceDetailScreen = ((employeesModel?.isPunchIn ?? false) ||
+            (employeesModel?.isPunchOut ?? false) ||
+            (employeesModel?.isHalfDay ?? false))
+        ? true
+        : false;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -142,7 +147,7 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                           ),
                           CustomText(
                             convertTo12HourFormat(
-                              time24: employeesModel?.checkInTime ?? "",
+                              time24: employeesModel?.checkInTimeFormat ?? "",
                             ),
                             style:
                                 Helper(context).textTheme.titleMedium?.copyWith(
@@ -187,7 +192,7 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
                           ),
                           CustomText(
                             convertTo12HourFormat(
-                              time24: employeesModel?.checkOutTime ?? "",
+                              time24: employeesModel?.checkOutTimeFormat ?? "",
                             ),
                             style:
                                 Helper(context).textTheme.titleMedium?.copyWith(
@@ -204,40 +209,46 @@ class EmployeeTodayTeamAttendanceWidget extends StatelessWidget {
           ),
           sizedBoxHeight(height: 16.h),
           GetBuilder<AttendanceController>(builder: (attendanceController) {
-            return CustomShimmer(
-              isLoading: attendanceController.isLoading,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    attendanceController.updateAttendanceId(attendanceId:employeesModel?.attendanceId ?? 0);
+            return showAttendanceDetailScreen
+                ? CustomShimmer(
+                    isLoading: attendanceController.isLoading,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          attendanceController.updateAttendanceId(
+                              attendanceId: employeesModel?.attendanceId ?? 0);
 
-                    navigate(
-                      context: context,
-                      page: const AttendanceDetailsScreen(),
-                    );
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CustomText(
-                        "View Details",
-                        style: Helper(context).textTheme.titleMedium?.copyWith(
-                              fontSize: 14.sp,
+                          navigate(
+                            context: context,
+                            page: const AttendanceDetailsScreen(),
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomText(
+                              "View Details",
+                              style: Helper(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontSize: 14.sp,
+                                    color: tertiaryColor,
+                                  ),
+                            ),
+                            SizedBox(width: 4.w),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 16.sp,
                               color: tertiaryColor,
                             ),
+                          ],
+                        ),
                       ),
-                      SizedBox(width: 4.w),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16.sp,
-                        color: tertiaryColor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+                    ),
+                  )
+                : SizedBox();
           })
         ],
       ),
