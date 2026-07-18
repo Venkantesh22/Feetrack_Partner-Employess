@@ -19,9 +19,9 @@ class AuthController extends GetxController implements GetxService {
   bool get acceptTerms => _acceptTerms;
 
   TextEditingController emailController =
-      TextEditingController(text: "abc@gmail.com");
+      TextEditingController(text: "v3@gmail.com");
   TextEditingController passwordController =
-      TextEditingController(text: "12345678");
+      TextEditingController(text: "Ven12345678");
   TextEditingController confirmPasswordController =
       TextEditingController(text: "Ven12345678");
   TextEditingController fullNameController =
@@ -348,7 +348,7 @@ class AuthController extends GetxController implements GetxService {
                 filename: profileImage?.path.split('/').last ?? "",
               ),
       };
-      
+
       Map<String, dynamic> dataFCMToken = {
         "fcm_token": authRepo.getFCMToken(),
       };

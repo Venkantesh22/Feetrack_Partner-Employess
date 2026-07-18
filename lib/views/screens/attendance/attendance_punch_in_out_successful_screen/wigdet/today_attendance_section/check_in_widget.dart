@@ -5,7 +5,7 @@ import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/today_attendance_section/today_in_widget_model.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/today_attendance_section/today_in_widget_model.dart';
 
 class CheckInWidget extends StatelessWidget {
   final TodayInWidgetModel todayInWidgetModel;

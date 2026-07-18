@@ -8,8 +8,8 @@ import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/base/shimmer.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/location_details_section/location_details_widget.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/location_details_section/location_widget_model.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/location_details_section/location_details_widget.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/location_details_section/location_widget_model.dart';
 
 class LocationDetailSection extends StatelessWidget {
   const LocationDetailSection({

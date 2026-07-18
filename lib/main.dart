@@ -8,8 +8,6 @@ import 'package:vlr/firebase_options.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:toastification/toastification.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/attendance_punch_out_screen.dart';
-import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 import 'package:vlr/views/screens/splash_screen/splash_screen.dart';
 import 'services/init.dart';
 

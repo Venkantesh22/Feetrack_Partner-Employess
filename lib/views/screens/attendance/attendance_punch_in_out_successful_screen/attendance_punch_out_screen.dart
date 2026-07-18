@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/attendance_controller.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/location_details_section/location_details_section.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/today_attendance_section/check_out_selfe_section.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/today_attendance_section/today_attendance_section.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_out_screen/wigdet/top_section_attendance_punch_out.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/location_details_section/location_details_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/today_attendance_section/check_out_selfe_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/today_attendance_section/today_attendance_section.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/top_section_attendance_punch_out.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/home_screen.dart';
 
-class AttendancePunchOutScreen extends StatelessWidget {
-  const AttendancePunchOutScreen({super.key});
+class AttendancePunchInOutSuccessScreen extends StatefulWidget {
+  const AttendancePunchInOutSuccessScreen({super.key});
+
+  @override
+  State<AttendancePunchInOutSuccessScreen> createState() =>
+      _AttendancePunchInOutSuccessScreenState();
+}
+
+class _AttendancePunchInOutSuccessScreenState
+    extends State<AttendancePunchInOutSuccessScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<AttendanceController>().loadDemoAttendance();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +44,20 @@ class AttendancePunchOutScreen extends StatelessWidget {
               color: white,
             )),
         centerTitle: true,
-        title: CustomText(
-          "Punch Out Successful",
-          style: Helper(context).textTheme.titleSmall?.copyWith(
-                fontSize: 16,
-                color: white,
-              ),
-        ),
+        title:
+            GetBuilder<AttendanceController>(builder: (attendanceController) {
+          return CustomText(
+            (attendanceController.attendanceModel?.isPunchIn ?? false)
+                ? "Punch In Successful"
+                : (attendanceController.attendanceModel?.isPunchIn ?? false)
+                    ? "Punch Out Successful"
+                    : "",
+            style: Helper(context).textTheme.titleSmall?.copyWith(
+                  fontSize: 16.sp,
+                  color: white,
+                ),
+          );
+        }),
       ),
       body: SingleChildScrollView(
         padding: AppConstants.screenPadding,

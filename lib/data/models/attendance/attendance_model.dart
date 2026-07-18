@@ -63,8 +63,9 @@ class AttendanceModel {
         date: json["date"] == null ? null : DateTime.parse(json["date"]),
         checkIn: json["check_in"],
         checkOut: json["check_out"],
-        // status: json["status"],
-        status: json["status"] ?? "working",
+        // status: "notPunchIn",
+        status: json["status"],
+        // status: json["status"] ?? "working",
 
         createdAt: json["created_at"] == null
             ? null
@@ -130,6 +131,46 @@ class AttendanceModel {
         "working_minutes": workingMinutes,
         "late_minutes": lateMinutes,
       };
+  factory AttendanceModel.demoPunchIn() {
+    return AttendanceModel(
+      id: 1,
+      employeeId: "EMP001",
+      date: DateTime.now(),
+      checkIn: "09:15:00",
+      checkOut: null,
+      status: "punch_in",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      workingMinutes: 165,
+      lateMinutes: "5",
+      checkInLat: "12.9740317",
+      checkInLng: "77.7142783",
+      checkOutLat: "--",
+      checkOutLng: "--",
+      checkInSelfieUrl:
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
+      checkOutSelfieUrl: null,
+      checklistResponses: [
+        CheckchecklistResponse(
+          question: "Are you wearing your Employee ID Card?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Are you wearing your Employee Uniform?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Safety shoes worn?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Helmet available?",
+          answer: false,
+        ),
+      ],
+      checkOutChecklistResponses: [],
+    );
+  }
 
   String? get checkInTimeFormat {
     if (checkIn == null || (checkIn?.isEmpty ?? false)) {

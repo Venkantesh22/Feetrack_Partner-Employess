@@ -685,4 +685,9 @@ class AttendanceController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
+
+  void loadDemoAttendance() {
+    attendanceModel = AttendanceModel.demoPunchIn();
+    update();
+  }
 }
