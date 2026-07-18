@@ -10,6 +10,8 @@ class AttendanceModel {
   final String? checkIn;
   final String? checkOut;
   final String? status;
+  final String? statusReason;
+
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final List<CheckchecklistResponse>? checklistResponses;
@@ -36,6 +38,7 @@ class AttendanceModel {
     this.checkIn,
     this.checkOut,
     this.status,
+    this.statusReason,
     this.createdAt,
     this.updatedAt,
     this.checklistResponses,
@@ -63,8 +66,9 @@ class AttendanceModel {
         date: json["date"] == null ? null : DateTime.parse(json["date"]),
         checkIn: json["check_in"],
         checkOut: json["check_out"],
-        status: "leave",
-        // status: json["status"],
+        // status: "leave",
+        status: json["status"],
+        statusReason: json["status_reason"],
 
         createdAt: json["created_at"] == null
             ? null
@@ -106,6 +110,7 @@ class AttendanceModel {
         "check_in": checkIn,
         "check_out": checkOut,
         "status": status,
+        "status_reason": statusReason,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "checklist_responses": checklistResponses == null
