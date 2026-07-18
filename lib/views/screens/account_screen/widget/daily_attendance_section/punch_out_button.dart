@@ -21,19 +21,21 @@ class PunchButtonWidget extends StatelessWidget {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
       String? title;
       IconData? icon;
-      Color? color;
+      Color? buttonBgColor;
+      Color color =
+          attendanceController.attendanceModel?.statusColor ?? defaultColor;
       if (attendanceController.attendanceModel?.isNotPunchIn ?? false) {
         title = "Punch In";
         icon = Icons.login;
-        color = green;
+        buttonBgColor = green;
       } else if (attendanceController.attendanceModel?.isPunchOut ?? false) {
         title = "Punch out Done";
         icon = Icons.logout;
-        color = primaryColor;
+        buttonBgColor = primaryColor;
       } else if (attendanceController.attendanceModel?.isPunchIn ?? false) {
         title = "Punch Out";
         icon = Icons.logout;
-        color = redDark;
+        buttonBgColor = redDark;
       }
 
       if ((attendanceController.attendanceModel?.isNotPunchIn ?? false) ||
@@ -43,8 +45,8 @@ class PunchButtonWidget extends StatelessWidget {
             CustomButton(
               height: 48.h,
               onTap: onTap,
-              color: color,
-              borderColor: color,
+              color: buttonBgColor,
+              borderColor: buttonBgColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -181,6 +183,50 @@ class PunchButtonWidget extends StatelessWidget {
           ),
         );
       }
+      if (attendanceController.attendanceModel?.isLeave ?? false) {
+        return Container(
+          padding: EdgeInsets.all(12.w),
+          margin: EdgeInsets.only(top: 12.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: color.withValues(alpha: 0.1),
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                Assets.svgsInfo,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              ),
+              sizedBoxWidth(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      "You have completed your work session. Thank you!",
+                      maxLines: 2,
+                      style: Helper(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: 12.sp,
+                            color: color,
+                          ),
+                    ),
+                    sizedBoxHeight(height: 2.h),
+                    CustomText(
+                      "No punch in/out required.",
+                      maxLines: 2,
+                      style: Helper(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 10.sp,
+                            color: color,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+
       return const SizedBox();
     });
   }

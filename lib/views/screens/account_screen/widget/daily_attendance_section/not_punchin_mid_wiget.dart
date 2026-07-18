@@ -16,6 +16,8 @@ class DailyTopMidSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
+      final color = attendanceController.attendanceModel?.statusColor;
+
       if (attendanceController.attendanceModel?.isNotPunchIn ?? false) {
         return Center(
           child: Column(
@@ -130,6 +132,59 @@ class DailyTopMidSection extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        );
+      }
+      if (attendanceController.attendanceModel?.isLeave ?? false) {
+        return Padding(
+          padding: EdgeInsets.only(top: 16.h),
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.w),
+                  decoration: BoxDecoration(
+                      color: color?.withValues(alpha: 0.1),
+                      shape: BoxShape.circle),
+                  child: Icon(
+                    Icons.calendar_month_outlined,
+                    size: 40.sp,
+                    color: color,
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 4.h, horizontal: 24.w),
+                  decoration: BoxDecoration(
+                    color: color?.withValues(alpha: 0.10),
+                    borderRadius: BorderRadius.circular(99.r),
+                  ),
+                  child: CustomText(
+                    "ON LEAVE TODAY",
+                    style: Helper(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 12.sp,
+                          color: color,
+                        ),
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomText(
+                  "Enjoy your day off!",
+                  style: Helper(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 20.sp,
+                      ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomText(
+                  "You are marked on leave for today.",
+                  style: Helper(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontSize: 14.sp, color: weekOff),
+                )
+              ],
+            ),
           ),
         );
       }

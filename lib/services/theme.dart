@@ -25,6 +25,7 @@ Color blueDark1 = const Color(0xFF1E40AF);
 //* purple Colors
 Color purpleLight = const Color(0xFFEADDFF);
 Color purple = const Color(0xFF484AD6);
+Color purple2 = const Color(0xFF9333EA);
 Color deepPurple = Colors.deepPurple;
 
 //* Grey Colors
@@ -95,7 +96,7 @@ const Color halfDay = Color(0xFF0EA5E9); // Sky Blue
 
 const Color absent = Color(0xFFEF4444); // Red
 
-const Color leave = Color(0xFF0052D9); // Primary Blue
+Color leave = purple2; // Primary Blue
 
 const Color holiday = Color(0xFF14B8A6); // Teal
 
