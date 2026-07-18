@@ -30,9 +30,7 @@ List<TodayInWidgetModel> todayInWidgetModelList(
         widget: Column(
           children: [
             CustomText(
-              convertTo12HourFormat(
-                  time24: attendanceController.attendanceModel?.checkIn ??
-                      "-- : --"),
+              attendanceController.attendanceModel?.checkInTimeFormat ?? "",
               style: Helper(context).textTheme.titleMedium?.copyWith(
                     fontSize: 10.sp,
                     color: green2,
@@ -58,9 +56,7 @@ List<TodayInWidgetModel> todayInWidgetModelList(
         widget: Column(
           children: [
             CustomText(
-              convertTo12HourFormat(
-                  time24: attendanceController.attendanceModel?.checkOut ??
-                      "-- : --"),
+              attendanceController.attendanceModel?.checkOutTimeFormat ?? "",
               style: Helper(context).textTheme.titleMedium?.copyWith(
                     fontSize: 10.sp,
                     color: red1,
@@ -86,9 +82,7 @@ List<TodayInWidgetModel> todayInWidgetModelList(
         widget: Column(
           children: [
             CustomText(
-              convertTo12HourFormat(
-                  time24: attendanceController.attendanceModel?.checkOut ??
-                      "-- : --"),
+              attendanceController.attendanceModel?.workingTimeFormat ?? "",
               style: Helper(context).textTheme.titleMedium?.copyWith(
                     fontSize: 10.sp,
                     color: primaryColor,
@@ -104,10 +98,10 @@ List<TodayInWidgetModel> todayInWidgetModelList(
         widget: Column(
           children: [
             CustomText(
-              capitalize(attendanceController.attendanceModel?.status ?? ""),
+              attendanceController.attendanceModel?.statusName ?? "",
               style: Helper(context).textTheme.titleMedium?.copyWith(
                     fontSize: 10.sp,
-                    color: green2,
+                    color: attendanceController.attendanceModel?.statusColor,
                   ),
             ),
           ],

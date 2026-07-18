@@ -6,6 +6,7 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
+import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/base/shimmer.dart';
 
 class TopSectionAttendancePunchOutSection extends StatelessWidget {
@@ -55,21 +56,25 @@ class TopSectionAttendancePunchOutSection extends StatelessWidget {
                     isShowAMPM: true,
                   )}";
 
-            final titleText =
-                (attendanceController.attendanceModel?.isPunchIn ?? false)
-                    ? "Punch In Successful"
-                    : (attendanceController.attendanceModel?.isPunchIn ?? false)
-                        ? "Punch Out Successful"
-                        : "";
+            final titleText = (attendanceController
+                        .attendanceModel?.isPunchIn ??
+                    false)
+                ? "Punch In Successful"
+                : (attendanceController.attendanceModel?.isPunchOut ?? false)
+                    ? "Punch Out Successful"
+                    : "";
             return Column(
               children: [
                 sizedBoxHeight(height: 16.h),
-                CustomText(
-                  titleText,
-                  style: Helper(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 24,
-                        color: green2,
-                      ),
+                CustomShimmer(
+                  isLoading: attendanceController.isLoading,
+                  child: CustomText(
+                    titleText,
+                    style: Helper(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 24,
+                          color: green2,
+                        ),
+                  ),
                 ),
                 sizedBoxHeight(height: 8.h),
                 CustomText(

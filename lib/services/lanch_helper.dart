@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -90,17 +92,58 @@ class LaunchHelper {
     required String lat,
     required String lng,
   }) async {
-    if (lat.isEmpty || lng.isEmpty) {
-      return showToast(
-          message: "Location is not available", toastType: ToastType.warning);
+    log("Location: $lat, $lng");
+
+    // Empty or placeholder validation
+    if (lat.trim().isEmpty ||
+        lng.trim().isEmpty ||
+        lat.trim() == "--" ||
+        lng.trim() == "--") {
+      showToast(
+        message: "Location is not available",
+        toastType: ToastType.warning,
+      );
+      return;
     }
 
-    final url = Uri.parse(
-      "https://www.google.com/maps/search/?api=1&query=$lat,$lng",
+    // Validate coordinates
+    final latitude = double.tryParse(lat.trim());
+    final longitude = double.tryParse(lng.trim());
+
+    if (latitude == null || longitude == null) {
+      showToast(
+        message: "Invalid location coordinates",
+        toastType: ToastType.warning,
+      );
+      return;
+    }
+
+    // Check valid GPS range
+    if (latitude < -90 ||
+        latitude > 90 ||
+        longitude < -180 ||
+        longitude > 180) {
+      showToast(
+        message: "Invalid location coordinates",
+        toastType: ToastType.warning,
+      );
+      return;
+    }
+
+    final uri = Uri.parse(
+      "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude",
     );
 
+    if (!await canLaunchUrl(uri)) {
+      showToast(
+        message: "Unable to open Google Maps",
+        toastType: ToastType.error,
+      );
+      return;
+    }
+
     await launchUrl(
-      url,
+      uri,
       mode: LaunchMode.externalApplication,
     );
   }

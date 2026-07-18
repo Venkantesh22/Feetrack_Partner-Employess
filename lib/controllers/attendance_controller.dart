@@ -48,6 +48,7 @@ class AttendanceController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "punchInAttendance successful",
         );
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while punchInAttendance user";
@@ -103,6 +104,7 @@ class AttendanceController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "punchOutAttendance successful",
         );
+          attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while punchOutAttendance user";
@@ -688,6 +690,11 @@ class AttendanceController extends GetxController implements GetxService {
 
   void loadDemoAttendance() {
     attendanceModel = AttendanceModel.demoPunchIn();
+    update();
+  }
+
+  void loadDemoAttendancePunchOut() {
+    attendanceModel = AttendanceModel.demoPunchOut();
     update();
   }
 }

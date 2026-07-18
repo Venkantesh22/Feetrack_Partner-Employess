@@ -10,7 +10,7 @@ import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_out_button.dart';
 import 'package:vlr/views/screens/attendance/attendance_mart_screen/widget/check_list_section/check_list_widget.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/attendance_punch_out_screen.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/attendance_punch_in_out_success_screen.dart';
 
 class CheckListSection extends StatelessWidget {
   const CheckListSection({super.key});

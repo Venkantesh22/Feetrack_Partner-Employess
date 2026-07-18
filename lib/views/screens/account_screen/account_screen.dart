@@ -9,7 +9,7 @@ import 'package:vlr/views/screens/account_screen/widget/account_option_section/a
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/daily_attendance_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/reporting_manager_widget.dart';
 import 'package:vlr/views/screens/account_screen/widget/row_logout_account_delete_section/row_logout_account_delete_section.dart';
-import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/attendance_punch_out_screen.dart';
+import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/attendance_punch_in_out_success_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
 
 class AccountScreen extends StatefulWidget {

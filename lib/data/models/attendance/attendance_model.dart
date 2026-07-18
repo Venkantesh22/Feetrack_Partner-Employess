@@ -160,15 +160,93 @@ class AttendanceModel {
           answer: true,
         ),
         CheckchecklistResponse(
+          question: "Safety Shoes Worn?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Helmet Available?",
+          answer: false,
+        ),
+      ],
+      checkOutChecklistResponses: [],
+    );
+  }
+
+  factory AttendanceModel.demoPunchOut() {
+    return AttendanceModel(
+      id: 2,
+      employeeId: "EMP001",
+      date: DateTime.now(),
+
+      checkIn: "09:15:00",
+      checkOut: "18:12:45",
+
+      status: "punch_out",
+
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+
+      workingMinutes: 537, // 8h 57m
+      lateMinutes: "5",
+
+      checkInLat: "12.9740317",
+      checkInLng: "77.7142783",
+
+      checkOutLat: "12.9740452",
+      checkOutLng: "77.7142918",
+
+      checkInPhoto: null,
+      checkOutPhoto: null,
+
+      checkInSelfie: null,
+      checkOutSelfie: null,
+
+      checkInSelfieUrl:
+          "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=774&auto=format&fit=crop",
+
+      checkOutSelfieUrl:
+          "https://plus.unsplash.com/premium_photo-1670282393309-70fd7f8eb1ef?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+      checkInPhotoUrl: null,
+      checkOutPhotoUrl: null,
+
+      checklistResponses: [
+        CheckchecklistResponse(
+          question: "Are you wearing your Employee ID Card?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Are you wearing your Employee Uniform?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
           question: "Safety shoes worn?",
           answer: true,
         ),
         CheckchecklistResponse(
           question: "Helmet available?",
-          answer: false,
+          answer: true,
         ),
       ],
-      checkOutChecklistResponses: [],
+
+      checkOutChecklistResponses: [
+        CheckchecklistResponse(
+          question: "Completed today's assigned tasks?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Submitted daily work report?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Cleaned your work area?",
+          answer: true,
+        ),
+        CheckchecklistResponse(
+          question: "Returned all company equipment?",
+          answer: true,
+        ),
+      ],
     );
   }
 

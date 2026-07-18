@@ -6,6 +6,8 @@ import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
+import 'package:vlr/views/screens/attendance/attendacn_details/widget/checklist_responses_section/checklist_respones.dart';
+import 'package:vlr/views/screens/attendance/attendance_history/attendance_history_screen.dart';
 import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/location_details_section/location_details_section.dart';
 import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/today_attendance_section/check_out_selfe_section.dart';
 import 'package:vlr/views/screens/attendance/attendance_punch_in_out_successful_screen/wigdet/today_attendance_section/today_attendance_section.dart';
@@ -22,13 +24,13 @@ class AttendancePunchInOutSuccessScreen extends StatefulWidget {
 
 class _AttendancePunchInOutSuccessScreenState
     extends State<AttendancePunchInOutSuccessScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<AttendanceController>().loadDemoAttendance();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     Get.find<AttendanceController>().loadDemoAttendancePunchOut();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,8 @@ class _AttendancePunchInOutSuccessScreenState
             sizedBoxHeight(height: 26.h),
             const TodayAttendanceSection(),
             sizedBoxHeight(height: 26.h),
+            const ChecklistResponsesSection(),
+            sizedBoxHeight(height: 26.h),
             const LocationDetailSection(),
             sizedBoxHeight(height: 26.h),
             Column(
@@ -77,7 +81,11 @@ class _AttendancePunchInOutSuccessScreenState
                 CustomButton(
                   height: 56.h,
                   radius: 12.r,
-                  onTap: () {},
+                  onTap: () {
+                    navigate(
+                        context: context,
+                        page: const AttendanceHistoryScreen());
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -101,7 +109,7 @@ class _AttendancePunchInOutSuccessScreenState
                   height: 56.h,
                   radius: 12.r,
                   onTap: () {
-                    navigate(context: context, page: HomeScreen());
+                    navigate(context: context, page: const HomeScreen());
                   },
                   type: ButtonType.secondary,
                   child: Row(
