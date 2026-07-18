@@ -104,7 +104,7 @@ class AttendanceController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "punchOutAttendance successful",
         );
-          attendanceModel = AttendanceModel.fromJson(response.body['data']);
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while punchOutAttendance user";
@@ -447,9 +447,9 @@ class AttendanceController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic>? data = {
-        "mode": (attendanceModel?.isNotPunchIn ?? false)
+        "mode": attendanceModel?.isNotPunchIn == true
             ? "punch_in"
-            : (attendanceModel?.isPunchIn ?? false)
+            : attendanceModel?.isPunchIn == true
                 ? "punch_out"
                 : ""
       };
@@ -490,12 +490,18 @@ class AttendanceController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  void updateCheckListPoint({required int id}) {
+  void updateCheckListPoint({
+    required int id,
+    required bool? value,
+  }) {
     final index = checkPointModelList.indexWhere((e) => e.id == id);
 
     if (index != -1) {
-      checkPointModelList[index].isChecked =
-          !(checkPointModelList[index].isChecked ?? false);
+      checkPointModelList[index].isChecked = value ?? false;
+
+      for (final element in checkPointModelList) {
+        log(element.toSubmitJson().toString());
+      }
 
       update();
     }
@@ -510,9 +516,9 @@ class AttendanceController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic> data = {
-        "mode": (attendanceModel?.isNotPunchIn ?? false)
+        "mode": attendanceModel?.isNotPunchIn == true
             ? "punch_in"
-            : (attendanceModel?.isPunchIn ?? false)
+            : attendanceModel?.isPunchOut == true
                 ? "punch_out"
                 : "",
         "checklistAnswers":

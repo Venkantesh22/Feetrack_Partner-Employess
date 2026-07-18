@@ -7,7 +7,7 @@ class CheckPointModel {
   bool? isChecked;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool? answer;
+  bool? answer;
 
   CheckPointModel({
     this.id,

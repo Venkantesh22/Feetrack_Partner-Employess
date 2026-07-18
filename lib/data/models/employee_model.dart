@@ -84,6 +84,7 @@ class EmployeesModel {
         deletedAt: json["deleted_at"],
         attendanceId: json["attendance_id"],
         todayStatus: json["today_status"],
+        // todayStatus: "leave",
         statusReason: json["status_reason"],
         checkIn: json["check_in"],
         checkOut: json["check_out"],
@@ -140,6 +141,20 @@ class EmployeesModel {
     if (isWeekOff) return weekOff;
 
     return defaultColor;
+  }
+
+  String get statusName {
+    if (isNotPunchIn) return "Not Check-In";
+    if (isPunchIn) return "Working";
+    if (isPunchOut) return "Punched Out";
+    if (isShortLeave) return "Short Leave";
+    if (isHalfDay) return "Half Day";
+    if (isAbsent) return "Absent";
+    if (isLeave) return "On Leave";
+    if (isHoliday) return "Holiday";
+    if (isWeekOff) return "Week Off";
+
+    return "Unknown";
   }
 
   String? get checkInTimeFormat {

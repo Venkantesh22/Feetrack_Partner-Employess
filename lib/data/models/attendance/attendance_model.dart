@@ -99,8 +99,11 @@ class AttendanceModel {
         checkOutSelfieUrl: json["check_out_selfie_url"],
         checkInPhotoUrl: json["check_in_photo_url"],
         checkOutPhotoUrl: json["check_out_photo_url"],
-        workingMinutes: json["working_minutes"],
-        lateMinutes: json["late_minutes"],
+        workingMinutes: json["working_minutes"] == null
+            ? null
+            : int.tryParse(json["working_minutes"].toString()),
+
+        lateMinutes: json["late_minutes"]?.toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -109,7 +112,8 @@ class AttendanceModel {
         "date": date?.toIso8601String(),
         "check_in": checkIn,
         "check_out": checkOut,
-        "status": status,
+        // "status": status,
+        "status": "punch_in",
         "status_reason": statusReason,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

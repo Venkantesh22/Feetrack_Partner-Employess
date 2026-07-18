@@ -33,7 +33,7 @@ class CheckListPointWidget extends StatelessWidget {
             value: checkPointModel?.isChecked ?? false,
             onChanged: (value) {
               attendanceController.updateCheckListPoint(
-                  id: checkPointModel?.id ?? 0);
+                  id: checkPointModel?.id ?? 0, value: value);
             },
           );
         })
