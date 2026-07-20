@@ -203,7 +203,50 @@ class PunchButtonWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      "You have completed your work session. Thank you!",
+                      "You are on leave for today",
+                      maxLines: 2,
+                      style: Helper(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: 12.sp,
+                            color: color,
+                          ),
+                    ),
+                    sizedBoxHeight(height: 2.h),
+                    CustomText(
+                      "No punch in/out required.",
+                      maxLines: 2,
+                      style: Helper(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 10.sp,
+                            color: color,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+      if (attendanceController.attendanceModel?.isAbsent ?? false) {
+        return Container(
+          padding: EdgeInsets.all(12.w),
+          margin: EdgeInsets.only(top: 12.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: color.withValues(alpha: 0.1),
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                Assets.svgsInfo,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              ),
+              sizedBoxWidth(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      "You are on absent for today.",
                       maxLines: 2,
                       style: Helper(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 12.sp,

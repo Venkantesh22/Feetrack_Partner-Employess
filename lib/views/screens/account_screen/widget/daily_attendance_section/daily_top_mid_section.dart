@@ -177,7 +177,59 @@ class DailyTopMidSection extends StatelessWidget {
                 ),
                 sizedBoxHeight(height: 12.h),
                 CustomText(
-                  "You are marked on leave for today.",
+                  attendanceController.attendanceModel?.statusReason ?? "",
+                  style: Helper(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontSize: 14.sp, color: weekOff),
+                )
+              ],
+            ),
+          ),
+        );
+      }
+      if (attendanceController.attendanceModel?.isAbsent ?? false) {
+        return Padding(
+          padding: EdgeInsets.only(top: 16.h),
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.w),
+                  decoration: BoxDecoration(
+                      color: color?.withValues(alpha: 0.1),
+                      shape: BoxShape.circle),
+                  child: SvgPicture.asset(
+                    Assets.svgsCrossBord,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 4.h, horizontal: 24.w),
+                  decoration: BoxDecoration(
+                    color: color?.withValues(alpha: 0.10),
+                    borderRadius: BorderRadius.circular(99.r),
+                  ),
+                  child: CustomText(
+                    "ON ABSENT TODAY",
+                    style: Helper(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 12.sp,
+                          color: color,
+                        ),
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomText(
+                  "You were marked Absent for today.!",
+                  style: Helper(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 16.sp,
+                      ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomText(
+                  attendanceController.attendanceModel?.statusReason ?? "",
                   style: Helper(context)
                       .textTheme
                       .bodySmall

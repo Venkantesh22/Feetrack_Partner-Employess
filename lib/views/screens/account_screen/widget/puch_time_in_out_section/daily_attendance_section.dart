@@ -7,7 +7,7 @@ import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/attendance_status_widget.dart';
-import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/not_punchin_mid_wiget.dart';
+import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/daily_top_mid_section.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/punch_out_button.dart';
 import 'package:vlr/views/screens/account_screen/widget/daily_attendance_section/working_hours_row.dart';
 import 'package:vlr/views/screens/account_screen/widget/puch_time_in_out_section/punch_time_in_out_section.dart';
