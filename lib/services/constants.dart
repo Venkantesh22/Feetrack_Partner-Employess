@@ -189,7 +189,10 @@ class AppConstants {
   static const String submitCheckListPointGet =
       '/hrms/attendance/submit-checklist';
 
-  //*  list point
+  //* Notice Board
+
+  static const String getNoticeBoard = '/hrms/notices';
+  static const String getNoticeBoardById = '/hrms/notices';
 
   //
   static const double horizontalPadding = 16;

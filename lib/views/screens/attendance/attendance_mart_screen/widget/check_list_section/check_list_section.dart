@@ -127,7 +127,7 @@ class CheckListSection extends StatelessWidget {
                   )
                       .then((value) {
                     if (value.isSuccess) {
-                      attendanceController.submitCheckListPoint().then((value) {
+                      attendanceController.submitCheckListPointForPunchIn().then((value) {
                         if (value.isSuccess) {
                           navigate(
                               context: context,
@@ -147,15 +147,15 @@ class CheckListSection extends StatelessWidget {
                   });
                 } else if (attendanceController.attendanceModel?.isPunchIn ??
                     false) {
-                  attendanceController
-                      .punchOutAttendance(
-                    lat: permissionController.latitude.toString(),
-                    lng: permissionController.longitude.toString(),
-                    selfie: permissionController.selfie,
-                  )
-                      .then((value) {
+                  attendanceController.submitCheckListPointForPunchOut().then((value) {
                     if (value.isSuccess) {
-                      attendanceController.submitCheckListPoint().then((value) {
+                      attendanceController
+                          .punchOutAttendance(
+                        lat: permissionController.latitude.toString(),
+                        lng: permissionController.longitude.toString(),
+                        selfie: permissionController.selfie,
+                      )
+                          .then((value) {
                         if (value.isSuccess) {
                           navigate(
                               context: context,
@@ -166,13 +166,38 @@ class CheckListSection extends StatelessWidget {
                               typeCheck: value.isSuccess);
                         }
                       });
-                      showToast(
-                          message: value.message, typeCheck: value.isSuccess);
                     } else {
                       showToast(
                           message: value.message, typeCheck: value.isSuccess);
                     }
                   });
+
+                  // attendanceController
+                  //     .punchOutAttendance(
+                  //   lat: permissionController.latitude.toString(),
+                  //   lng: permissionController.longitude.toString(),
+                  //   selfie: permissionController.selfie,
+                  // )
+                  //     .then((value) {
+                  //   if (value.isSuccess) {
+                  //     attendanceController.submitCheckListPoint().then((value) {
+                  //       if (value.isSuccess) {
+                  //         navigate(
+                  //             context: context,
+                  //             page: const AttendancePunchInOutSuccessScreen());
+                  //       } else {
+                  //         showToast(
+                  //             message: value.message,
+                  //             typeCheck: value.isSuccess);
+                  //       }
+                  //     });
+                  //     showToast(
+                  //         message: value.message, typeCheck: value.isSuccess);
+                  //   } else {
+                  //     showToast(
+                  //         message: value.message, typeCheck: value.isSuccess);
+                  //   }
+                  // });
                 }
               },
             );

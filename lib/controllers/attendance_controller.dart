@@ -509,8 +509,8 @@ class AttendanceController extends GetxController implements GetxService {
     }
   }
 
-  Future<ResponseModel> submitCheckListPoint() async {
-    log('----------- submitCheckListPoint Called ----------');
+  Future<ResponseModel> submitCheckListPointForPunchIn() async {
+    log('----------- submitCheckListPointForPunchIn Called ----------');
 
     ResponseModel responseModel;
     isLoading = true;
@@ -518,11 +518,7 @@ class AttendanceController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic> data = {
-        "mode": attendanceModel?.isPunchIn == true
-            ? "punch_in"
-            : attendanceModel?.isPunchOut == true
-                ? "punch_out"
-                : "",
+        "mode": "punch_in",
         "checklistAnswers":
             checkPointModelList.map((e) => e.toSubmitJson()).toList(),
       };
@@ -534,12 +530,13 @@ class AttendanceController extends GetxController implements GetxService {
       if (response.body['status'] == "success") {
         responseModel = ResponseModel(
           true,
-          response.body['message'] ?? "submitCheckListPoint successful",
+          response.body['message'] ??
+              "submitCheckListPointForPunchIn successful",
         );
         attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
-        String errorMessage =
-            response.body['message'] ?? "Error while submitCheckListPoint user";
+        String errorMessage = response.body['message'] ??
+            "Error while submitCheckListPointForPunchIn user";
 
         if (response.body['errors'] != null) {
           final errors = response.body['errors'] as Map<String, dynamic>;
@@ -551,9 +548,58 @@ class AttendanceController extends GetxController implements GetxService {
         responseModel = ResponseModel(false, errorMessage);
       }
     } catch (e) {
-      log('ERROR AT submitCheckListPoint(): $e');
-      responseModel =
-          ResponseModel(false, "Error while submitCheckListPoint user $e");
+      log('ERROR AT submitCheckListPointForPunchIn(): $e');
+      responseModel = ResponseModel(
+          false, "Error while submitCheckListPointForPunchIn user $e");
+    }
+
+    isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> submitCheckListPointForPunchOut() async {
+    log('----------- submitCheckListPointForPunchOut Called ----------');
+
+    ResponseModel responseModel;
+    isLoading = true;
+    update();
+
+    try {
+      Map<String, dynamic> data = {
+        "mode": "punch_out",
+        "checklistAnswers":
+            checkPointModelList.map((e) => e.toSubmitJson()).toList(),
+      };
+
+      Response response = await attendanceRepo.submitCheckListPoint(
+        data: data,
+      );
+
+      if (response.body['status'] == "success") {
+        responseModel = ResponseModel(
+          true,
+          response.body['message'] ??
+              "submitCheckListPointForPunchOut successful",
+        );
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
+      } else {
+        String errorMessage = response.body['message'] ??
+            "Error while submitCheckListPointForPunchOut user";
+
+        if (response.body['errors'] != null) {
+          final errors = response.body['errors'] as Map<String, dynamic>;
+          if (errors.isNotEmpty) {
+            errorMessage = (errors.values.first as List).first.toString();
+          }
+        }
+
+        responseModel = ResponseModel(false, errorMessage);
+      }
+    } catch (e) {
+      log('ERROR AT submitCheckListPointForPunchOut(): $e');
+      responseModel = ResponseModel(
+          false, "Error while submitCheckListPointForPunchOut user $e");
     }
 
     isLoading = false;

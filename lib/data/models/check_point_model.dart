@@ -53,7 +53,7 @@ class CheckPointModel {
   Map<String, dynamic> toSubmitJson() {
     return {
       "id": id,
-      "isChecked": isChecked ?? false,
+      "is_checked": isChecked ?? false,
     };
   }
 }
