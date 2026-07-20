@@ -28,7 +28,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       //   }
       // });
       // Get.find<NoticeController>().fetchNoticeBoard();
-      Get.find<NoticeController>().fetchNoticeBoardById(id: 2);
+      Get.find<NoticeController>().fetchNoticeBoard();
     });
   }
 

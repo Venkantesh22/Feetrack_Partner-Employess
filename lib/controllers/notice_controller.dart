@@ -29,8 +29,11 @@ class NoticeController extends GetxController implements GetxService {
           response.body['message'] ?? "fetchNoticeBoard successful",
         );
 
-        noticeModelList =
-            response.body['data'].map((e) => NoticeModel.fromJson(e)).toList();
+        final List<dynamic> data = response.body['data'] as List<dynamic>;
+
+        noticeModelList = data
+            .map((e) => NoticeModel.fromJson(e as Map<String, dynamic>))
+            .toList();
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while fetchNoticeBoard user";

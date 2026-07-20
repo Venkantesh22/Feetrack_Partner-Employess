@@ -62,7 +62,10 @@ class _SplashScreenState extends State<SplashScreen> {
       if (response.isSuccess) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(
+              builder: (_) => const HomeScreen(
+                    isComingForSplashScreen: true,
+                  )),
         );
       } else {
         authController.logOutPost();

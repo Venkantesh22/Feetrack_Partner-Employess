@@ -122,6 +122,10 @@ class Assets {
   /// assets/svgs/Megaphone.svg
   static const String svgsMegaphone = "assets/svgs/Megaphone.svg";
 
+  /// Assets for svgsMegaphoneOutline
+  /// assets/svgs/megaphone-outline.svg
+  static const String svgsMegaphoneOutline = "assets/svgs/megaphone-outline.svg";
+
   /// Assets for svgsNotification
   /// assets/svgs/notification.svg
   static const String svgsNotification = "assets/svgs/notification.svg";

@@ -1,66 +1,110 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vlr/data/models/notice_model.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
-import 'package:vlr/services/date_formatters_and_converters.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_image.dart';
 
 class NotificationWidget extends StatelessWidget {
+  final NoticeModel? noticeModel;
   const NotificationWidget({
     super.key,
+    this.noticeModel,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-            height: 60.h,
-            width: 60.w,
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-                color: deepPurple.withValues(alpha: 0.1),
-                shape: BoxShape.circle),
-            child: SvgPicture.asset(
-              Assets.svgsMegaphone,
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                deepPurple,
-                BlendMode.srcIn,
-              ),
-            )),
-        sizedBoxWidth(width: 16.w),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                "Team Meeting Tomorrow at 10:00 AM",
-                style: Helper(context).textTheme.titleMedium?.copyWith(
-                      fontSize: 16.sp,
-                    ),
-              ),
-              sizedBoxHeight(height: 6.h),
-              CustomText(
-                "Team Meeting Tomorrow at 10:00 AM Team Meeting Tomorrow at 10:00 AM Team Meeting Tomorrow at 10:00 AMTeam Meeting Tomorrow at 10:00 AM",
-                maxLines: 3,
-                style: Helper(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 12.sp,
-                    ),
-              ),
-              sizedBoxHeight(height: 4.h),
-              CustomText(
-                DateFormatters().dateTime.format(getDateTime()),
-                style: Helper(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 10.sp,
-                    ),
-              ),
-            ],
+    return Container(
+      margin: EdgeInsets.only(
+        left: 16.w,
+        right: 16.w,
+        top: 16.h,
+      ),
+      padding: EdgeInsets.all(
+        16.w,
+      ),
+      decoration: BoxDecoration(
+          color: greyLight7.withValues(alpha: 0.2),
+          border: Border.all(
+            width: 1,
+            color: greyLight7,
           ),
-        )
-      ],
+          borderRadius: BorderRadius.circular(16.r)),
+      child: Row(
+        children: [
+          Container(
+              padding: EdgeInsets.all(16.w),
+              decoration: BoxDecoration(
+                color: deepPurple.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: SvgPicture.asset(
+                Assets.svgsMegaphone,
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  deepPurple,
+                  BlendMode.srcIn,
+                ),
+              )),
+          sizedBoxWidth(width: 16.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 2.r, horizontal: 8.w),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(99),
+                      color: tertiaryColor.withValues(alpha: 0.1)),
+                  child: CustomText(
+                    capitalize(noticeModel?.type ?? ""),
+                    style: Helper(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontSize: 10.sp, color: tertiaryColor),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.h),
+                  child: CustomText(
+                    capitalize(noticeModel?.title ?? ""),
+                    style: Helper(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 16.sp,
+                        ),
+                  ),
+                ),
+                CustomText(
+                  noticeModel?.content ?? "",
+                  maxLines: 2,
+                  style: Helper(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontSize: 10.sp, color: greyDart2),
+                ),
+                sizedBoxHeight(height: 4.h),
+                Row(
+                  children: [
+                    CustomText(
+                      noticeModel?.startDateFormat ?? "",
+                      style: Helper(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 10.sp,
+                          ),
+                    ),
+                    CustomText(
+                      "  from ${noticeModel?.endDateFormat ?? ""}",
+                      style: Helper(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: 10.sp,
+                          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

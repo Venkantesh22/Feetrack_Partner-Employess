@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/notice_controller.dart';
+import 'package:vlr/data/models/notice_model.dart';
 import 'package:vlr/services/constants.dart';
 import 'package:vlr/services/custom_text.dart';
 import 'package:vlr/services/theme.dart';
 import 'package:vlr/views/base/custom_button.dart';
+import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/notification_section/notification_widget.dart';
 
 class NotificationSection extends StatelessWidget {
@@ -13,60 +17,70 @@ class NotificationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.w),
-        padding: EdgeInsets.all(16.r),
-        decoration: BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.circular(20.r),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 4),
-              blurRadius: 12,
-              spreadRadius: 0,
-              color: black.withValues(alpha: 0.05),
-            )
-          ],
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(
-                  "Notifications",
-                  style: Helper(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 16.sp,
-                      ),
-                ),
-                CustomButton(
-                  onTap: () {},
-                  type: ButtonType.tertiary,
-                  child: CustomText(
-                    "View All",
+    return GetBuilder<NoticeController>(builder: (noticeController) {
+      if (!noticeController.isLoading &&
+          noticeController.noticeModelList.isEmpty) {
+        return const SizedBox();
+      }
+      return Container(
+          margin: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
+          decoration: BoxDecoration(
+            color: white,
+            borderRadius: BorderRadius.circular(20.r),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 4),
+                blurRadius: 12,
+                spreadRadius: 0,
+                color: black.withValues(alpha: 0.05),
+              )
+            ],
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    "Notifications",
                     style: Helper(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 12.sp,
-                          color: tertiaryColor,
+                          fontSize: 16.sp,
                         ),
                   ),
-                ),
-              ],
-            ),
-            sizedBoxHeight(height: 16.h),
-            ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return NotificationWidget();
-                },
-                separatorBuilder: (_, __) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Divider(
-                        color: greyLight6,
-                      ),
+                  CustomButton(
+                    onTap: () {},
+                    type: ButtonType.tertiary,
+                    child: CustomText(
+                      "View All",
+                      style: Helper(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 12.sp,
+                            color: tertiaryColor,
+                          ),
                     ),
-                itemCount: 4)
-          ],
-        ));
+                  ),
+                ],
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final noticeModel = noticeController.isLoading
+                      ? NoticeModel()
+                      : noticeController.noticeModelList[index];
+                  return CustomShimmer(
+                    isLoading: noticeController.isLoading,
+                    child: NotificationWidget(
+                      noticeModel: noticeModel,
+                    ),
+                  );
+                },
+                itemCount: noticeController.isLoading
+                    ? 4
+                    : noticeController.noticeModelList.length,
+              )
+            ],
+          ));
+    });
   }
 }
