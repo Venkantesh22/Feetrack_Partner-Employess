@@ -29,14 +29,14 @@ class NoticeModel {
         content: json["content"],
         startDate: json["start_date"] == null
             ? null
-            : DateTime.parse(json["start_date"]),
+            : DateTime.parse(json["start_date"]).toLocal(),
         endDate:
             json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
         type: json["type"],
         userId: json["user_id"],
         createdAt: json["created_at"] == null
             ? null
-            : DateTime.parse(json["created_at"]),
+            : DateTime.parse(json["created_at"]).toLocal(),
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
@@ -55,8 +55,8 @@ class NoticeModel {
       };
 
   String get startDateFormat =>
-      DateFormatters().mdy.format(startDate ?? getDateTime());
+      DateFormatters().dMy.format(startDate ?? getDateTime());
 
   String get endDateFormat =>
-      DateFormatters().mdy.format(endDate ?? getDateTime());
+      DateFormatters().dMy.format(endDate ?? getDateTime());
 }

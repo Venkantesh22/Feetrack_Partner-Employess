@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../../controllers/dashboard_controller.dart';
-import '../../../generated/assets.dart';
 import '../../../services/theme.dart';
 
 class DashboardScreen extends StatefulWidget {

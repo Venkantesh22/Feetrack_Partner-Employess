@@ -12,6 +12,7 @@ import 'package:vlr/views/screens/dashboard/home_screen/widget/quick_action_sect
 import 'package:vlr/views/screens/dashboard/home_screen/widget/this_month_target_section/this_month_target_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/top_achievers_section/top_achievers_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/widget/use_info_top_home_section.dart';
+import 'package:vlr/views/screens/notification_screen/notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool? isComingForSplashScreen;
@@ -28,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final noticeController = Get.find<NoticeController>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      
       if (widget.isComingForSplashScreen == true) {
         noticeController.fetchNoticeBoard().then((value) {
           if (value.isSuccess && noticeController.noticeModelList.isNotEmpty) {
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.r),
           ),
-          child: NoticeBoardWidget(),
+          child: const NoticeBoardWidget(),
         );
       },
     );
@@ -73,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              showNoticeBoard();
+              navigate(context: context, page: const NotificationScreen());
             },
             icon: Icon(
               Icons.notifications_none_outlined,
