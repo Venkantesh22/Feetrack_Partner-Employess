@@ -269,6 +269,49 @@ class PunchButtonWidget extends StatelessWidget {
           ),
         );
       }
+      if (attendanceController.attendanceModel?.isHalfDay ?? false) {
+        return Container(
+          padding: EdgeInsets.all(12.w),
+          margin: EdgeInsets.only(top: 12.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: color.withValues(alpha: 0.1),
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                Assets.svgsInfo,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              ),
+              sizedBoxWidth(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      "You are on halfday for today.",
+                      maxLines: 2,
+                      style: Helper(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: 12.sp,
+                            color: color,
+                          ),
+                    ),
+                    sizedBoxHeight(height: 2.h),
+                    CustomText(
+                      "Half day recorded. Thank you!",
+                      maxLines: 2,
+                      style: Helper(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 10.sp,
+                            color: color,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }
 
       return const SizedBox();
     });
