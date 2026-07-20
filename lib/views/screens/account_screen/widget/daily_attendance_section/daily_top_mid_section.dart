@@ -299,6 +299,65 @@ class DailyTopMidSection extends StatelessWidget {
           ),
         );
       }
+      if (attendanceController.attendanceModel?.isHoliday ?? false) {
+        return Padding(
+          padding: EdgeInsets.only(top: 16.h),
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.w),
+                  decoration: BoxDecoration(
+                      color: color?.withValues(alpha: 0.1),
+                      shape: BoxShape.circle),
+                  child: SvgPicture.asset(
+                    Assets.svgsCircleHoliday,
+                    fit: BoxFit.cover,
+                    height: 30.h,
+                    width: 30.w,
+                    colorFilter: ColorFilter.mode(
+                        attendanceController.attendanceModel?.statusColor ??
+                            defaultColor,
+                        BlendMode.srcIn),
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 4.h, horizontal: 24.w),
+                  decoration: BoxDecoration(
+                    color: color?.withValues(alpha: 0.10),
+                    borderRadius: BorderRadius.circular(99.r),
+                  ),
+                  child: CustomText(
+                    "ON HOLIDAY TODAY",
+                    style: Helper(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 12.sp,
+                          color: color,
+                        ),
+                  ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomText(
+                  "Today is a company Holiday.",
+                  maxLines: 2,
+                  style: Helper(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 16.sp,
+                      ),
+                ),
+                sizedBoxHeight(height: 12.h),
+                CustomText(
+                  attendanceController.attendanceModel?.statusReason ?? "",
+                  style: Helper(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontSize: 14.sp, color: weekOff),
+                )
+              ],
+            ),
+          ),
+        );
+      }
       return SizedBox();
     });
   }

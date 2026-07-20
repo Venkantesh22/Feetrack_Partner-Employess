@@ -98,7 +98,7 @@ const Color absent = Color(0xFFEF4444); // Red
 
 Color leave = purple2; // Primary Blue
 
-const Color holiday = Color(0xFF14B8A6); // Teal
+const Color holiday = green2; // Teal
 
 const Color weekOff = Color(0xFF6B7280); // Gray
 
