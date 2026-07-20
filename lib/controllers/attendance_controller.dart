@@ -524,6 +524,7 @@ class AttendanceController extends GetxController implements GetxService {
         "checklistAnswers":
             checkPointModelList.map((e) => e.toSubmitJson()).toList(),
       };
+
       Response response = await attendanceRepo.submitCheckListPoint(
         data: data,
       );
@@ -533,6 +534,7 @@ class AttendanceController extends GetxController implements GetxService {
           true,
           response.body['message'] ?? "submitCheckListPoint successful",
         );
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while submitCheckListPoint user";
