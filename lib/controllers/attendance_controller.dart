@@ -44,11 +44,12 @@ class AttendanceController extends GetxController implements GetxService {
           await attendanceRepo.punchInAttendance(data: FormData(data));
 
       if (response.body['status'] == "success") {
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
+
         responseModel = ResponseModel(
           true,
           response.body['message'] ?? "punchInAttendance successful",
         );
-        attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while punchInAttendance user";
@@ -100,11 +101,12 @@ class AttendanceController extends GetxController implements GetxService {
           await attendanceRepo.punchOutAttendance(data: FormData(data));
 
       if (response.body['status'] == "success") {
+        attendanceModel = AttendanceModel.fromJson(response.body['data']);
+
         responseModel = ResponseModel(
           true,
           response.body['message'] ?? "punchOutAttendance successful",
         );
-        attendanceModel = AttendanceModel.fromJson(response.body['data']);
       } else {
         String errorMessage =
             response.body['message'] ?? "Error while punchOutAttendance user";
@@ -516,7 +518,7 @@ class AttendanceController extends GetxController implements GetxService {
 
     try {
       Map<String, dynamic> data = {
-        "mode": attendanceModel?.isNotPunchIn == true
+        "mode": attendanceModel?.isPunchIn == true
             ? "punch_in"
             : attendanceModel?.isPunchOut == true
                 ? "punch_out"
