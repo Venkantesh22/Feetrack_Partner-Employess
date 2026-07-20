@@ -17,7 +17,28 @@ class DailyTopMidSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AttendanceController>(builder: (attendanceController) {
       final color = attendanceController.attendanceModel?.statusColor;
-
+      final icon = (attendanceController.attendanceModel?.isWeekOff ?? false)
+          ? Assets.svgsCalender
+          : (attendanceController.attendanceModel?.isHoliday ?? false)
+              ? Assets.svgsCalender
+              : (attendanceController.attendanceModel?.isShortLeave ?? false)
+                  ? Assets.svgsShortLeave
+                  : "";
+      final title = (attendanceController.attendanceModel?.isWeekOff ?? false)
+          ? "WEEKOFF"
+          : (attendanceController.attendanceModel?.isHoliday ?? false)
+              ? "ON HOLIDAY TODAY"
+              : (attendanceController.attendanceModel?.isShortLeave ?? false)
+                  ? "Short Leave"
+                  : "";
+      final subTitle = (attendanceController.attendanceModel?.isWeekOff ??
+              false)
+          ? "Today is your weekly off"
+          : (attendanceController.attendanceModel?.isHoliday ?? false)
+              ? "Today is a company Holiday."
+              : (attendanceController.attendanceModel?.isShortLeave ?? false)
+                  ? "You have applied for Short Leave today."
+                  : "";
       if (attendanceController.attendanceModel?.isNotPunchIn ?? false) {
         return Center(
           child: Column(
@@ -299,7 +320,9 @@ class DailyTopMidSection extends StatelessWidget {
           ),
         );
       }
-      if (attendanceController.attendanceModel?.isHoliday ?? false) {
+      if ((attendanceController.attendanceModel?.isHoliday ?? false) ||
+          (attendanceController.attendanceModel?.isWeekOff ?? false) ||
+          (attendanceController.attendanceModel?.isShortLeave ?? false)) {
         return Padding(
           padding: EdgeInsets.only(top: 16.h),
           child: Center(
@@ -311,14 +334,12 @@ class DailyTopMidSection extends StatelessWidget {
                       color: color?.withValues(alpha: 0.1),
                       shape: BoxShape.circle),
                   child: SvgPicture.asset(
-                    Assets.svgsCircleHoliday,
+                    icon,
                     fit: BoxFit.cover,
                     height: 30.h,
                     width: 30.w,
                     colorFilter: ColorFilter.mode(
-                        attendanceController.attendanceModel?.statusColor ??
-                            defaultColor,
-                        BlendMode.srcIn),
+                        color ?? defaultColor, BlendMode.srcIn),
                   ),
                 ),
                 sizedBoxHeight(height: 12.h),
@@ -330,7 +351,7 @@ class DailyTopMidSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(99.r),
                   ),
                   child: CustomText(
-                    "ON HOLIDAY TODAY",
+                    title,
                     style: Helper(context).textTheme.titleMedium?.copyWith(
                           fontSize: 12.sp,
                           color: color,
@@ -339,7 +360,7 @@ class DailyTopMidSection extends StatelessWidget {
                 ),
                 sizedBoxHeight(height: 12.h),
                 CustomText(
-                  "Today is a company Holiday.",
+                  subTitle,
                   maxLines: 2,
                   style: Helper(context).textTheme.titleMedium?.copyWith(
                         fontSize: 16.sp,

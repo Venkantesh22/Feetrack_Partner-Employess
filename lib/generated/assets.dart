@@ -150,6 +150,10 @@ class Assets {
   /// assets/svgs/session.svg
   static const String svgsSession = "assets/svgs/session.svg";
 
+  /// Assets for svgsShortLeave
+  /// assets/svgs/short-leave.svg
+  static const String svgsShortLeave = "assets/svgs/short-leave.svg";
+
   /// Assets for svgsTask
   /// assets/svgs/task.svg
   static const String svgsTask = "assets/svgs/task.svg";
