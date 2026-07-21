@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.feetrack_partner_employess"
+    namespace = "com.fclubxTpipayCompany1"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -27,7 +27,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.feetrack_partner_employess"
+        applicationId = "com.fclubxTpipayCompany1"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
