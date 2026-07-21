@@ -19,15 +19,15 @@ class AuthController extends GetxController implements GetxService {
   bool get acceptTerms => _acceptTerms;
 
   TextEditingController emailController =
-      TextEditingController(text: "sales@demo.com");
+      TextEditingController();
   TextEditingController passwordController =
-      TextEditingController(text: "password");
+      TextEditingController();
   TextEditingController confirmPasswordController =
-      TextEditingController(text: "Ven12345678");
+      TextEditingController();
   TextEditingController fullNameController =
-      TextEditingController(text: "Venkatesh Rathod");
+      TextEditingController();
   TextEditingController mobileController =
-      TextEditingController(text: "7972391843");
+      TextEditingController();
 
   @override
   void dispose() {
