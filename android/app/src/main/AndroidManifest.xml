@@ -13,7 +13,7 @@
 
 
     <application
-        android:label="feetrack_partner_employess"
+        android:label="Feetrack"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
