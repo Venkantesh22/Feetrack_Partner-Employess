@@ -130,32 +130,28 @@ class _SignInScreenState extends State<SignInScreen> {
                             return null;
                           },
                         ),
-                        sizedBoxHeight(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CustomText(
-                              "Forgot Password?",
-                              style: Helper(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    fontSize: 16.sp,
-                                    color: blueLight3,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        sizedBoxHeight(height: 16),
+                        sizedBoxHeight(height: 20.h),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     CustomText(
+                        //       "Forgot Password?",
+                        //       style: Helper(context)
+                        //           .textTheme
+                        //           .labelSmall
+                        //           ?.copyWith(
+                        //             fontSize: 16.sp,
+                        //             color: blueLight3,
+                        //           ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // sizedBoxHeight(height: 16),
                         CustomButton(
                           height: 56,
                           radius: 14,
                           isLoading: authController.isLoading,
                           onTap: () {
-                            // navigate(
-                            //     context: context,
-                            //     isRemoveUntil: true,
-                            //     page: const HomeScreen());
                             if (formKey.currentState?.validate() ?? false) {
                               authController.postUserLogin().then((value) {
                                 if (value.isSuccess) {
@@ -194,36 +190,36 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         sizedBoxHeight(height: 32),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomText(
-                              "Don't have an account? ",
-                              style: Helper(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(fontSize: 16.sp, color: greyDart2),
-                            ),
-                            CustomButton(
-                              onTap: () {
-                                navigate(
-                                    context: context,
-                                    page: const RegisterScreen());
-                              },
-                              type: ButtonType.tertiary,
-                              child: CustomText(
-                                "Create Account",
-                                style: Helper(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                      fontSize: 16.sp,
-                                      color: blueLight3,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        )
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     CustomText(
+                        //       "Don't have an account? ",
+                        //       style: Helper(context)
+                        //           .textTheme
+                        //           .bodySmall
+                        //           ?.copyWith(fontSize: 16.sp, color: greyDart2),
+                        //     ),
+                        //     CustomButton(
+                        //       onTap: () {
+                        //         navigate(
+                        //             context: context,
+                        //             page: const RegisterScreen());
+                        //       },
+                        //       type: ButtonType.tertiary,
+                        //       child: CustomText(
+                        //         "Create Account",
+                        //         style: Helper(context)
+                        //             .textTheme
+                        //             .bodyLarge
+                        //             ?.copyWith(
+                        //               fontSize: 16.sp,
+                        //               color: blueLight3,
+                        //             ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // )
                       ],
                     );
                   }),
